@@ -15,9 +15,9 @@
         android:textAllCaps="false"
         android:textColor="#000000"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editText4"
+        app:layout_constraintBottom_toBottomOf="@+id/et_acc"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editText4" />
+        app:layout_constraintTop_toTopOf="@+id/et_acc" />
 
     <ImageView
         android:id="@+id/iv"
@@ -27,7 +27,8 @@
         android:layout_marginTop="32dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ntuh_yl" />
+        app:srcCompat="@drawable/ntuh_yl"
+        android:contentDescription="TODO" />
 
     <TextView
         android:id="@+id/tv_title"
@@ -74,12 +75,12 @@
         android:textAllCaps="false"
         android:textColor="#000000"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editText4"
+        app:layout_constraintBottom_toBottomOf="@+id/et_acc"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editText4" />
+        app:layout_constraintTop_toTopOf="@+id/et_acc" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/et_acc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -87,7 +88,8 @@
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/tv_login_title" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_login_title"
+        android:autofillHints="" />
 
     <TextView
         android:id="@+id/textView8"
@@ -97,24 +99,24 @@
         android:text="@string/login_pw"
         android:textColor="#000000"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editText5"
+        app:layout_constraintBottom_toBottomOf="@+id/et_pw"
         app:layout_constraintEnd_toEndOf="@+id/textView5"
         app:layout_constraintStart_toStartOf="@+id/textView5"
-        app:layout_constraintTop_toTopOf="@+id/editText5" />
+        app:layout_constraintTop_toTopOf="@+id/et_pw" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/et_pw"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/editText4"
-        app:layout_constraintStart_toStartOf="@+id/editText4"
-        app:layout_constraintTop_toBottomOf="@+id/editText4" />
+        app:layout_constraintEnd_toEndOf="@+id/et_acc"
+        app:layout_constraintStart_toStartOf="@+id/et_acc"
+        app:layout_constraintTop_toBottomOf="@+id/et_acc" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/cb_rememberme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -123,22 +125,22 @@
         android:text="記住我"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText5" />
+        app:layout_constraintTop_toBottomOf="@+id/et_pw" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_forgetpw"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="忘記密碼"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
+        app:layout_constraintEnd_toStartOf="@+id/btn_login"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+        app:layout_constraintTop_toBottomOf="@+id/cb_rememberme" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btn_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -147,8 +149,8 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/button"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+        app:layout_constraintStart_toEndOf="@+id/btn_forgetpw"
+        app:layout_constraintTop_toBottomOf="@+id/cb_rememberme" />
 
     <TextView
         android:id="@+id/textView9"
