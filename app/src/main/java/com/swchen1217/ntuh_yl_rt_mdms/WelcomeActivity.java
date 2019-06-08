@@ -24,25 +24,25 @@ public class WelcomeActivity extends AppCompatActivity {
         if(engineering_mode_nowelcome==true){
             startActivity(new Intent(WelcomeActivity.this,LoginActivity.class));
             finish();
-        }
-
-        Animation myanim = AnimationUtils.loadAnimation(WelcomeActivity.this, R.anim.fadein);
-        logo.startAnimation(myanim);
-        tv_1.startAnimation(myanim);
-        tv_2.startAnimation(myanim);
-        Thread timer = new Thread(){
-            @Override
-            public void run() {
-                try{
-                    sleep(2000);
-                }catch (InterruptedException e){
-                    e.printStackTrace();
-                }finally {
-                    startActivity(new Intent(WelcomeActivity.this,LoginActivity.class));
-                    finish();
+        }else{
+            Animation myanim = AnimationUtils.loadAnimation(WelcomeActivity.this, R.anim.fadein);
+            logo.startAnimation(myanim);
+            tv_1.startAnimation(myanim);
+            tv_2.startAnimation(myanim);
+            Thread timer = new Thread(){
+                @Override
+                public void run() {
+                    try{
+                        sleep(2000);
+                    }catch (InterruptedException e){
+                        e.printStackTrace();
+                    }finally {
+                        startActivity(new Intent(WelcomeActivity.this,LoginActivity.class));
+                        finish();
+                    }
                 }
-            }
-        };
-        timer.start();
+            };
+            timer.start();
+        }
     }
 }
