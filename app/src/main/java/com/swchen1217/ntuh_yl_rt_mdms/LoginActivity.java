@@ -16,6 +16,7 @@ public class LoginActivity extends AppCompatActivity {
     Button btn_forget,btn_login;
     CheckBox cb_rememberme;
     int login_error_count=0;
+    public static Boolean engineering_mode_nologin=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,50 +29,68 @@ public class LoginActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(et_acc.getText().toString().equals("admin")){
-                    if(et_pw.getText().toString().equals("admin")){
-                        login_error_count=0;
-                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
-                    }else{
-                        login_error_count++;
-                        if(login_error_count!=3){
-                            new AlertDialog.Builder(LoginActivity.this)
-                                    .setTitle("密碼錯誤!!")
-                                    .setMessage("還有 "+(3-login_error_count)+" 次機會")
-                                    .setPositiveButton("確定", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
+                if(engineering_mode_nologin==true && et_acc.getText().toString().equals("") && et_pw.getText().toString().equals("")){
+                    startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                    finish();
+                }else{
+                    if(et_acc.getText().toString().equals("") || et_pw.getText().toString().equals("")){
+                        new AlertDialog.Builder(LoginActivity.this)
+                                .setTitle("帳號或密碼為空白!!")
+                                .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
 
-                                        }
-                                    })
-                                    .show();
-                            et_pw.setText("");
+                                    }
+                                })
+                                .show();
+                    }else{
+                        if(et_acc.getText().toString().equals("admin")){
+                            if(et_pw.getText().toString().equals("admin")){
+                                login_error_count=0;
+                                startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                                finish();
+                            }else{
+                                login_error_count++;
+                                if(login_error_count!=3){
+                                    new AlertDialog.Builder(LoginActivity.this)
+                                            .setTitle("密碼錯誤!!")
+                                            .setMessage("還有 "+(3-login_error_count)+" 次機會")
+                                            .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+
+                                                }
+                                            })
+                                            .show();
+                                    et_pw.setText("");
+                                }else{
+                                    new AlertDialog.Builder(LoginActivity.this)
+                                            .setTitle("密碼錯誤!!")
+                                            .setMessage("密碼錯誤 3 次")
+                                            .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    finish();
+                                                }
+                                            })
+                                            .show();
+                                }
+                            }
                         }else{
                             new AlertDialog.Builder(LoginActivity.this)
-                                    .setTitle("密碼錯誤!!")
-                                    .setMessage("密碼錯誤 3 次")
+                                    .setTitle("員工編號錯誤!!")
+                                    .setMessage("此員工編號尚未註冊")
                                     .setPositiveButton("確定", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
-                                            finish();
+
                                         }
                                     })
                                     .show();
+                            et_acc.setText("");
+                            et_pw.setText("");
                         }
                     }
-                }else{
-                    new AlertDialog.Builder(LoginActivity.this)
-                            .setTitle("員工編號錯誤!!")
-                            .setMessage("此員工編號尚未註冊")
-                            .setPositiveButton("確定", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                }
-                            })
-                            .show();
-                    et_acc.setText("");
-                    et_pw.setText("");
                 }
             }
         });

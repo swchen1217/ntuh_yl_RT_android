@@ -11,6 +11,7 @@ import android.widget.TextView;
 public class WelcomeActivity extends AppCompatActivity {
     ImageView logo;
     TextView tv_1,tv_2;
+    public static Boolean engineering_mode_nowelcome=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,11 +21,15 @@ public class WelcomeActivity extends AppCompatActivity {
         tv_1=findViewById(R.id.textView);
         tv_2=findViewById(R.id.textView2);
 
+        if(engineering_mode_nowelcome==true){
+            startActivity(new Intent(WelcomeActivity.this,LoginActivity.class));
+            finish();
+        }
+
         Animation myanim = AnimationUtils.loadAnimation(WelcomeActivity.this, R.anim.fadein);
         logo.startAnimation(myanim);
         tv_1.startAnimation(myanim);
         tv_2.startAnimation(myanim);
-        final Intent aftersplash = new Intent(WelcomeActivity.this,LoginActivity.class);
         Thread timer = new Thread(){
             @Override
             public void run() {
@@ -33,7 +38,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 }catch (InterruptedException e){
                     e.printStackTrace();
                 }finally {
-                    startActivity(aftersplash);
+                    startActivity(new Intent(WelcomeActivity.this,LoginActivity.class));
                     finish();
                 }
             }
