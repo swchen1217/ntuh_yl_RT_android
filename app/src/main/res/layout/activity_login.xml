@@ -104,17 +104,6 @@
         app:layout_constraintStart_toStartOf="@+id/textView5"
         app:layout_constraintTop_toTopOf="@+id/et_pw" />
 
-    <EditText
-        android:id="@+id/et_pw"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/et_acc"
-        app:layout_constraintStart_toStartOf="@+id/et_acc"
-        app:layout_constraintTop_toBottomOf="@+id/et_acc" />
-
     <CheckBox
         android:id="@+id/cb_rememberme"
         android:layout_width="wrap_content"
@@ -166,5 +155,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/et_pw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/et_acc"
+        app:layout_constraintStart_toStartOf="@+id/et_acc"
+        app:layout_constraintTop_toBottomOf="@+id/et_acc" />
 
 </android.support.constraint.ConstraintLayout>
