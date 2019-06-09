@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     Button btn_forget,btn_login;
     CheckBox cb_rememberme;
     int login_error_count=0;
-    public static Boolean engineering_mode_nologin=true;
+    public static Boolean engineering_mode_nologin=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

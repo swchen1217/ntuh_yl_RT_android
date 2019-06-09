@@ -11,7 +11,7 @@ import android.widget.TextView;
 public class WelcomeActivity extends AppCompatActivity {
     ImageView logo;
     TextView tv_1,tv_2;
-    public static Boolean engineering_mode_nowelcome=true;
+    public static Boolean engineering_mode_nowelcome=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
