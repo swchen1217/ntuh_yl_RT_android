@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     Button btn_forget,btn_login;
     CheckBox cb_rememberme;
     int login_error_count=0;
-    public static Boolean engineering_mode_nologin=false;
+    public static Boolean engineering_mode_nologin=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(isConnected()){
                     if(engineering_mode_nologin==true && et_acc.getText().toString().equals("") && et_pw.getText().toString().equals("")){
-                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                        startActivity(new Intent(LoginActivity.this,MenuActivity.class));
                         finish();
                     }else{
                         if(et_acc.getText().toString().equals("") || et_pw.getText().toString().equals("")){
@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                             if(et_acc.getText().toString().equals("admin")){
                                 if(et_pw.getText().toString().equals("admin")){
                                     login_error_count=0;
-                                    startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                                    startActivity(new Intent(LoginActivity.this,MenuActivity.class));
                                     finish();
                                 }else{
                                     login_error_count++;
