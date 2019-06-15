@@ -7,69 +7,69 @@
     tools:context=".MenuActivity">
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/btn_menu_1"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:text="歷史記錄"
-        app:layout_constraintBottom_toTopOf="@+id/button12"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="現況登錄"
+        app:layout_constraintBottom_toTopOf="@+id/btn_menu_3"
+        app:layout_constraintEnd_toStartOf="@+id/btn_menu_2"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/button7"
-        app:layout_constraintTop_toBottomOf="@+id/button6" />
-
-    <Button
-        android:id="@+id/button6"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:text="機器狀況"
-        app:layout_constraintBottom_toTopOf="@+id/button4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/button11"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/btn_menu_2"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:text="機器狀況"
+        app:layout_constraintBottom_toTopOf="@+id/btn_menu_4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_menu_1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_menu_3"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:text="歷史記錄"
+        app:layout_constraintBottom_toTopOf="@+id/btn_menu_5"
+        app:layout_constraintEnd_toStartOf="@+id/btn_menu_4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_menu_1" />
+
+    <Button
+        android:id="@+id/btn_menu_4"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:text="待維修項目"
-        app:layout_constraintBottom_toTopOf="@+id/button9"
-        app:layout_constraintEnd_toStartOf="@+id/button4"
+        app:layout_constraintBottom_toTopOf="@+id/btn_menu_6"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button11" />
+        app:layout_constraintStart_toEndOf="@+id/btn_menu_3"
+        app:layout_constraintTop_toBottomOf="@+id/btn_menu_2" />
 
     <Button
-        android:id="@+id/button9"
+        android:id="@+id/btn_menu_5"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:text="儀器保養"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button12"
+        app:layout_constraintEnd_toStartOf="@+id/btn_menu_6"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button7" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_menu_3" />
 
     <Button
-        android:id="@+id/button11"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:text="現況登錄"
-        app:layout_constraintBottom_toTopOf="@+id/button7"
-        app:layout_constraintEnd_toStartOf="@+id/button6"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button12"
+        android:id="@+id/btn_menu_6"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:text="儀器管理"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/button9"
-        app:layout_constraintTop_toBottomOf="@+id/button4" />
+        app:layout_constraintStart_toEndOf="@+id/btn_menu_5"
+        app:layout_constraintTop_toBottomOf="@+id/btn_menu_4" />
 
 </android.support.constraint.ConstraintLayout>
