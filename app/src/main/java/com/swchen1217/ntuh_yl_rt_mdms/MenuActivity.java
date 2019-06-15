@@ -20,7 +20,7 @@ public class MenuActivity extends AppCompatActivity {
         btn_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+
             }
         });
         btn_2.setOnClickListener(new View.OnClickListener() {
