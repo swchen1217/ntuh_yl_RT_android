@@ -13,9 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:screenOrientation="portrait"
             android:name=".MenuActivity"
             android:label="功能選單"/>
-        <activity android:name=".WelcomeActivity">
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,9 +26,12 @@
             </intent-filter>
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".LoginActivity"
             android:label="系統登入" />
-        <activity android:name=".MainActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".MainActivity" />
     </application>
 
 </manifest>
