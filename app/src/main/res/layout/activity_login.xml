@@ -129,21 +129,21 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/btn_login"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_changepw"
         app:layout_constraintTop_toBottomOf="@+id/cb_rememberme" />
 
     <Button
         android:id="@+id/btn_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:backgroundTint="#8E8BC34A"
         android:text="登入"
         android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_forgetpw"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btn_forgetpw"
-        app:layout_constraintTop_toBottomOf="@+id/cb_rememberme" />
+        app:layout_constraintTop_toTopOf="@+id/btn_forgetpw" />
 
     <TextView
         android:id="@+id/textView9"
@@ -169,5 +169,17 @@
         app:layout_constraintEnd_toEndOf="@+id/et_acc"
         app:layout_constraintStart_toStartOf="@+id/et_acc"
         app:layout_constraintTop_toBottomOf="@+id/et_acc" />
+
+    <Button
+        android:id="@+id/btn_changepw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="更改密碼"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_forgetpw"
+        app:layout_constraintEnd_toStartOf="@+id/btn_forgetpw"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_forgetpw" />
 
 </android.support.constraint.ConstraintLayout>
