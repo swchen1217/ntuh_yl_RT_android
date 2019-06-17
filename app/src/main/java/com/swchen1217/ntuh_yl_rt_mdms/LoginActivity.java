@@ -21,6 +21,7 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
@@ -90,6 +91,8 @@ public class LoginActivity extends AppCompatActivity {
                                                     }
                                                 });
                                             }else{
+                                                URL url = new URL(server_url+"user.php?mode=forget_pw&email="+input.getText().toString());
+                                                url.openStream();
                                                 runOnUiThread(new Runnable() {
                                                     public void run() {
                                                         new AlertDialog.Builder(LoginActivity.this)
