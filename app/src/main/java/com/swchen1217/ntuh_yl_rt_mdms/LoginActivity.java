@@ -21,6 +21,7 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -36,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     Button btn_forget,btn_login;
     CheckBox cb_rememberme;
     int login_error_count=0;
-    public static Boolean engineering_mode_NoLogin=true;
+    public static Boolean engineering_mode_SkipLogin=true;
     final String server_url="http://swchen1217.ddns.net/ntuh_yl_RT_mdms_php/";
     private long exitTime = 0;
     @Override
@@ -58,19 +59,71 @@ public class LoginActivity extends AppCompatActivity {
         btn_forget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                final EditText input = new EditText(LoginActivity.this);
+                new AlertDialog.Builder(LoginActivity.this)
+                        .setTitle("忘記密碼")
+                        .setMessage("請輸入您註冊的Email")
+                        .setView(input)
+                        .setPositiveButton("確認", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                // 在此處理 input
+                                Thread thread=new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            String tmp=PostDataToSrever("user.php",
+                                                    new FormBody.Builder()
+                                                            .add("mode", "check_has_email")
+                                                            .add("email", input.getText().toString())
+                                                            .build());
+                                            if(tmp.equals("no_email")){
+                                                runOnUiThread(new Runnable() {
+                                                    public void run() {
+                                                        new AlertDialog.Builder(LoginActivity.this)
+                                                                .setTitle("無此Email,請聯繫管理員!!")
+                                                                .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                                                    @Override
+                                                                    public void onClick(DialogInterface dialog, int which) {
+                                                                    }
+                                                                })
+                                                                .show();
+                                                    }
+                                                });
+                                            }else{
+                                                runOnUiThread(new Runnable() {
+                                                    public void run() {
+                                                        new AlertDialog.Builder(LoginActivity.this)
+                                                                .setTitle("已將重設密碼資料傳送至Email")
+                                                                .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                                                    @Override
+                                                                    public void onClick(DialogInterface dialog, int which) {
+                                                                    }
+                                                                })
+                                                                .show();
+                                                    }
+                                                });
+                                            }
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+                                thread.start();
+                            }
+                        })
+                        .show();
             }
         });
         btn_login.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(engineering_mode_NoLogin==true && et_acc.getText().toString().equals("") && et_pw.getText().toString().equals("")){
-                    Toast.makeText(LoginActivity.this, "工程模式_NoLogin", Toast.LENGTH_SHORT).show();
+                if(engineering_mode_SkipLogin==true && et_acc.getText().toString().equals("") && et_pw.getText().toString().equals("")){
+                    Toast.makeText(LoginActivity.this, "工程模式_SkipLogin", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(LoginActivity.this,MenuActivity.class));
                     finish();
                 }
                 if(isConnected()){
-                    if((et_acc.getText().toString().equals("") || et_pw.getText().toString().equals("")) && engineering_mode_NoLogin!=true){
+                    if((et_acc.getText().toString().equals("") || et_pw.getText().toString().equals("")) && engineering_mode_SkipLogin!=true){
                         new AlertDialog.Builder(LoginActivity.this)
                                 .setTitle("帳號或密碼為空白!!")
                                 .setPositiveButton("確定", new DialogInterface.OnClickListener() {
@@ -216,13 +269,27 @@ public class LoginActivity extends AppCompatActivity {
     public String PostDataToSrever(String file, FormBody formBody) throws IOException {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
-        OkHttpClient client = new OkHttpClient().newBuilder().addInterceptor(logging).build();
+        OkHttpClient client = new OkHttpClient().newBuilder().addInterceptor(logging).connectTimeout(5, TimeUnit.SECONDS).build();
         Request request = new Request.Builder()
                 .url(server_url+file)
                 .post(formBody) // 使用post連線
                 .build();
         Call call = client.newCall(request);
-        call.enqueue(new Callback() {
+        try (Response response = call.execute()) {
+            return response.body().string();
+        }catch(Exception e){
+            if (e instanceof SocketTimeoutException) {
+                //判断超时异常
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        //Code goes here
+                        Toast.makeText(LoginActivity.this, "無法連接至伺服器", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+            return null;
+        }
+        /*call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 if (e instanceof SocketTimeoutException) {
@@ -240,8 +307,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
 
             }
-        });
-        Response response = client.newCall(request).execute();
+        });*/
+        /*Response response = client.newCall(request).execute();
         if (response.isSuccessful()) {
             // 連線成功
             String result = response.body().string();
@@ -251,7 +318,7 @@ public class LoginActivity extends AppCompatActivity {
             // 連線失敗
             Log.d("OkHttp","Error");
             return null;
-        }
+        }*/
     }
     public void login_ok(){
         Log.d("OkHttp", "Intent OK");

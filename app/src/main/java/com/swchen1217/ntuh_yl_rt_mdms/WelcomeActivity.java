@@ -13,7 +13,7 @@ import android.widget.Toast;
 public class WelcomeActivity extends AppCompatActivity {
     ImageView logo;
     TextView tv_1,tv_2;
-    public static Boolean engineering_mode_ＮoＷelcome=false;
+    public static Boolean engineering_mode_SkipWelcome=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,8 +23,8 @@ public class WelcomeActivity extends AppCompatActivity {
         tv_1=findViewById(R.id.textView);
         tv_2=findViewById(R.id.textView2);
 
-        if(engineering_mode_ＮoＷelcome==true){
-            Toast.makeText(WelcomeActivity.this, "工程模式_NoＷelcome", Toast.LENGTH_SHORT).show();
+        if(engineering_mode_SkipWelcome==true){
+            Toast.makeText(WelcomeActivity.this, "工程模式_SkipWelcome", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(WelcomeActivity.this,LoginActivity.class));
             finish();
         }else{
