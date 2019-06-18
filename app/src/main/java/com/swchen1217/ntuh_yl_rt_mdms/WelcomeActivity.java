@@ -13,7 +13,8 @@ import android.widget.Toast;
 public class WelcomeActivity extends AppCompatActivity {
     ImageView logo;
     TextView tv_1,tv_2;
-    public static Boolean engineering_mode_SkipWelcome=true;
+    public static Boolean engineering_mode_SkipWelcome=false;
+    public static Boolean engineering_mode_JumpToQRscan=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +27,10 @@ public class WelcomeActivity extends AppCompatActivity {
         if(engineering_mode_SkipWelcome==true){
             Toast.makeText(WelcomeActivity.this, "工程模式_SkipWelcome", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(WelcomeActivity.this,LoginActivity.class));
+            finish();
+        }else if(engineering_mode_JumpToQRscan==true){
+            Toast.makeText(WelcomeActivity.this, "工程模式_JumpToQRscan", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(WelcomeActivity.this,UpdateStatusActivity.class));
             finish();
         }else{
             Animation myanim = AnimationUtils.loadAnimation(WelcomeActivity.this, R.anim.fadein);

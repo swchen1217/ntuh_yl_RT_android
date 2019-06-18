@@ -1,5 +1,6 @@
 package com.swchen1217.ntuh_yl_rt_mdms;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -8,49 +9,50 @@ import android.widget.Button;
 import android.widget.Toast;
 
 public class MenuActivity extends AppCompatActivity {
-    Button btn_1,btn_2,btn_3,btn_4,btn_5,btn_6;
+    Button btn_UpdateStatus,btn_InquireStatus,btn_Log,btn_Repair,btn_MaintenanceCheck,btn_Manage;
     private long exitTime = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        btn_1=findViewById(R.id.btn_menu_1);
-        btn_2=findViewById(R.id.btn_menu_2);
-        btn_3=findViewById(R.id.btn_menu_3);
-        btn_4=findViewById(R.id.btn_menu_4);
-        btn_5=findViewById(R.id.btn_menu_5);
-        btn_6=findViewById(R.id.btn_menu_6);
-        btn_1.setOnClickListener(new View.OnClickListener() {
+        btn_UpdateStatus=findViewById(R.id.btn_menu_1);
+        btn_InquireStatus=findViewById(R.id.btn_menu_2);
+        btn_Log=findViewById(R.id.btn_menu_3);
+        btn_Repair=findViewById(R.id.btn_menu_4);
+        btn_MaintenanceCheck=findViewById(R.id.btn_menu_5);
+        btn_Manage=findViewById(R.id.btn_menu_6);
+
+        btn_UpdateStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MenuActivity.this,UpdateStatusActivity.class));
+            }
+        });
+        btn_InquireStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         });
-        btn_2.setOnClickListener(new View.OnClickListener() {
+        btn_Log.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         });
-        btn_3.setOnClickListener(new View.OnClickListener() {
+        btn_Repair.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         });
-        btn_4.setOnClickListener(new View.OnClickListener() {
+        btn_MaintenanceCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         });
-        btn_5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        btn_6.setOnClickListener(new View.OnClickListener() {
+        btn_Manage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
