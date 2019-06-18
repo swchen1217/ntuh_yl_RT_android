@@ -3,8 +3,10 @@ package com.swchen1217.ntuh_yl_rt_mdms;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -33,6 +35,11 @@ public class UpdateStatusActivity extends AppCompatActivity {
                 integrator.initiateScan();
             }
         });
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        TextView TextView1 = (TextView)findViewById(R.id.textView11);
+        TextView1.setText("手機銀幕大小為 "+metrics.widthPixels+" X "+metrics.heightPixels);
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     Button btn_forget,btn_login,btn_change;
     CheckBox cb_rememberme;
     int login_error_count=0;
-    public static Boolean engineering_mode_SkipLogin=true;
+    public static Boolean engineering_mode_SkipLogin=false;
     final String server_url="http://swchen1217.ddns.net/ntuh_yl_RT_mdms_php/";
     private long exitTime = 0;
     @Override

@@ -15,7 +15,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".UpdateStatusActivity"
-            android:label="現況登錄" />
+            android:label="現況登錄"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".MenuActivity"
             android:label="功能選單"
