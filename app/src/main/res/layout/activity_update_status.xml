@@ -107,13 +107,13 @@
         app:layout_constraintTop_toTopOf="@+id/btn_qrcode" />
 
     <TextView
-        android:id="@+id/tv_"
-        android:layout_width="0dp"
+        android:id="@+id/tv_input"
+        android:layout_width="247dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
-        android:text="設備ID："
+        android:background="@color/zxing_possible_result_points"
         android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@id/btn_manual"
