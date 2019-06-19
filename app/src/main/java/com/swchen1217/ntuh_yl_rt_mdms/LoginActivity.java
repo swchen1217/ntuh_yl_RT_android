@@ -1,5 +1,6 @@
 package com.swchen1217.ntuh_yl_rt_mdms;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,19 +16,15 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -39,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText et_acc,et_pw;
     Button btn_forget,btn_login,btn_change;
     CheckBox cb_rememberme;
-    ProgressBar pb;
+    ProgressDialog pd;
     int login_error_count=0;
     public static Boolean engineering_mode_SkipLogin=false;
     final String server_url="http://swchen1217.ddns.net/ntuh_yl_RT_mdms_php/";
@@ -55,9 +52,11 @@ public class LoginActivity extends AppCompatActivity {
         btn_login=findViewById(R.id.btn_login);
         btn_change=findViewById(R.id.btn_changepw);
         cb_rememberme=findViewById(R.id.cb_rememberme);
-        pb=findViewById(R.id.pb);
 
-        pb.setVisibility(View.INVISIBLE);
+        pd=new ProgressDialog(LoginActivity.this);
+        pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        pd.setMessage("與伺服器連線中...");
+        pd.setCancelable(false);
 
         et_acc.setText(spf_rememberme.getString("acc",""));
         et_pw.setText(spf_rememberme.getString("pw",""));
@@ -362,7 +361,7 @@ public class LoginActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 public void run() {
                     //Code goes here
-                    pb.setVisibility(View.VISIBLE);
+                    pd.show();
                 }
             });
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
@@ -391,7 +390,7 @@ public class LoginActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     public void run() {
                         //Code goes here
-                        pb.setVisibility(View.INVISIBLE);
+                        pd.dismiss();
                     }
                 });
             }

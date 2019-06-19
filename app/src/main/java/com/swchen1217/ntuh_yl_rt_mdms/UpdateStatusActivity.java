@@ -68,6 +68,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
         if(result !=null){
             if(result.getContents() == null){
+                tv_input.setText("");
                 Toast.makeText(this,"掃描錯誤!!,請再試一次或改為手動輸入",Toast.LENGTH_SHORT).show();;
             }else {
                 InputDone(1,result.getContents());
@@ -80,10 +81,14 @@ public class UpdateStatusActivity extends AppCompatActivity {
 
     public void InputDone(int mode,String input){
         tv_input.setText(input);
-        if(mode==1){
-            tv_input.setText("設備ID："+input);
+        if(input.equals("")){
+            tv_input.setText("");
         }else{
-            tv_input.setText("設備編號："+input);
+            if(mode==1){
+                tv_input.setText(" 設備ID："+input);
+            }else if(mode==2){
+                tv_input.setText(" 設備編號："+input);
+            }
         }
     }
 }
