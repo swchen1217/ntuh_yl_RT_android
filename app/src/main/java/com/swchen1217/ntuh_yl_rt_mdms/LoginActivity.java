@@ -88,34 +88,36 @@ public class LoginActivity extends AppCompatActivity {
                                                             .add("mode", "check_has_email")
                                                             .add("email", input.getText().toString())
                                                             .build());
-                                            if(tmp.equals("no_email")){
-                                                runOnUiThread(new Runnable() {
-                                                    public void run() {
-                                                        new AlertDialog.Builder(LoginActivity.this)
-                                                                .setTitle("無此Email,請聯繫管理員!!")
-                                                                .setPositiveButton("確定", new DialogInterface.OnClickListener() {
-                                                                    @Override
-                                                                    public void onClick(DialogInterface dialog, int which) {
-                                                                    }
-                                                                })
-                                                                .show();
-                                                    }
-                                                });
-                                            }else{
-                                                URL url = new URL(server_url+"user.php?mode=forget_pw&email="+input.getText().toString());
-                                                url.openStream();
-                                                runOnUiThread(new Runnable() {
-                                                    public void run() {
-                                                        new AlertDialog.Builder(LoginActivity.this)
-                                                                .setTitle("已將重設密碼資料傳送至Email")
-                                                                .setPositiveButton("確定", new DialogInterface.OnClickListener() {
-                                                                    @Override
-                                                                    public void onClick(DialogInterface dialog, int which) {
-                                                                    }
-                                                                })
-                                                                .show();
-                                                    }
-                                                });
+                                            if(tmp!=null){
+                                                if(tmp.equals("no_email")){
+                                                    runOnUiThread(new Runnable() {
+                                                        public void run() {
+                                                            new AlertDialog.Builder(LoginActivity.this)
+                                                                    .setTitle("無此Email,請聯繫管理員!!")
+                                                                    .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                                                        @Override
+                                                                        public void onClick(DialogInterface dialog, int which) {
+                                                                        }
+                                                                    })
+                                                                    .show();
+                                                        }
+                                                    });
+                                                }else{
+                                                    URL url = new URL(server_url+"user.php?mode=forget_pw&email="+input.getText().toString());
+                                                    url.openStream();
+                                                    runOnUiThread(new Runnable() {
+                                                        public void run() {
+                                                            new AlertDialog.Builder(LoginActivity.this)
+                                                                    .setTitle("已將重設密碼資料傳送至Email")
+                                                                    .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                                                        @Override
+                                                                        public void onClick(DialogInterface dialog, int which) {
+                                                                        }
+                                                                    })
+                                                                    .show();
+                                                        }
+                                                    });
+                                                }
                                             }
                                         } catch (IOException e) {
                                             e.printStackTrace();
@@ -136,29 +138,29 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(new Intent(LoginActivity.this,MenuActivity.class));
                     finish();
                 }
-                if(isConnected()){
-                    if((et_acc.getText().toString().equals("") || et_pw.getText().toString().equals("")) && engineering_mode_SkipLogin!=true){
-                        new AlertDialog.Builder(LoginActivity.this)
-                                .setTitle("帳號或密碼為空白!!")
-                                .setPositiveButton("確定", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
+                if((et_acc.getText().toString().equals("") || et_pw.getText().toString().equals("")) && engineering_mode_SkipLogin!=true){
+                    new AlertDialog.Builder(LoginActivity.this)
+                            .setTitle("帳號或密碼為空白!!")
+                            .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
 
-                                    }
-                                })
-                                .show();
-                    }else{
-                        Thread thread = new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                try  {
-                                    //Your code goes here
-                                    String check_re=PostDataToSrever("user.php",
-                                            new FormBody.Builder()
-                                                    .add("mode", "login_check")
-                                                    .add("acc", et_acc.getText().toString())
-                                                    .add("pw", et_pw.getText().toString())
-                                                    .build());
+                                }
+                            })
+                            .show();
+                }else{
+                    Thread thread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try  {
+                                //Your code goes here
+                                String check_re=PostDataToSrever("user.php",
+                                        new FormBody.Builder()
+                                                .add("mode", "login_check")
+                                                .add("acc", et_acc.getText().toString())
+                                                .add("pw", et_pw.getText().toString())
+                                                .build());
+                                if(check_re!=null){
                                     if(check_re.equals("tmppw_no_tmppw")){
                                         Log.d("OkHttp","login_check tmppw_no_tmppw");
                                         runOnUiThread(new Runnable() {
@@ -329,15 +331,13 @@ public class LoginActivity extends AppCompatActivity {
                                             });
                                         }
                                     }
-                                } catch (Exception e) {
-                                    e.printStackTrace();
                                 }
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
-                        });
-                        thread.start();
-                    }
-                }else{
-                    Toast.makeText(LoginActivity.this, "無法連接至網際網路", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    thread.start();
                 }
             }
         });
@@ -351,43 +351,19 @@ public class LoginActivity extends AppCompatActivity {
         return false;
     }
 
-    private boolean isServerCon() throws IOException {
-        String con=PostDataToSrever("user.php",
-                new FormBody.Builder()
-                        .add("mode", "connection_test")
-                        .build());
-        if(con.equals("connection_ok"))
-            return true;
-        else
-            return false;
-    }
-
     public String PostDataToSrever(String file, FormBody formBody) throws IOException {
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
-        OkHttpClient client = new OkHttpClient().newBuilder().addInterceptor(logging).connectTimeout(5, TimeUnit.SECONDS).build();
-        Request request = new Request.Builder()
-                .url(server_url+file)
-                .post(formBody) // 使用post連線
-                .build();
-        Call call = client.newCall(request);
-        try (Response response = call.execute()) {
-            return response.body().string();
-        }catch(Exception e){
-            if (e instanceof SocketTimeoutException) {
-                //判断超时异常
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        //Code goes here
-                        Toast.makeText(LoginActivity.this, "無法連接至伺服器", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-            return null;
-        }
-        /*call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
+        if(isConnected()){
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+            logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
+            OkHttpClient client = new OkHttpClient().newBuilder().addInterceptor(logging).connectTimeout(5, TimeUnit.SECONDS).build();
+            Request request = new Request.Builder()
+                    .url(server_url+file)
+                    .post(formBody) // 使用post連線
+                    .build();
+            Call call = client.newCall(request);
+            try (Response response = call.execute()) {
+                return response.body().string();
+            }catch(Exception e){
                 if (e instanceof SocketTimeoutException) {
                     //判断超时异常
                     runOnUiThread(new Runnable() {
@@ -397,24 +373,17 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
                 }
+                return null;
             }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-
-            }
-        });*/
-        /*Response response = client.newCall(request).execute();
-        if (response.isSuccessful()) {
-            // 連線成功
-            String result = response.body().string();
-            Log.d("OkHttp result", result);
-            return result;
-        } else {
-            // 連線失敗
-            Log.d("OkHttp","Error");
-            return null;
-        }*/
+        }else{
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    //Code goes here
+                    Toast.makeText(LoginActivity.this, "無法連接至網際網路", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        return null;
     }
     public void login_ok(){
         Log.d("OkHttp", "Intent OK");

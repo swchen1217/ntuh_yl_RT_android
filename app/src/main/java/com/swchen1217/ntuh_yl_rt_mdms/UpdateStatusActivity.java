@@ -70,6 +70,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
                 Toast.makeText(this,"掃描錯誤!!,請再試一次或改為手動輸入",Toast.LENGTH_SHORT).show();;
             }else {
                 InputDone(1,result.getContents());
+                Log.d("QRCodeScanLog",result.getContents());
             }
         }else {
             super.onActivityResult(requestCode, resultCode, data);

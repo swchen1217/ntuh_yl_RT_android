@@ -14,7 +14,7 @@ public class WelcomeActivity extends AppCompatActivity {
     ImageView logo;
     TextView tv_1,tv_2;
     public static Boolean engineering_mode_SkipWelcome=false;
-    public static Boolean engineering_mode_JumpToQRscan=true;
+    public static Boolean engineering_mode_JumpToQRscan=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
