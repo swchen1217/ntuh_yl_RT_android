@@ -13,14 +13,14 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
-        android:checkedButton="@id/radioButton3"
+        android:checkedButton="@id/rb_use"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4">
 
         <RadioButton
-            android:id="@+id/radioButton4"
+            android:id="@+id/rb_use"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:background="@drawable/radiobtn_g"
@@ -38,7 +38,7 @@
             android:text="  " />
 
         <RadioButton
-            android:id="@+id/radioButton3"
+            android:id="@+id/rb_stock"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:background="@drawable/radiobtn_b"
@@ -56,7 +56,7 @@
             android:text="  " />
 
         <RadioButton
-            android:id="@+id/radioButton"
+            android:id="@+id/rb_fix"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:background="@drawable/radiobtn_r"
@@ -69,7 +69,7 @@
     </RadioGroup>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_qrcode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -95,27 +95,29 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btn_manual"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
         android:text="手動輸入"
         android:textAllCaps="false"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/button"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_qrcode"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/button" />
+        app:layout_constraintTop_toTopOf="@+id/btn_qrcode" />
 
     <TextView
         android:id="@+id/textView11"
-        android:layout_width="253dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="8dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:text="設備ID："
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/btn_input"
+        app:layout_constraintStart_toStartOf="@+id/btn_qrcode"
+        app:layout_constraintTop_toBottomOf="@+id/btn_qrcode" />
 
 </android.support.constraint.ConstraintLayout>

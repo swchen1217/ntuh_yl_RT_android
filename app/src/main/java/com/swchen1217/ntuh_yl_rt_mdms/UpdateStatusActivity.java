@@ -14,20 +14,23 @@ import com.google.zxing.integration.android.IntentResult;
 
 public class UpdateStatusActivity extends AppCompatActivity {
 
-    Button btn;
+    Button btn_qr,btn_manual;
+    TextView tv_input;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_status);
-        btn=findViewById(R.id.button);
-        btn.setOnClickListener(new View.OnClickListener() {
+        btn_qr=findViewById(R.id.btn_qrcode);
+        btn_manual=findViewById(R.id.btn_manual);
+        tv_input-findViewById(R.id.tv_)
+        btn_qr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 IntentIntegrator integrator = new IntentIntegrator(UpdateStatusActivity.this);
                 integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
                 integrator.addExtra("SCAN_MODE", "QR_CODE_MODE");
-                integrator.setPrompt("現況登錄");
+                integrator.setPrompt("現況登錄 QR Code 掃描");
                 integrator.setCameraId(0);
                 integrator.setBeepEnabled(true);
                 integrator.setBarcodeImageEnabled(false);
@@ -35,23 +38,28 @@ public class UpdateStatusActivity extends AppCompatActivity {
                 integrator.initiateScan();
             }
         });
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        btn_manual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        TextView TextView1 = (TextView)findViewById(R.id.textView11);
-        TextView1.setText("手機銀幕大小為 "+metrics.widthPixels+" X "+metrics.heightPixels);
+            }
+        });
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
         if(result !=null){
             if(result.getContents() == null){
-                Toast.makeText(this,"You can't celled the scanning",Toast.LENGTH_SHORT).show();;
+                Toast.makeText(this,"掃描錯誤!!,請再試一次或改為手動輸入",Toast.LENGTH_SHORT).show();;
             }else {
-                Toast.makeText(this,result.getContents(),Toast.LENGTH_SHORT).show();
+                InputOk(result.getContents());
             }
         }else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    public void InputOk(String input){
+        tv_input.setText();
     }
 }
