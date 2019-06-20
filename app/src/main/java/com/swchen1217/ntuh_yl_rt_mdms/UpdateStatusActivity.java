@@ -79,11 +79,11 @@ public class UpdateStatusActivity extends AppCompatActivity {
                     }else{
 
                     }
-                    Log.d(" ","");
+                    Log.d("RB","1");
                 }else if(rb_stock.isChecked()){
-                    Log.d("","");
+                    Log.d("RB","2");
                 }else if(rb_fix.isChecked()){
-                    Log.d("","");
+                    Log.d("RB","3");
                 }
             }
         });

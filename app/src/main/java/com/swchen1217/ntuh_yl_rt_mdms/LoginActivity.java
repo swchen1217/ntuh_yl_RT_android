@@ -366,6 +366,7 @@ public class LoginActivity extends AppCompatActivity {
             });
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
             logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
+            //logging.setLevel(HttpLoggingInterceptor.Level.BODY);
             OkHttpClient client = new OkHttpClient().newBuilder().addInterceptor(logging).connectTimeout(5, TimeUnit.SECONDS).build();
             Request request = new Request.Builder()
                     .url(server_url+file)
