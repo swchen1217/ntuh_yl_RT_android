@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,8 +20,10 @@ import com.google.zxing.integration.android.IntentResult;
 
 public class UpdateStatusActivity extends AppCompatActivity {
 
-    Button btn_qr,btn_manual;
+    Button btn_qr,btn_manual,btn_CheckInput;
     TextView tv_input;
+    String input_data=null;
+    RadioButton rb_use,rb_stock,rb_fix;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +32,11 @@ public class UpdateStatusActivity extends AppCompatActivity {
         btn_qr=findViewById(R.id.btn_qrcode);
         btn_manual=findViewById(R.id.btn_manual);
         tv_input=findViewById(R.id.tv_input);
+        btn_CheckInput=findViewById(R.id.btn_CheckInput);
+        btn_CheckInput.setVisibility(View.INVISIBLE);
+        rb_use=findViewById(R.id.rb_use);
+        rb_stock=findViewById(R.id.rb_stock);
+        rb_fix=findViewById(R.id.rb_fix);
         btn_qr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,6 +70,22 @@ public class UpdateStatusActivity extends AppCompatActivity {
                         .show();
             }
         });
+        btn_CheckInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(rb_use.isChecked()){
+                    if(input_data.length()<6 || !input_data.substring(0,6).equals("MDMS.D")){
+
+                    }else{
+
+                    }
+                }else if(rb_stock.isChecked()){
+
+                }else if(rb_fix.isChecked()){
+                    
+                }
+            }
+        });
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -83,12 +107,15 @@ public class UpdateStatusActivity extends AppCompatActivity {
         tv_input.setText(input);
         if(input.equals("")){
             tv_input.setText("");
+            btn_CheckInput.setVisibility(View.INVISIBLE);
         }else{
+            btn_CheckInput.setVisibility(View.VISIBLE);
             if(mode==1){
                 tv_input.setText(" 設備ID："+input);
             }else if(mode==2){
                 tv_input.setText(" 設備編號："+input);
             }
+            input_data=input;
         }
     }
 }
