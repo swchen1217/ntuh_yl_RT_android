@@ -34,7 +34,6 @@ public class UpdateStatusActivity extends AppCompatActivity {
             public void onClick(View v) {
                 IntentIntegrator integrator = new IntentIntegrator(UpdateStatusActivity.this);
                 integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
-                //integrator.addExtra("SCAN_MODE", "QR_CODE_MODE");
                 integrator.addExtra("SCAN_MODE", "QR_CODE_MODE");
                 integrator.setPrompt("現況登錄 QR Code 掃描");
                 integrator.setCameraId(0);
