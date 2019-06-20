@@ -35,12 +35,12 @@ public class UpdateStatusActivity extends AppCompatActivity {
                 IntentIntegrator integrator = new IntentIntegrator(UpdateStatusActivity.this);
                 integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
                 //integrator.addExtra("SCAN_MODE", "QR_CODE_MODE");
+                integrator.addExtra("SCAN_MODE", "QR_CODE_MODE");
                 integrator.setPrompt("現況登錄 QR Code 掃描");
                 integrator.setCameraId(0);
                 integrator.setBeepEnabled(true);
                 integrator.setBarcodeImageEnabled(false);
                 integrator.setOrientationLocked(true);
-                //integrator.setTimeout(10000);
                 integrator.initiateScan();
             }
         });
