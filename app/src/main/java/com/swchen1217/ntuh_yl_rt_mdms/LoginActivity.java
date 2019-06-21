@@ -220,8 +220,7 @@ public class LoginActivity extends AppCompatActivity {
                                             }
                                         });
                                     }
-                                    if(check_re.equals("tmppw_ok")){
-                                        Log.d("OkHttp","login_check tmppw_ok");
+                                    if(check_re.substring(0,2).equals("ok")){
                                         if(cb_rememberme.isChecked())
                                         {
                                             spf_rememberme.edit()
@@ -234,43 +233,20 @@ public class LoginActivity extends AppCompatActivity {
                                                     .putString("pw","")
                                                     .commit();
                                         }
-                                        String str=PostDataToSrever("user.php",
-                                                new FormBody.Builder()
-                                                        .add("mode", "get_user_name")
-                                                        .add("acc", et_acc.getText().toString())
-                                                        .build());
-                                        runOnUiThread(new Runnable() {
-                                            public void run() {
-                                                Toast.makeText(LoginActivity.this, str+" ,歡迎回來(使用臨時密碼登入)", Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
-                                        startActivity(new Intent(LoginActivity.this,MenuActivity.class));
-                                        finish();
-                                    }
-                                    if(check_re.equals("ok")){
-                                        Log.d("OkHttp","login_check OK");
-                                        if(cb_rememberme.isChecked())
-                                        {
-                                            spf_rememberme.edit()
-                                                    .putString("acc",et_acc.getText().toString())
-                                                    .putString("pw",et_pw.getText().toString())
-                                                    .commit();
-                                        }else{
-                                            spf_rememberme.edit()
-                                                    .putString("acc","")
-                                                    .putString("pw","")
-                                                    .commit();
+                                        String[] split_OkData = check_re.split(",");
+                                        if(split_OkData[0].equals("ok")){
+                                            runOnUiThread(new Runnable() {
+                                                public void run() {
+                                                    Toast.makeText(LoginActivity.this, split_OkData[1]+" ,歡迎回來", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                        }else if(split_OkData[0].equals("ok_tmppw")){
+                                            runOnUiThread(new Runnable() {
+                                                public void run() {
+                                                    Toast.makeText(LoginActivity.this, split_OkData[1]+" ,歡迎回來(使用臨時密碼登入)", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
                                         }
-                                        String str=PostDataToSrever("user.php",
-                                                new FormBody.Builder()
-                                                        .add("mode", "get_user_name")
-                                                        .add("acc", et_acc.getText().toString())
-                                                        .build());
-                                        runOnUiThread(new Runnable() {
-                                            public void run() {
-                                                Toast.makeText(LoginActivity.this, str+" ,歡迎回來", Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
                                         login_error_count=0;
                                         startActivity(new Intent(LoginActivity.this,MenuActivity.class));
                                         finish();
@@ -365,8 +341,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-            logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
-            //logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+            //logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
             OkHttpClient client = new OkHttpClient().newBuilder().addInterceptor(logging).connectTimeout(5, TimeUnit.SECONDS).build();
             Request request = new Request.Builder()
                     .url(server_url+file)
