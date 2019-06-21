@@ -8,9 +8,9 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -341,9 +341,12 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-            //logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
             logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-            OkHttpClient client = new OkHttpClient().newBuilder().addInterceptor(logging).connectTimeout(5, TimeUnit.SECONDS).build();
+            //logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+            OkHttpClient client = new OkHttpClient()
+                    .newBuilder().addInterceptor(logging)
+                    .connectTimeout(5, TimeUnit.SECONDS)
+                    .build();
             Request request = new Request.Builder()
                     .url(server_url+file)
                     .post(formBody) // 使用post連線
@@ -352,6 +355,7 @@ public class LoginActivity extends AppCompatActivity {
             try (Response response = call.execute()) {
                 return response.body().string();
             }catch(Exception e){
+                Log.d("OkHttp","Error:"+e.toString());
                 if (e instanceof SocketTimeoutException) {
                     //判断超时异常
                     runOnUiThread(new Runnable() {
@@ -375,7 +379,7 @@ public class LoginActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 public void run() {
                     //Code goes here
-                    Toast.makeText(LoginActivity.this, "無法連接至網際網路", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "無網路連接", Toast.LENGTH_SHORT).show();
                 }
             });
         }
