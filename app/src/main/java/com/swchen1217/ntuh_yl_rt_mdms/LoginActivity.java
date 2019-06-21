@@ -22,6 +22,7 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
@@ -346,6 +347,7 @@ public class LoginActivity extends AppCompatActivity {
             OkHttpClient client = new OkHttpClient()
                     .newBuilder().addInterceptor(logging)
                     .connectTimeout(5, TimeUnit.SECONDS)
+                    .dns(new OkHttpDns2(5000))
                     .build();
             Request request = new Request.Builder()
                     .url(server_url+file)
@@ -356,6 +358,14 @@ public class LoginActivity extends AppCompatActivity {
                 return response.body().string();
             }catch(Exception e){
                 Log.d("OkHttp","Error:"+e.toString());
+                    if (e instanceof UnknownHostException) {
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            //Code goes here
+                            Toast.makeText(LoginActivity.this, "無法連接至網際網路", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
                 if (e instanceof SocketTimeoutException) {
                     //判断超时异常
                     runOnUiThread(new Runnable() {
@@ -390,7 +400,7 @@ public class LoginActivity extends AppCompatActivity {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
 
             if (System.currentTimeMillis() - exitTime > 3000) {
-                Toast.makeText(getApplicationContext(), "再按一次返回键退出", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "再按一次返回鍵退出", Toast.LENGTH_SHORT).show();
                 exitTime = System.currentTimeMillis();
             } else {
                 finish();
