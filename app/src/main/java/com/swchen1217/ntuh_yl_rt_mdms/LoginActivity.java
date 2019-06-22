@@ -347,7 +347,7 @@ public class LoginActivity extends AppCompatActivity {
             OkHttpClient client = new OkHttpClient()
                     .newBuilder().addInterceptor(logging)
                     .connectTimeout(5, TimeUnit.SECONDS)
-                    .dns(new OkHttpDns2(5000))
+                    .dns(new OkHttpDns2(10000))
                     .build();
             Request request = new Request.Builder()
                     .url(server_url+file)
