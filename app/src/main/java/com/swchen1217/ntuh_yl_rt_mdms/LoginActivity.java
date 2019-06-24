@@ -338,7 +338,7 @@ public class LoginActivity extends AppCompatActivity {
         return false;
     }
 
-    public String PostDataToSrever(String file, FormBody formBody) throws IOException {
+    public String PostDataToSrever(String data, FormBody formBody) throws IOException {
         if(isConnected()){
             runOnUiThread(new Runnable() {
                 public void run() {
@@ -355,7 +355,7 @@ public class LoginActivity extends AppCompatActivity {
                     .dns(new OkHttpDns2(10000))
                     .build();
             Request request = new Request.Builder()
-                    .url(server_url+file)
+                    .url(server_url+data)
                     .post(formBody) // 使用post連線
                     .build();
             Call call = client.newCall(request);
