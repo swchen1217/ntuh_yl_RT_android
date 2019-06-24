@@ -108,8 +108,13 @@ public class LoginActivity extends AppCompatActivity {
                                                         }
                                                     });
                                                 }else{
-                                                    URL url = new URL(server_url+"user.php?mode=forget_pw&email="+input.getText().toString());
-                                                    url.openStream();
+                                                    PostDataToSrever("user.php",
+                                                            new FormBody.Builder()
+                                                                    .add("mode", "forget_pw")
+                                                                    .add("email", input.getText().toString())
+                                                                    .build());
+                                                    //URL url = new URL(server_url+"user.php?mode=forget_pw&email="+input.getText().toString());
+                                                    //url.openStream();
                                                     runOnUiThread(new Runnable() {
                                                         public void run() {
                                                             new AlertDialog.Builder(LoginActivity.this)
