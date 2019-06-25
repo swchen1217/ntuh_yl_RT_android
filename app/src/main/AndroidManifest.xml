@@ -13,10 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".PrefsActivity"></activity>
         <activity
             android:name=".UpdateStatusActivity"
             android:label="現況登錄"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MenuActivity"
             android:label="功能選單"

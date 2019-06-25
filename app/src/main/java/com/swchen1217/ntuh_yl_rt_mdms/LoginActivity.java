@@ -13,6 +13,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -42,11 +44,12 @@ public class LoginActivity extends AppCompatActivity {
     public static Boolean engineering_mode_SkipLogin=false;
     final String server_url="http://swchen1217.ddns.net/ntuh_yl_RT_mdms_php/";
     private long exitTime = 0;
+    SharedPreferences spf_rememberme;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        SharedPreferences spf_rememberme=getSharedPreferences("remember",MODE_PRIVATE);
+        spf_rememberme=getSharedPreferences("remember",MODE_PRIVATE);
         et_acc=findViewById(R.id.et_acc);
         et_pw=findViewById(R.id.et_pw);
         btn_forget=findViewById(R.id.btn_forgetpw);
@@ -64,6 +67,10 @@ public class LoginActivity extends AppCompatActivity {
         if(spf_rememberme.getString("acc","")!="")
             cb_rememberme.setChecked(true);
 
+        setListener();
+    }
+
+    public void setListener(){
         btn_change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -414,5 +421,25 @@ public class LoginActivity extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.login, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.settings:
+                startActivity(new Intent(this, PrefsActivity.class));
+                return true;
+            /*case R.id.exit:
+                closeBT();
+                finish();*/
+        }
+        return false;
     }
 }
