@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
     ProgressDialog pd;
     int login_error_count=0;
     public static Boolean engineering_mode_SkipLogin=false;
-    final String server_url="http://swchen1217.ddns.net/ntuh_yl_RT_mdms_php/";
+    String server_url="";
     private long exitTime = 0;
     SharedPreferences spf_rememberme;
     @Override
@@ -67,6 +67,21 @@ public class LoginActivity extends AppCompatActivity {
         if(spf_rememberme.getString("acc","")!="")
             cb_rememberme.setChecked(true);
 
+        if(PrefsActivity.getServer(LoginActivity.this)!=""){
+            server_url=PrefsActivity.getServer(LoginActivity.this)+"/ntuh_yl_RT_mdms_php/";
+        }else{
+            new AlertDialog.Builder(LoginActivity.this)
+                    .setTitle("未設定伺服器位址!!")
+                    .setMessage("請聯繫管理員取得伺服器位址")
+                    .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(LoginActivity.this, PrefsActivity.class));
+                        }
+                    })
+                    .show();
+        }
+
         setListener();
     }
 
@@ -74,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
         btn_change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri uri = Uri.parse(server_url+"change_pw.php");
+                Uri uri = Uri.parse("http://"+server_url+"change_pw.php");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             }
@@ -120,8 +135,6 @@ public class LoginActivity extends AppCompatActivity {
                                                                     .add("mode", "forget_pw")
                                                                     .add("email", input.getText().toString())
                                                                     .build());
-                                                    //URL url = new URL(server_url+"user.php?mode=forget_pw&email="+input.getText().toString());
-                                                    //url.openStream();
                                                     runOnUiThread(new Runnable() {
                                                         public void run() {
                                                             new AlertDialog.Builder(LoginActivity.this)
@@ -362,7 +375,7 @@ public class LoginActivity extends AppCompatActivity {
                     .dns(new OkHttpDns2(10000))
                     .build();
             Request request = new Request.Builder()
-                    .url(server_url+data)
+                    .url("http://"+server_url+data)
                     .post(formBody) // 使用post連線
                     .build();
             Call call = client.newCall(request);
