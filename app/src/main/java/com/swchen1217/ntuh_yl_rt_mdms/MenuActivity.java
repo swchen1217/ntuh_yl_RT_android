@@ -91,9 +91,6 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
                 return true;
-            /*case R.id.exit:
-                closeBT();
-                finish();*/
         }
         return false;
     }

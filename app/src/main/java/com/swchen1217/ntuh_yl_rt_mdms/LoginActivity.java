@@ -453,9 +453,6 @@ public class LoginActivity extends AppCompatActivity {
             case R.id.settings:
                 startActivity(new Intent(this, PrefsActivity.class));
                 return true;
-            /*case R.id.exit:
-                closeBT();
-                finish();*/
         }
         return false;
     }
