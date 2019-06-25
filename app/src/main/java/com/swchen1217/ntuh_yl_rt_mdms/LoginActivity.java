@@ -89,6 +89,7 @@ public class LoginActivity extends AppCompatActivity {
         btn_change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getServerIP();
                 Uri uri = Uri.parse("http://"+server_url+"change_pw.php");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
@@ -360,6 +361,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public String PostDataToSrever(String data, FormBody formBody) throws IOException {
         if(isConnected()){
+            getServerIP();
             runOnUiThread(new Runnable() {
                 public void run() {
                     //Code goes here
@@ -454,5 +456,22 @@ public class LoginActivity extends AppCompatActivity {
                 finish();*/
         }
         return false;
+    }
+
+    public void getServerIP(){
+        if(PrefsActivity.getServer(LoginActivity.this)!=""){
+            server_url=PrefsActivity.getServer(LoginActivity.this)+"/ntuh_yl_RT_mdms_php/";
+        }else{
+            new AlertDialog.Builder(LoginActivity.this)
+                    .setTitle("未設定伺服器位址!!")
+                    .setMessage("請聯繫管理員取得伺服器位址")
+                    .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(LoginActivity.this, PrefsActivity.class));
+                        }
+                    })
+                    .show();
+        }
     }
 }

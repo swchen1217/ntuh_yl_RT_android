@@ -22,22 +22,26 @@ public class PrefsActivity extends PreferenceActivity {
         addPreferencesFromResource(R.xml.setting);
         Log.d("MyLog","PrefsActivity onCreate");
         et_s= (EditTextPreference) findPreference("server");
+        et_s.setSummary(PreferenceManager.getDefaultSharedPreferences(this)
+                .getString("server", ""));
         et_s.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 if(newValue.toString().equals("")){
                     new AlertDialog.Builder(PrefsActivity.this)
                             .setTitle("伺服器位址不能為空!!")
+                            .setMessage("請重新輸入")
                             .setPositiveButton("確定", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                 }
                             })
                             .show();
+                    preference.setSummary(newValue.toString());
                 }else{
                     preference.setSummary(newValue.toString());
                 }
-                return false;
+                return true;
             }
         });
     }
