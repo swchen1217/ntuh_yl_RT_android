@@ -381,7 +381,7 @@ public class LoginActivity extends AppCompatActivity {
                         .post(formBody) // 使用post連線
                         .build();*/
                 Request request = new Request.Builder()
-                        .url("https://8.8.8.8/")
+                        .url("https://google.com/")
                         .build();
                 Call call = client.newCall(request);
                 try (Response response = call.execute()) {
