@@ -376,25 +376,43 @@ public class LoginActivity extends AppCompatActivity {
                         .connectTimeout(5, TimeUnit.SECONDS)
                         .dns(new OkHttpDns2(10000))
                         .build();
-                /*Request request = new Request.Builder()
+                Request request = new Request.Builder()
                         .url("http://"+server_url+data)
                         .post(formBody) // 使用post連線
-                        .build();*/
-                Request request = new Request.Builder()
-                        .url("https://www.google.com/")
                         .build();
+                /*Request request = new Request.Builder()
+                        .url("https://www.google.com/") //Google
+                        .build();*/
                 Call call = client.newCall(request);
                 try (Response response = call.execute()) {
                     return response.body().string();
                 }catch(Exception e){
                     Log.d("OkHttp","Error:"+e.toString());
                     if (e instanceof UnknownHostException) {
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                //Code goes here
-                                Toast.makeText(LoginActivity.this, "無法連接至網際網路", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        OkHttpClient client2 = new OkHttpClient()
+                                .newBuilder().addInterceptor(logging)
+                                .connectTimeout(5, TimeUnit.SECONDS)
+                                .dns(new OkHttpDns2(10000))
+                                .build();
+                        Request request2 = new Request.Builder()
+                                .url("https://www.google.com/") //Google
+                                .build();
+                        Call call2 = client2.newCall(request2);
+                        try (Response response = call.execute()){
+                            runOnUiThread(new Runnable() {
+                                public void run() {
+                                    //Code goes here
+                                    Toast.makeText(LoginActivity.this, "無法連接至伺服器", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }catch(Exception e2){
+                            runOnUiThread(new Runnable() {
+                                public void run() {
+                                    //Code goes here
+                                    Toast.makeText(LoginActivity.this, "無法連接至網際網路", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
                     }
                     if (e instanceof SocketTimeoutException) {
                         //判断超时异常
