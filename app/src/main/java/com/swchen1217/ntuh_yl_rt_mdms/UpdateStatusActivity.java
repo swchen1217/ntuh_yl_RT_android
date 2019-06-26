@@ -2,6 +2,7 @@ package com.swchen1217.ntuh_yl_rt_mdms;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
     TextView tv_input;
     String input_data=null;
     RadioButton rb_use,rb_stock,rb_fix;
+    ConstraintLayout cl_use,cl_stock,cl_fix;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,12 @@ public class UpdateStatusActivity extends AppCompatActivity {
         rb_use=findViewById(R.id.rb_use);
         rb_stock=findViewById(R.id.rb_stock);
         rb_fix=findViewById(R.id.rb_fix);
+        cl_use=findViewById(R.id.cl_use);
+        cl_stock=findViewById(R.id.cl_stock);
+        cl_fix=findViewById(R.id.cl_fix);
+        cl_use.setVisibility(View.VISIBLE);
+        cl_stock.setVisibility(View.INVISIBLE);
+        cl_fix.setVisibility(View.INVISIBLE);
         btn_qr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,6 +80,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(rb_use.isChecked()){
+                    ChangeLayout("use");
                     if(input_data.length()<6 || !input_data.substring(0,6).equals("MDMS.D")){
 
                     }else{
@@ -79,8 +88,10 @@ public class UpdateStatusActivity extends AppCompatActivity {
                     }
                     Log.d("RB","1");
                 }else if(rb_stock.isChecked()){
+                    ChangeLayout("stock");
                     Log.d("RB","2");
                 }else if(rb_fix.isChecked()){
+                    ChangeLayout("fix");
                     Log.d("RB","3");
                 }
             }
@@ -115,6 +126,24 @@ public class UpdateStatusActivity extends AppCompatActivity {
                 tv_input.setText(" 設備編號："+input);
             }
             input_data=input;
+        }
+    }
+
+    public void ChangeLayout(String checked){
+        if(checked.equals("use")){
+            cl_use.setVisibility(View.VISIBLE);
+            cl_stock.setVisibility(View.INVISIBLE);
+            cl_fix.setVisibility(View.INVISIBLE);
+        }
+        if(checked.equals("stock")){
+            cl_use.setVisibility(View.INVISIBLE);
+            cl_stock.setVisibility(View.VISIBLE);
+            cl_fix.setVisibility(View.INVISIBLE);
+        }
+        if(checked.equals("fix")){
+            cl_use.setVisibility(View.INVISIBLE);
+            cl_stock.setVisibility(View.INVISIBLE);
+            cl_fix.setVisibility(View.VISIBLE);
         }
     }
 }
