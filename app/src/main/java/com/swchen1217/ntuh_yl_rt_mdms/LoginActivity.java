@@ -398,7 +398,7 @@ public class LoginActivity extends AppCompatActivity {
                                 .url("https://www.google.com/") //Google
                                 .build();
                         Call call2 = client2.newCall(request2);
-                        try (Response response = call.execute()){
+                        try (Response response2 = call2.execute()){
                             runOnUiThread(new Runnable() {
                                 public void run() {
                                     //Code goes here
