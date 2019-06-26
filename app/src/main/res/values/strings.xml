@@ -4,6 +4,5 @@
     <string name="login_subtitle">Medical Device Manage System</string>
     <string name="login_login">員工登入</string>
     <string name="login_acc">員工編號</string>
-    <string name="login_pw">密碼</string>
-    <drawable name="c1">#cccccc</drawable>
+    <string name="login_pw">密碼</string>>
 </resources>

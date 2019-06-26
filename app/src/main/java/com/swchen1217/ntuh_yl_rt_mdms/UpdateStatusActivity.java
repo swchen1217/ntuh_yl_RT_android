@@ -82,10 +82,6 @@ public class UpdateStatusActivity extends AppCompatActivity {
         btn_CheckInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rg.setEnabled(false);
-                rb_use.setEnabled(false);
-                rb_stock.setEnabled(false);
-                rb_fix.setEnabled(false);
                 btn_qr.setEnabled(false);
                 btn_manual.setEnabled(false);
                 if(rb_use.isChecked()){
@@ -140,16 +136,25 @@ public class UpdateStatusActivity extends AppCompatActivity {
 
     public void ChangeLayout(String checked){
         if(checked.equals("use")){
+            rb_use.setEnabled(true);
+            rb_stock.setEnabled(false);
+            rb_fix.setEnabled(false);
             cl_use.setVisibility(View.VISIBLE);
             cl_stock.setVisibility(View.INVISIBLE);
             cl_fix.setVisibility(View.INVISIBLE);
         }
         if(checked.equals("stock")){
+            rb_use.setEnabled(false);
+            rb_stock.setEnabled(true);
+            rb_fix.setEnabled(false);
             cl_use.setVisibility(View.INVISIBLE);
             cl_stock.setVisibility(View.VISIBLE);
             cl_fix.setVisibility(View.INVISIBLE);
         }
         if(checked.equals("fix")){
+            rb_use.setEnabled(false);
+            rb_stock.setEnabled(false);
+            rb_fix.setEnabled(true);
             cl_use.setVisibility(View.INVISIBLE);
             cl_stock.setVisibility(View.INVISIBLE);
             cl_fix.setVisibility(View.VISIBLE);
