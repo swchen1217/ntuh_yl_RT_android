@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
     String input_data=null;
     RadioButton rb_use,rb_stock,rb_fix;
     ConstraintLayout cl_use,cl_stock,cl_fix;
+    RadioGroup rg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
         cl_use.setVisibility(View.INVISIBLE);
         cl_stock.setVisibility(View.INVISIBLE);
         cl_fix.setVisibility(View.INVISIBLE);
+        rg=findViewById(R.id.radioGroup);
         btn_qr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,6 +82,11 @@ public class UpdateStatusActivity extends AppCompatActivity {
         btn_CheckInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                rb_use.setEnabled(false);
+                rb_stock.setEnabled(false);
+                rb_fix.setEnabled(false);
+                btn_qr.setEnabled(false);
+                btn_manual.setEnabled(false);
                 if(rb_use.isChecked()){
                     ChangeLayout("use");
                     if(input_data.length()<6 || !input_data.substring(0,6).equals("MDMS.D")){
