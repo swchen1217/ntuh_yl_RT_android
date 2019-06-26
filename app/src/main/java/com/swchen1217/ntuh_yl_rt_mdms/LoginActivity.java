@@ -371,7 +371,6 @@ public class LoginActivity extends AppCompatActivity {
                 });
                 HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
                 logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-                //logging.setLevel(HttpLoggingInterceptor.Level.BODY);
                 OkHttpClient client = new OkHttpClient()
                         .newBuilder().addInterceptor(logging)
                         .connectTimeout(5, TimeUnit.SECONDS)
@@ -382,7 +381,7 @@ public class LoginActivity extends AppCompatActivity {
                         .post(formBody) // 使用post連線
                         .build();*/
                 Request request = new Request.Builder()
-                        .url(server_url)
+                        .url("https://www.google.com/")
                         .build();
                 Call call = client.newCall(request);
                 try (Response response = call.execute()) {
