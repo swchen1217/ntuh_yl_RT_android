@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
     RadioButton rb_use,rb_stock,rb_fix;
     ConstraintLayout cl_use,cl_stock,cl_fix;
     RadioGroup rg;
+    ImageButton btn_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,13 @@ public class UpdateStatusActivity extends AppCompatActivity {
         cl_stock.setVisibility(View.INVISIBLE);
         cl_fix.setVisibility(View.INVISIBLE);
         rg=findViewById(R.id.radioGroup);
+        btn_back=findViewById(R.id.btn_back);
+        btn_back.setVisibility(View.INVISIBLE);
+
+        setListener();
+    }
+
+    public void setListener(){
         btn_qr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,6 +73,8 @@ public class UpdateStatusActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EditText input = new EditText(UpdateStatusActivity.this);
+                if(tv_input.getText().toString().length()>4)
+                    input.setText(tv_input.getText().toString().substring(6));
                 new AlertDialog.Builder(UpdateStatusActivity.this)
                         .setTitle("手動輸入")
                         .setMessage("請輸入設備ID或設備編號(設備ID位於QR Code 下方)")
@@ -82,6 +93,8 @@ public class UpdateStatusActivity extends AppCompatActivity {
         btn_CheckInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btn_back.setVisibility(View.VISIBLE);
+                btn_CheckInput.setEnabled(false);
                 btn_qr.setEnabled(false);
                 btn_manual.setEnabled(false);
                 if(rb_use.isChecked()){
@@ -101,7 +114,24 @@ public class UpdateStatusActivity extends AppCompatActivity {
                 }
             }
         });
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btn_back.setVisibility(View.INVISIBLE);
+                btn_CheckInput.setEnabled(true);
+                btn_qr.setEnabled(true);
+                btn_manual.setEnabled(true);
+                rb_use.setEnabled(true);
+                rb_stock.setEnabled(true);
+                rb_fix.setEnabled(true);
+                cl_use.setVisibility(View.INVISIBLE);
+                cl_stock.setVisibility(View.INVISIBLE);
+                cl_fix.setVisibility(View.INVISIBLE);
+
+            }
+        });
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
@@ -123,8 +153,11 @@ public class UpdateStatusActivity extends AppCompatActivity {
         if(input.equals("")){
             tv_input.setText("");
             btn_CheckInput.setVisibility(View.INVISIBLE);
+            btn_back.setVisibility(View.INVISIBLE);
         }else{
             btn_CheckInput.setVisibility(View.VISIBLE);
+            btn_CheckInput.setEnabled(true);
+            btn_back.setVisibility(View.INVISIBLE);
             if(mode==1){
                 tv_input.setText(" 設備ID："+input);
             }else if(mode==2){
