@@ -40,7 +40,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
         cl_use=findViewById(R.id.cl_use);
         cl_stock=findViewById(R.id.cl_stock);
         cl_fix=findViewById(R.id.cl_fix);
-        cl_use.setVisibility(View.VISIBLE);
+        cl_use.setVisibility(View.INVISIBLE);
         cl_stock.setVisibility(View.INVISIBLE);
         cl_fix.setVisibility(View.INVISIBLE);
         btn_qr.setOnClickListener(new View.OnClickListener() {
