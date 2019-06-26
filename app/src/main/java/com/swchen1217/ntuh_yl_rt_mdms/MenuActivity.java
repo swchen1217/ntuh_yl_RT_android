@@ -24,6 +24,10 @@ public class MenuActivity extends AppCompatActivity {
         btn_MaintenanceCheck=findViewById(R.id.btn_menu_5);
         btn_Manage=findViewById(R.id.btn_menu_6);
 
+        setListener();
+    }
+
+    public void setListener(){
         btn_UpdateStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
