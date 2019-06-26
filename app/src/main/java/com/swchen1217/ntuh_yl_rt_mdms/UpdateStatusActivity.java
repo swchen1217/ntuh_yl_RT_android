@@ -82,6 +82,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
         btn_CheckInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                rg.setEnabled(false);
                 rb_use.setEnabled(false);
                 rb_stock.setEnabled(false);
                 rb_fix.setEnabled(false);
