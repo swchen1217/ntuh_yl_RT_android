@@ -377,9 +377,12 @@ public class LoginActivity extends AppCompatActivity {
                         .connectTimeout(5, TimeUnit.SECONDS)
                         .dns(new OkHttpDns2(10000))
                         .build();
-                Request request = new Request.Builder()
+                /*Request request = new Request.Builder()
                         .url("http://"+server_url+data)
                         .post(formBody) // 使用post連線
+                        .build();*/
+                Request request = new Request.Builder()
+                        .url(server_url)
                         .build();
                 Call call = client.newCall(request);
                 try (Response response = call.execute()) {
