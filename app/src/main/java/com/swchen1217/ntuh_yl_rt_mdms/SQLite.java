@@ -1,6 +1,8 @@
 package com.swchen1217.ntuh_yl_rt_mdms;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -11,21 +13,21 @@ public class SQLite extends SQLiteOpenHelper {
 
     private SQLiteDatabase db;
 
-    public SQLite(Context context,String name,SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    public SQLite(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         String DATABASE_CREATE_TABLE =
-                "CREATE TABLE `device_tb` (\n" +
-                        "  `DID` varchar(30) COLLATE utf8_unicode_ci NOT NULL,\n" +
-                        "  `category` varchar(30) COLLATE utf8_unicode_ci NOT NULL,\n" +
-                        "  `model` varchar(30) COLLATE utf8_unicode_ci NOT NULL,\n" +
-                        "  `number` varchar(30) COLLATE utf8_unicode_ci NOT NULL,\n" +
-                        "  `user` varchar(30) COLLATE utf8_unicode_ci NOT NULL,\n" +
-                        "  `position` varchar(30) COLLATE utf8_unicode_ci NOT NULL,\n" +
-                        "  `status` varchar(30) COLLATE utf8_unicode_ci NOT NULL\n" +
+                "CREATE TABLE `device_tb` (" +
+                        "  `DID` varchar(30) COLLATE utf8_unicode_ci NOT NULL," +
+                        "  `category` varchar(30) COLLATE utf8_unicode_ci NOT NULL," +
+                        "  `model` varchar(30) COLLATE utf8_unicode_ci NOT NULL," +
+                        "  `number` varchar(30) COLLATE utf8_unicode_ci NOT NULL," +
+                        "  `user` varchar(30) COLLATE utf8_unicode_ci NOT NULL," +
+                        "  `position` varchar(30) COLLATE utf8_unicode_ci NOT NULL," +
+                        "  `status` varchar(30) COLLATE utf8_unicode_ci NOT NULL" +
                         ")";
         db.execSQL(DATABASE_CREATE_TABLE);
     }
@@ -34,5 +36,21 @@ public class SQLite extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS device_tb");  //刪除舊有的資料表
         onCreate(db);
+    }
+
+    public void inster(String tb_name,ContentValues cv_input) {
+        db.insert(tb_name, null, cv_input);
+    }
+
+    public void update(String tb_name,ContentValues cv_input,String where) {
+        db.update(tb_name,cv_input,where,null);
+    }
+
+    public void remove(String tb_name,String where) {
+        db.delete(tb_name, where,null);
+    }
+
+    public Cursor getAll(String tb_name,String[] key,String where,String groupBy,String having,String orderBy) {
+        return db.query(tb_name,key,where,null, groupBy, having, orderBy);
     }
 }
