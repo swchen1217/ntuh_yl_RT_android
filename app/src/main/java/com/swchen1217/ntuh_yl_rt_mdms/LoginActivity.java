@@ -48,8 +48,6 @@ public class LoginActivity extends AppCompatActivity {
     private long exitTime = 0;
     SharedPreferences spf_rememberme;
 
-    SQLite test=new SQLite(this);
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,14 +89,20 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void test1(){
+        SQLite test=new SQLite(this);
         ContentValues cv=new ContentValues();
         cv.put("DID","MDMS.D0005");
         test.inster("device_tb",cv);
     }
     public void test2(){
-        Cursor c=test.selectAll("device_tb",null,null,null,null,null);
-        c.moveToFirst();
-        Log.d("test2",c.getString(0));
+        SQLite test2=new SQLite(this);
+        String key
+        Cursor c=test2.selectAll("device_tb",null,null,null,null,null);
+        int rows_num = c.getCount();
+        if(rows_num != 0){
+            c.moveToFirst();
+            Log.d("test2",c.getString(0));
+        }
         c.close();
     }
 
@@ -106,6 +110,8 @@ public class LoginActivity extends AppCompatActivity {
         btn_change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                test1();
+                test2();
                 if(getServerIP_check()){
                     Uri uri = Uri.parse("http://"+server_url+"change_pw.php");
                     Intent intent = new Intent(Intent.ACTION_VIEW, uri);

@@ -15,6 +15,7 @@ public class SQLite extends SQLiteOpenHelper {
 
     public SQLite(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        db = this.getWritableDatabase();
     }
 
     @Override
