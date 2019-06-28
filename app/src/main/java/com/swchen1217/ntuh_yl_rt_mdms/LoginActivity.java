@@ -46,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     String server_url="";
     private long exitTime = 0;
     SharedPreferences spf_rememberme;
+    ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -349,12 +350,15 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public String PostDataToSrever(String data, FormBody formBody) throws IOException {
-        
-        ProgressDialog pd=new ProgressDialog(LoginActivity.this);
-        pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        pd.setMessage("與伺服器連線中...");
-        pd.setCancelable(false);
-
+        runOnUiThread(new Runnable() {
+            public void run() {
+                //Code goes here
+                pd=new ProgressDialog(LoginActivity.this);
+                pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                pd.setMessage("與伺服器連線中...");
+                pd.setCancelable(false);
+            }
+        });
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = cm.getActiveNetworkInfo();
 
