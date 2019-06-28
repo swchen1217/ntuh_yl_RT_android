@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class SQLite extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "moke_config.db"; //資料庫名稱
+    private static final String DATABASE_NAME = "ntuh.yl_mdms.db"; //資料庫名稱
     private static final int DATABASE_VERSION = 1;  //資料庫版本
 
     private SQLiteDatabase db;
