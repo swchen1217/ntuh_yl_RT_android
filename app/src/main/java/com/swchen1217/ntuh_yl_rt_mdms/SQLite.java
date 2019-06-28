@@ -21,13 +21,13 @@ public class SQLite extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String DATABASE_CREATE_TABLE =
                 "CREATE TABLE `device_tb` (" +
-                        "  `DID` varchar(30) COLLATE utf8_unicode_ci NOT NULL," +
-                        "  `category` varchar(30) COLLATE utf8_unicode_ci NOT NULL," +
-                        "  `model` varchar(30) COLLATE utf8_unicode_ci NOT NULL," +
-                        "  `number` varchar(30) COLLATE utf8_unicode_ci NOT NULL," +
-                        "  `user` varchar(30) COLLATE utf8_unicode_ci NOT NULL," +
-                        "  `position` varchar(30) COLLATE utf8_unicode_ci NOT NULL," +
-                        "  `status` varchar(30) COLLATE utf8_unicode_ci NOT NULL" +
+                        "  `DID` TEXT NOT NULL," +
+                        "  `category` TEXT NOT NULL," +
+                        "  `model` TEXT NOT NULL," +
+                        "  `number` TEXT NOT NULL," +
+                        "  `user` TEXT NOT NULL," +
+                        "  `position` TEXT NOT NULL," +
+                        "  `status` TEXT NOT NULL" +
                         ")";
         db.execSQL(DATABASE_CREATE_TABLE);
     }
