@@ -65,20 +65,6 @@ public class LoginActivity extends AppCompatActivity {
         if(spf_rememberme.getString("acc","")!="")
             cb_rememberme.setChecked(true);
 
-        /*if(PrefsActivity.getServer(LoginActivity.this)!=""){
-            server_url=PrefsActivity.getServer(LoginActivity.this)+"/ntuh_yl_RT_mdms_php/";
-        }else{
-            new AlertDialog.Builder(LoginActivity.this)
-                    .setTitle("未設定伺服器位址!!")
-                    .setMessage("請聯繫管理員取得伺服器位址")
-                    .setPositiveButton("確定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            startActivity(new Intent(LoginActivity.this, PrefsActivity.class));
-                        }
-                    })
-                    .show();
-        }*/
         getServerIP_check();
 
         setListener();
@@ -350,7 +336,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public String PostDataToSrever(String data, FormBody formBody) throws IOException {
+    public String PostDataToSrever(String file, FormBody formBody) throws IOException {
         runOnUiThread(new Runnable() {
             public void run() {
                 //Code goes here
@@ -379,7 +365,7 @@ public class LoginActivity extends AppCompatActivity {
                         .dns(new OkHttpDns2(10000))
                         .build();
                 Request request = new Request.Builder()
-                        .url("http://"+server_url+data)
+                        .url("http://"+server_url+file)
                         .post(formBody) // 使用post連線
                         .build();
                 /*Request request = new Request.Builder()

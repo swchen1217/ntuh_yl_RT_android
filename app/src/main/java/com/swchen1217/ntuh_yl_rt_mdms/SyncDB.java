@@ -31,7 +31,7 @@ public class SyncDB extends Activity {
 
     }
 
-    public String PostDataToSrever(String data, FormBody formBody) throws IOException {
+    public String PostDataToSrever(String file, FormBody formBody) throws IOException {
         runOnUiThread(new Runnable() {
             public void run() {
                 //Code goes here
@@ -60,7 +60,7 @@ public class SyncDB extends Activity {
                         .dns(new OkHttpDns2(10000))
                         .build();
                 Request request = new Request.Builder()
-                        .url("http://"+server_url+data)
+                        .url("http://"+server_url+file)
                         .post(formBody) // 使用post連線
                         .build();
                 Call call = client.newCall(request);

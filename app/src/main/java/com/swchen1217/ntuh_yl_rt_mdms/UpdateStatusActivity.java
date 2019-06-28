@@ -93,6 +93,8 @@ public class UpdateStatusActivity extends AppCompatActivity {
         btn_CheckInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String tmp=new SyncDB().PostDataToSrever()
+
                 btn_back.setVisibility(View.VISIBLE);
                 btn_CheckInput.setEnabled(false);
                 btn_qr.setEnabled(false);
