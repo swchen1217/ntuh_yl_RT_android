@@ -18,16 +18,21 @@ public class SQLite extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String DATABASE_CREATE_TABLE =
-                "create table config ("
-                        + "_ID INTEGER PRIMARY KEY,"
-                        + "name TEXT,"
-                        + "value INTEGER"
-                        + ");";
+                "CREATE TABLE `device_tb` (\n" +
+                        "  `DID` varchar(30) COLLATE utf8_unicode_ci NOT NULL,\n" +
+                        "  `category` varchar(30) COLLATE utf8_unicode_ci NOT NULL,\n" +
+                        "  `model` varchar(30) COLLATE utf8_unicode_ci NOT NULL,\n" +
+                        "  `number` varchar(30) COLLATE utf8_unicode_ci NOT NULL,\n" +
+                        "  `user` varchar(30) COLLATE utf8_unicode_ci NOT NULL,\n" +
+                        "  `position` varchar(30) COLLATE utf8_unicode_ci NOT NULL,\n" +
+                        "  `status` varchar(30) COLLATE utf8_unicode_ci NOT NULL\n" +
+                        ")";
         db.execSQL(DATABASE_CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL("DROP TABLE IF EXISTS device_tb");  //刪除舊有的資料表
+        onCreate(db);
     }
 }
