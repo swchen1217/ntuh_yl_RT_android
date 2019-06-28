@@ -47,6 +47,9 @@ public class LoginActivity extends AppCompatActivity {
     String server_url="";
     private long exitTime = 0;
     SharedPreferences spf_rememberme;
+
+    SQLite test=new SQLite(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,11 +90,16 @@ public class LoginActivity extends AppCompatActivity {
         setListener();
     }
 
-    public void test(){
-        SQLite test=new SQLite(this);
+    public void test1(){
         ContentValues cv=new ContentValues();
         cv.put("DID","MDMS.D0005");
         test.inster("device_tb",cv);
+    }
+    public void test2(){
+        Cursor c=test.selectAll("device_tb",null,null,null,null,null);
+        c.moveToFirst();
+        Log.d("test2",c.getString(0));
+        c.close();
     }
 
     public void setListener(){
