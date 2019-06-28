@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class SQLite extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "ntuh.yl_mdms.db"; //資料庫名稱
-    private static final int DATABASE_VERSION = 2;  //資料庫版本
+    private static final int DATABASE_VERSION = 3;  //資料庫版本
 
     private SQLiteDatabase db;
 
@@ -19,8 +19,8 @@ public class SQLite extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
-        String DATABASE_CREATE_TABLE =
+        public void onCreate(SQLiteDatabase db) {
+            String DATABASE_CREATE_TABLE =
                 "CREATE TABLE device_tb (" +
                         "  `DID` TEXT," +
                         "  `category` TEXT," +
@@ -28,7 +28,8 @@ public class SQLite extends SQLiteOpenHelper {
                         "  `number` TEXT," +
                         "  `user` TEXT," +
                         "  `position` TEXT," +
-                        "  `status` TEXT" +
+                        "  `status` TEXT," +
+                        "  `LastModified` TEXT" +
                         ")";
         db.execSQL(DATABASE_CREATE_TABLE);
     }
