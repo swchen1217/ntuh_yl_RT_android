@@ -1,10 +1,12 @@
 package com.swchen1217.ntuh_yl_rt_mdms;
 
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -83,6 +85,13 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         setListener();
+    }
+
+    public void test(){
+        SQLite test=new SQLite(this);
+        ContentValues cv=new ContentValues();
+        cv.put("DID","MDMS.D0005");
+        test.inster("device_tb",cv);
     }
 
     public void setListener(){

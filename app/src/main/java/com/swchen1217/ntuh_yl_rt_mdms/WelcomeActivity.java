@@ -24,8 +24,6 @@ public class WelcomeActivity extends AppCompatActivity {
         tv_1=findViewById(R.id.textView);
         tv_2=findViewById(R.id.textView2);
 
-        SQLite test=new SQLite(this);
-
         if(engineering_mode_SkipWelcome==true){
             Toast.makeText(WelcomeActivity.this, "工程模式_SkipWelcome", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(WelcomeActivity.this,LoginActivity.class));
