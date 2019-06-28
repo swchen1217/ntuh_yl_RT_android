@@ -96,7 +96,6 @@ public class LoginActivity extends AppCompatActivity {
     }
     public void test2(){
         SQLite test2=new SQLite(this);
-        String key
         Cursor c=test2.selectAll("device_tb",null,null,null,null,null);
         int rows_num = c.getCount();
         if(rows_num != 0){
