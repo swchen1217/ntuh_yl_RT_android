@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -23,9 +24,13 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 
-public class SyncDB extends Activity {
+public class SyncDB extends AppCompatActivity {
     ProgressDialog pd;
     String server_url="";
+
+    SyncDB() {
+
+    }
 
     public void SyncDeviceTable(){
 
@@ -41,111 +46,72 @@ public class SyncDB extends Activity {
                 pd.setCancelable(false);
             }
         });
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-
-        if(networkInfo != null && networkInfo.isConnected()){
-            if(getServerIP_check()){
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        //Code goes here
-                        pd.show();
-                    }
-                });
-                HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-                logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-                OkHttpClient client = new OkHttpClient()
+        runOnUiThread(new Runnable() {
+            public void run() {
+                //Code goes here
+                pd.show();
+            }
+        });
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient()
+                .newBuilder().addInterceptor(logging)
+                .connectTimeout(5, TimeUnit.SECONDS)
+                .dns(new OkHttpDns2(10000))
+                .build();
+        Request request = new Request.Builder()
+                .url("http://"+server_url+file)
+                .post(formBody) // 使用post連線
+                .build();
+        Call call = client.newCall(request);
+        try (Response response = call.execute()) {
+            return response.body().string();
+        }catch(Exception e){
+            Log.d("OkHttp","Error:"+e.toString());
+            if (e instanceof UnknownHostException) {
+                OkHttpClient client2 = new OkHttpClient()
                         .newBuilder().addInterceptor(logging)
                         .connectTimeout(5, TimeUnit.SECONDS)
                         .dns(new OkHttpDns2(10000))
                         .build();
-                Request request = new Request.Builder()
-                        .url("http://"+server_url+file)
-                        .post(formBody) // 使用post連線
+                Request request2 = new Request.Builder()
+                        .url("https://www.google.com/") //Google
                         .build();
-                Call call = client.newCall(request);
-                try (Response response = call.execute()) {
-                    return response.body().string();
-                }catch(Exception e){
-                    Log.d("OkHttp","Error:"+e.toString());
-                    if (e instanceof UnknownHostException) {
-                        OkHttpClient client2 = new OkHttpClient()
-                                .newBuilder().addInterceptor(logging)
-                                .connectTimeout(5, TimeUnit.SECONDS)
-                                .dns(new OkHttpDns2(10000))
-                                .build();
-                        Request request2 = new Request.Builder()
-                                .url("https://www.google.com/") //Google
-                                .build();
-                        Call call2 = client2.newCall(request2);
-                        try (Response response2 = call2.execute()){
-                            runOnUiThread(new Runnable() {
-                                public void run() {
-                                    //Code goes here
-                                    Toast.makeText(SyncDB.this, "無法連接至伺服器", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }catch(Exception e2){
-                            runOnUiThread(new Runnable() {
-                                public void run() {
-                                    //Code goes here
-                                    Toast.makeText(SyncDB.this, "無法連接至網際網路", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }
-                    }
-                    if (e instanceof SocketTimeoutException) {
-                        //判断超时异常
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                //Code goes here
-                                Toast.makeText(SyncDB.this, "無法連接至伺服器", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                    return null;
-                }
-                finally {
+                Call call2 = client2.newCall(request2);
+                try (Response response2 = call2.execute()){
                     runOnUiThread(new Runnable() {
                         public void run() {
                             //Code goes here
-                            pd.dismiss();
+                            Toast.makeText(SyncDB.this, "無法連接至伺服器", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }catch(Exception e2){
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            //Code goes here
+                            Toast.makeText(SyncDB.this, "無法連接至網際網路", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
             }
-        }else{
-            runOnUiThread(new Runnable() {
-                public void run() {
-                    //Code goes here
-                    Toast.makeText(SyncDB.this, "無網路連接", Toast.LENGTH_SHORT).show();
-                }
-            });
+            if (e instanceof SocketTimeoutException) {
+                //判断超时异常
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        //Code goes here
+                        Toast.makeText(SyncDB.this, "無法連接至伺服器", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+            return null;
         }
-        return null;
-    }
-
-    public boolean getServerIP_check(){
-        if(PrefsActivity.getServer(this)!=""){
-            server_url=PrefsActivity.getServer(this)+"/ntuh_yl_RT_mdms_php/";
-            return true;
-        }else{
+        finally {
             runOnUiThread(new Runnable() {
                 public void run() {
                     //Code goes here
-                    new AlertDialog.Builder(SyncDB.this)
-                            .setTitle("未設定伺服器位址!!")
-                            .setMessage("請聯繫管理員取得伺服器位址")
-                            .setPositiveButton("確定", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    startActivity(new Intent(SyncDB.this, PrefsActivity.class));
-                                }
-                            })
-                            .show();
+                    pd.dismiss();
                 }
             });
-            return false;
         }
     }
 }

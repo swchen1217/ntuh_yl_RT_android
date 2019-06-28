@@ -97,17 +97,22 @@ public class UpdateStatusActivity extends AppCompatActivity {
         btn_CheckInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    String tmp=new SyncDB().PostDataToSrever("db.php",
-                            new FormBody.Builder()
-                                    .add("mode", "sync_device_tb")
-                                    .add("LastModified", "2019-06-28 21:00:00")
-                                    .build());
-                    Log.d("test0",tmp);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            String tmp=new SyncDB().PostDataToSrever("db.php",
+                                    new FormBody.Builder()
+                                            .add("mode", "sync_device_tb")
+                                            .add("LastModified", "2019-06-28 21:00:00")
+                                            .build());
+                            Log.d("test0",tmp);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                thread.start();
                 btn_back.setVisibility(View.VISIBLE);
                 btn_CheckInput.setEnabled(false);
                 btn_qr.setEnabled(false);
