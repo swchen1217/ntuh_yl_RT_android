@@ -19,6 +19,10 @@ import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.io.IOException;
+
+import okhttp3.FormBody;
+
 public class UpdateStatusActivity extends AppCompatActivity {
 
     Button btn_qr,btn_manual,btn_CheckInput;
@@ -93,7 +97,16 @@ public class UpdateStatusActivity extends AppCompatActivity {
         btn_CheckInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String tmp=new SyncDB().PostDataToSrever()
+                try {
+                    String tmp=new SyncDB().PostDataToSrever("db.php",
+                            new FormBody.Builder()
+                                    .add("mode", "sync_device_tb")
+                                    .add("LastModified", "2019-06-28 21:00:00")
+                                    .build());
+                    Log.d("test0",tmp);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
                 btn_back.setVisibility(View.VISIBLE);
                 btn_CheckInput.setEnabled(false);
