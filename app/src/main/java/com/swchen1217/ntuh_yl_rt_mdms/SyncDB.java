@@ -1,6 +1,7 @@
 package com.swchen1217.ntuh_yl_rt_mdms;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,12 +24,23 @@ import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 
 public class SyncDB extends Activity {
+    ProgressDialog pd;
+    String server_url="";
 
     public void SyncDeviceTable(){
 
     }
 
-    /*public String PostDataToSrever(String data, FormBody formBody) throws IOException {
+    public String PostDataToSrever(String data, FormBody formBody) throws IOException {
+        runOnUiThread(new Runnable() {
+            public void run() {
+                //Code goes here
+                pd=new ProgressDialog(SyncDB.this);
+                pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                pd.setMessage("與伺服器連線中...");
+                pd.setCancelable(false);
+            }
+        });
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = cm.getActiveNetworkInfo();
 
@@ -70,14 +82,14 @@ public class SyncDB extends Activity {
                             runOnUiThread(new Runnable() {
                                 public void run() {
                                     //Code goes here
-                                    Toast.makeText(LoginActivity.this, "無法連接至伺服器", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SyncDB.this, "無法連接至伺服器", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }catch(Exception e2){
                             runOnUiThread(new Runnable() {
                                 public void run() {
                                     //Code goes here
-                                    Toast.makeText(LoginActivity.this, "無法連接至網際網路", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SyncDB.this, "無法連接至網際網路", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
@@ -87,7 +99,7 @@ public class SyncDB extends Activity {
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 //Code goes here
-                                Toast.makeText(LoginActivity.this, "無法連接至伺服器", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SyncDB.this, "無法連接至伺服器", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -106,7 +118,7 @@ public class SyncDB extends Activity {
             runOnUiThread(new Runnable() {
                 public void run() {
                     //Code goes here
-                    Toast.makeText(LoginActivity.this, "無網路連接", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SyncDB.this, "無網路連接", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -114,20 +126,20 @@ public class SyncDB extends Activity {
     }
 
     public boolean getServerIP_check(){
-        if(PrefsActivity.getServer(LoginActivity.this)!=""){
-            server_url=PrefsActivity.getServer(LoginActivity.this)+"/ntuh_yl_RT_mdms_php/";
+        if(PrefsActivity.getServer(this)!=""){
+            server_url=PrefsActivity.getServer(this)+"/ntuh_yl_RT_mdms_php/";
             return true;
         }else{
             runOnUiThread(new Runnable() {
                 public void run() {
                     //Code goes here
-                    new AlertDialog.Builder(LoginActivity.this)
+                    new AlertDialog.Builder(SyncDB.this)
                             .setTitle("未設定伺服器位址!!")
                             .setMessage("請聯繫管理員取得伺服器位址")
                             .setPositiveButton("確定", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    startActivity(new Intent(LoginActivity.this, PrefsActivity.class));
+                                    startActivity(new Intent(SyncDB.this, PrefsActivity.class));
                                 }
                             })
                             .show();
@@ -135,5 +147,5 @@ public class SyncDB extends Activity {
             });
             return false;
         }
-    }*/
+    }
 }

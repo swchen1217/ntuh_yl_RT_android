@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
         if(spf_rememberme.getString("acc","")!="")
             cb_rememberme.setChecked(true);
 
-        if(PrefsActivity.getServer(LoginActivity.this)!=""){
+        /*if(PrefsActivity.getServer(LoginActivity.this)!=""){
             server_url=PrefsActivity.getServer(LoginActivity.this)+"/ntuh_yl_RT_mdms_php/";
         }else{
             new AlertDialog.Builder(LoginActivity.this)
@@ -78,7 +78,8 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     })
                     .show();
-        }
+        }*/
+        getServerIP_check();
 
         setListener();
     }
@@ -501,4 +502,5 @@ public class LoginActivity extends AppCompatActivity {
             return false;
         }
     }
+
 }
