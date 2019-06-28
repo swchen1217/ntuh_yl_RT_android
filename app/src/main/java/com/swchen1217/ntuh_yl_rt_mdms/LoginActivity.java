@@ -41,7 +41,6 @@ public class LoginActivity extends AppCompatActivity {
     EditText et_acc,et_pw;
     Button btn_forget,btn_login,btn_change;
     CheckBox cb_rememberme;
-    ProgressDialog pd;
     int login_error_count=0;
     public static Boolean engineering_mode_SkipLogin=false;
     String server_url="";
@@ -59,11 +58,6 @@ public class LoginActivity extends AppCompatActivity {
         btn_login=findViewById(R.id.btn_login);
         btn_change=findViewById(R.id.btn_changepw);
         cb_rememberme=findViewById(R.id.cb_rememberme);
-
-        pd=new ProgressDialog(LoginActivity.this);
-        pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        pd.setMessage("與伺服器連線中...");
-        pd.setCancelable(false);
 
         et_acc.setText(spf_rememberme.getString("acc",""));
         et_pw.setText(spf_rememberme.getString("pw",""));
@@ -354,17 +348,17 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private boolean isConnected(){
+    public String PostDataToSrever(String data, FormBody formBody) throws IOException {
+        
+        ProgressDialog pd=new ProgressDialog(LoginActivity.this);
+        pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        pd.setMessage("與伺服器連線中...");
+        pd.setCancelable(false);
+
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isConnected()) {
-            return true;
-        }
-        return false;
-    }
 
-    public String PostDataToSrever(String data, FormBody formBody) throws IOException {
-        if(isConnected()){
+        if(networkInfo != null && networkInfo.isConnected()){
             if(getServerIP_check()){
                 runOnUiThread(new Runnable() {
                     public void run() {
