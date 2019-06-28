@@ -50,7 +50,7 @@ public class SQLite extends SQLiteOpenHelper {
         db.delete(tb_name, where,null);
     }
 
-    public Cursor getAll(String tb_name,String[] key,String where,String groupBy,String having,String orderBy) {
+    public Cursor selectAll(String tb_name,String[] key,String where,String groupBy,String having,String orderBy) {
         return db.query(tb_name,key,where,null, groupBy, having, orderBy);
     }
 }
