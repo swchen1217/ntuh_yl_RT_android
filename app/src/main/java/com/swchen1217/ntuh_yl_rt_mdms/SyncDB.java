@@ -16,6 +16,8 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
@@ -25,13 +27,11 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 
-import static android.content.Context.MODE_PRIVATE;
-
 public class SyncDB {
     ProgressDialog pd;
     String server_url="";
     Activity activity;
-    SharedPreferences spf_DeviceTable;
+    SharedPreferences spf_SyncDB;
 
     SyncDB(UpdateStatusActivity updateStatusActivity) {
         activity = updateStatusActivity;
@@ -44,11 +44,18 @@ public class SyncDB {
     }
 
     public void Create(){
-        spf_DeviceTable=getSharedPreferences("remember2",MODE_PRIVATE);
+        spf_SyncDB=activity.getSharedPreferences("SyncDB",Context.MODE_PRIVATE);
     }
 
     public void SyncDeviceTable(){
+        spf_SyncDB.getString("device_tb_LastModified","");
 
+        Date now = new Date();
+        SimpleDateFormat sdf=new SimpleDateFormat();
+        sdf.applyPattern("yyyy-MM-dd HH:mm:ss");
+        spf_SyncDB.edit()
+                .putString("device_tb_LastModified",sdf.format(now))
+                .commit();
     }
 
     public String PostDataToSrever(String file, FormBody formBody) throws IOException {
