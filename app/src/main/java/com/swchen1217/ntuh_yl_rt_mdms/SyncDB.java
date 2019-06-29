@@ -32,6 +32,7 @@ public class SyncDB {
 
     SyncDB(UpdateStatusActivity _context) {
         context = _context;
+        server_url=PrefsActivity.getServer(context);
     }
 
     public void SyncDeviceTable(){
