@@ -43,15 +43,15 @@ public class SyncDB {
             public void run() {
                 //Code goes here
                 context.pd=new ProgressDialog(context);
-                pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                pd.setMessage("與伺服器連線中...");
-                pd.setCancelable(false);
+                context.pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                context.pd.setMessage("與伺服器連線中...");
+                context.pd.setCancelable(false);
             }
         });
         context.runOnUiThread(new Runnable() {
             public void run() {
                 //Code goes here
-                pd.show();
+                context.pd.show();
             }
         });
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
@@ -111,7 +111,7 @@ public class SyncDB {
             context.runOnUiThread(new Runnable() {
                 public void run() {
                     //Code goes here
-                    pd.dismiss();
+                    context.pd.dismiss();
                 }
             });
         }
