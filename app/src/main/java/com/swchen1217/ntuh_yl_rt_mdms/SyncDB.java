@@ -13,6 +13,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
@@ -69,13 +73,17 @@ public class SyncDB {
 
                     Log.d("data_",data);
                     if(!data.equals("no_data")){
-
+                        JSONArray json= new JSONArray(data);
+                        Object jsonOb=json.get(0);
+                        Log.d("data_",jsonOb.toString());
                     }else{
 
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
-                }finally {
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
                     activity.runOnUiThread(new Runnable() {
                         public void run() {
                             //Code goes here
