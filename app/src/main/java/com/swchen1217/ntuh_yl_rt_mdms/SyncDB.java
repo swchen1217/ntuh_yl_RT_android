@@ -28,7 +28,7 @@ import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 
 public class SyncDB {
-    ProgressDialog pd;
+    ProgressDialog pd,pd2;
     String server_url="";
     Activity activity;
     SharedPreferences spf_SyncDB;
@@ -43,21 +43,68 @@ public class SyncDB {
     }
 
     public void SyncDeviceTable() throws IOException {
-        String LastModified;
-        LastModified=spf_SyncDB.getString("device_tb_LastModified","first");
-        PostDataToSrever("db.php",
-                new FormBody.Builder()
-                        .add("mode", "sync_device_tb")
-                        .add("LastModified", "2019-06-28 20:00:00")
-                        .build());
+        Thread thread=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    activity.runOnUiThread(new Runnable() {
+                        public void run() {
+                            //Code goes here
+                            pd2=new ProgressDialog(activity);
+                            pd2.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                            pd2.setMessage("資料同步中...");
+                            pd2.setCancelable(false);
 
+                            pd2.show();
 
-        Date now = new Date();
-        SimpleDateFormat sdf=new SimpleDateFormat();
-        sdf.applyPattern("yyyy-MM-dd HH:mm:ss");
-        spf_SyncDB.edit()
-                .putString("device_tb_LastModified",sdf.format(now))
-                .commit();
+                        }
+                    });
+                    String LastModified;
+                    LastModified=spf_SyncDB.getString("device_tb_LastModified","first");
+                    String data = PostDataToSrever("db.php",
+                            new FormBody.Builder()
+                                    .add("mode", "sync_device_tb")
+                                    .add("LastModified", LastModified.equals("first")?"2019-01-01 00:00:00":LastModified)
+                                    .build());
+
+                    Log.d("data_",data);
+                    if(!data.equals("no_data")){
+
+                    }else{
+
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }finally {
+                    activity.runOnUiThread(new Runnable() {
+                        public void run() {
+                            //Code goes here
+                            activity.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    //Code goes here
+                                    new AlertDialog.Builder(activity)
+                                            .setTitle("同步完成!!")
+                                            .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    pd2.dismiss();
+                                                }
+                                            })
+                                            .show();
+                                }
+                            });
+                            Date now = new Date();
+                            SimpleDateFormat sdf=new SimpleDateFormat();
+                            sdf.applyPattern("yyyy-MM-dd HH:mm:ss");
+                            spf_SyncDB.edit()
+                                    .putString("device_tb_LastModified",sdf.format(now))
+                                    .commit();
+                        }
+                    });
+                }
+            }
+        });
+        thread.start();
     }
 
     public String PostDataToSrever(String file, FormBody formBody) throws IOException {
@@ -69,11 +116,7 @@ public class SyncDB {
                 pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                 pd.setMessage("與伺服器連線中...");
                 pd.setCancelable(false);
-            }
-        });
-        activity.runOnUiThread(new Runnable() {
-            public void run() {
-                //Code goes here
+
                 pd.show();
             }
         });
