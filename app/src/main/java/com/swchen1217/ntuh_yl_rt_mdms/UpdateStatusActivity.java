@@ -35,6 +35,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
     ConstraintLayout cl_use,cl_stock,cl_fix;
     RadioGroup rg;
     ImageButton btn_back;
+    TextView tv_json;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,8 @@ public class UpdateStatusActivity extends AppCompatActivity {
         rg=findViewById(R.id.radioGroup);
         btn_back=findViewById(R.id.btn_back);
         btn_back.setVisibility(View.INVISIBLE);
+
+        tv_json=findViewById(R.id.tv_output_json);
 
         setListener();
     }
@@ -108,9 +111,14 @@ public class UpdateStatusActivity extends AppCompatActivity {
                             String tmp=s.PostDataToSrever("db.php",
                                     new FormBody.Builder()
                                             .add("mode", "sync_device_tb")
-                                            .add("LastModified", "2019-06-28 21:00:00")
+                                            .add("LastModified", "2019-06-28 20:00:00")
                                             .build());
-                            //Log.d("test0",tmp);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    tv_json.setText(tmp);
+                                }
+                            });
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

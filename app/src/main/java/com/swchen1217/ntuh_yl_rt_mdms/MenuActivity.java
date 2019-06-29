@@ -95,6 +95,9 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
                 return true;
+            case R.id.updata_device_tb:
+                new SyncDB(MenuActivity.this).SyncDeviceTable();
+                return true;
         }
         return false;
     }

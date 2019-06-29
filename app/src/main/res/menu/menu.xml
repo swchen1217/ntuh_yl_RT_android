@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/updata_device_tb"
+        android:title="更新裝置資訊" />
+    <item
         android:id="@+id/logout"
         android:title="登出" />
 </menu>
