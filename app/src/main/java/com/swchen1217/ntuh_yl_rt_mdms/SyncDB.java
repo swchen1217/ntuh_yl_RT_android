@@ -33,13 +33,8 @@ public class SyncDB {
     Activity activity;
     SharedPreferences spf_SyncDB;
 
-    SyncDB(UpdateStatusActivity updateStatusActivity) {
-        activity = updateStatusActivity;
-        Create();
-    }
-
-    SyncDB(MenuActivity menuActivity) {
-        activity = menuActivity;
+    SyncDB(Activity _activity) {
+        activity = _activity;
         Create();
     }
 
@@ -47,8 +42,15 @@ public class SyncDB {
         spf_SyncDB=activity.getSharedPreferences("SyncDB",Context.MODE_PRIVATE);
     }
 
-    public void SyncDeviceTable(){
-        spf_SyncDB.getString("device_tb_LastModified","");
+    public void SyncDeviceTable() throws IOException {
+        String LastModified;
+        LastModified=spf_SyncDB.getString("device_tb_LastModified","first");
+        PostDataToSrever("db.php",
+                new FormBody.Builder()
+                        .add("mode", "sync_device_tb")
+                        .add("LastModified", "2019-06-28 20:00:00")
+                        .build());
+
 
         Date now = new Date();
         SimpleDateFormat sdf=new SimpleDateFormat();
