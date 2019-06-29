@@ -25,6 +25,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class SyncDB {
     ProgressDialog pd;
     String server_url="";
@@ -33,10 +35,16 @@ public class SyncDB {
 
     SyncDB(UpdateStatusActivity updateStatusActivity) {
         activity = updateStatusActivity;
+        Create();
     }
 
     SyncDB(MenuActivity menuActivity) {
         activity = menuActivity;
+        Create();
+    }
+
+    public void Create(){
+        spf_DeviceTable=getSharedPreferences("remember2",MODE_PRIVATE);
     }
 
     public void SyncDeviceTable(){
