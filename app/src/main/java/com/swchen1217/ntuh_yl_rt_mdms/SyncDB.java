@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AlertDialog;
@@ -24,15 +25,18 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 
-//public class SyncDB extends AppCompatActivity {
 public class SyncDB {
     ProgressDialog pd;
     String server_url="";
-    UpdateStatusActivity context;
+    Activity activity;
+    SharedPreferences spf_DeviceTable;
 
-    SyncDB(UpdateStatusActivity _context) {
-        context = _context;
-        server_url=PrefsActivity.getServer(context);
+    SyncDB(UpdateStatusActivity updateStatusActivity) {
+        activity = updateStatusActivity;
+    }
+
+    SyncDB(MenuActivity menuActivity) {
+        activity = menuActivity;
     }
 
     public void SyncDeviceTable(){
@@ -40,19 +44,20 @@ public class SyncDB {
     }
 
     public String PostDataToSrever(String file, FormBody formBody) throws IOException {
-        context.runOnUiThread(new Runnable() {
+        server_url=PrefsActivity.getServer(activity)+"/ntuh_yl_RT_mdms_php/";
+        activity.runOnUiThread(new Runnable() {
             public void run() {
                 //Code goes here
-                context.pd=new ProgressDialog(context);
-                context.pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                context.pd.setMessage("與伺服器連線中...");
-                context.pd.setCancelable(false);
+                pd=new ProgressDialog(activity);
+                pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                pd.setMessage("與伺服器連線中...");
+                pd.setCancelable(false);
             }
         });
-        context.runOnUiThread(new Runnable() {
+        activity.runOnUiThread(new Runnable() {
             public void run() {
                 //Code goes here
-                context.pd.show();
+                pd.show();
             }
         });
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
@@ -82,37 +87,37 @@ public class SyncDB {
                         .build();
                 Call call2 = client2.newCall(request2);
                 try (Response response2 = call2.execute()){
-                    context.runOnUiThread(new Runnable() {
+                    activity.runOnUiThread(new Runnable() {
                         public void run() {
                             //Code goes here
-                            context.Toast.makeText(context, "無法連接至伺服器", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(activity, "無法連接至伺服器", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }catch(Exception e2){
-                    context.runOnUiThread(new Runnable() {
+                    activity.runOnUiThread(new Runnable() {
                         public void run() {
                             //Code goes here
-                            context.Toast.makeText(context, "無法連接至網際網路", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(activity, "無法連接至網際網路", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
             }
             if (e instanceof SocketTimeoutException) {
                 //判断超时异常
-                context.runOnUiThread(new Runnable() {
+                activity.runOnUiThread(new Runnable() {
                     public void run() {
                         //Code goes here
-                        context.Toast.makeText(context, "無法連接至伺服器", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity, "無法連接至伺服器", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
             return null;
         }
         finally {
-            context.runOnUiThread(new Runnable() {
+            activity.runOnUiThread(new Runnable() {
                 public void run() {
                     //Code goes here
-                    context.pd.dismiss();
+                    pd.dismiss();
                 }
             });
         }
