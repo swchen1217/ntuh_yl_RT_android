@@ -74,8 +74,13 @@ public class SyncDB {
                     Log.d("data_",data);
                     if(!data.equals("no_data")){
                         JSONArray json= new JSONArray(data);
-                        Object jsonOb=json.get(0);
-                        Log.d("data_",jsonOb.toString());
+                        Log.d("data_",json.length()+"");
+                        SQLite in=new SQLite(activity);
+                        for(int i=0;i<json.length();i++){
+                            Object jsonOb=json.get(i);
+                            Log.d("data_",jsonOb.toString());
+
+                        }
                     }else{
 
                     }
@@ -105,7 +110,8 @@ public class SyncDB {
                             SimpleDateFormat sdf=new SimpleDateFormat();
                             sdf.applyPattern("yyyy-MM-dd HH:mm:ss");
                             spf_SyncDB.edit()
-                                    .putString("device_tb_LastModified",sdf.format(now))
+                                    //.putString("device_tb_LastModified",sdf.format(now))
+                                    .putString("device_tb_LastModified","2019-01-01 00:00:00")
                                     .commit();
                         }
                     });
