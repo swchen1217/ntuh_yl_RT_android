@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.io.IOException;
+
 public class MenuActivity extends AppCompatActivity {
     Button btn_UpdateStatus,btn_InquireStatus,btn_Log,btn_Repair,btn_MaintenanceCheck,btn_Manage;
     private long exitTime = 0;
@@ -96,7 +98,11 @@ public class MenuActivity extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.updata_device_tb:
-                new SyncDB(MenuActivity.this).SyncDeviceTable();
+                try {
+                    new SyncDB(MenuActivity.this).SyncDeviceTable();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 return true;
         }
         return false;
