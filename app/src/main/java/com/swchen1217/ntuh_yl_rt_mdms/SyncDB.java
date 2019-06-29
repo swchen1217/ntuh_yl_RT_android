@@ -24,12 +24,14 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 
-public class SyncDB extends AppCompatActivity {
+//public class SyncDB extends AppCompatActivity {
+public class SyncDB {
     ProgressDialog pd;
     String server_url="";
+    UpdateStatusActivity context;
 
-    SyncDB() {
-
+    SyncDB(UpdateStatusActivity _context) {
+        context = _context;
     }
 
     public void SyncDeviceTable(){
@@ -37,16 +39,16 @@ public class SyncDB extends AppCompatActivity {
     }
 
     public String PostDataToSrever(String file, FormBody formBody) throws IOException {
-        runOnUiThread(new Runnable() {
+        context.runOnUiThread(new Runnable() {
             public void run() {
                 //Code goes here
-                pd=new ProgressDialog(SyncDB.this);
+                context.pd=new ProgressDialog(context);
                 pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                 pd.setMessage("與伺服器連線中...");
                 pd.setCancelable(false);
             }
         });
-        runOnUiThread(new Runnable() {
+        context.runOnUiThread(new Runnable() {
             public void run() {
                 //Code goes here
                 pd.show();
@@ -79,34 +81,34 @@ public class SyncDB extends AppCompatActivity {
                         .build();
                 Call call2 = client2.newCall(request2);
                 try (Response response2 = call2.execute()){
-                    runOnUiThread(new Runnable() {
+                    context.runOnUiThread(new Runnable() {
                         public void run() {
                             //Code goes here
-                            Toast.makeText(SyncDB.this, "無法連接至伺服器", Toast.LENGTH_SHORT).show();
+                            context.Toast.makeText(context, "無法連接至伺服器", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }catch(Exception e2){
-                    runOnUiThread(new Runnable() {
+                    context.runOnUiThread(new Runnable() {
                         public void run() {
                             //Code goes here
-                            Toast.makeText(SyncDB.this, "無法連接至網際網路", Toast.LENGTH_SHORT).show();
+                            context.Toast.makeText(context, "無法連接至網際網路", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
             }
             if (e instanceof SocketTimeoutException) {
                 //判断超时异常
-                runOnUiThread(new Runnable() {
+                context.runOnUiThread(new Runnable() {
                     public void run() {
                         //Code goes here
-                        Toast.makeText(SyncDB.this, "無法連接至伺服器", Toast.LENGTH_SHORT).show();
+                        context.Toast.makeText(context, "無法連接至伺服器", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
             return null;
         }
         finally {
-            runOnUiThread(new Runnable() {
+            context.runOnUiThread(new Runnable() {
                 public void run() {
                     //Code goes here
                     pd.dismiss();

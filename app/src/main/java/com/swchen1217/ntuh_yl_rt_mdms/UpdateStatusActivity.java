@@ -1,5 +1,6 @@
 package com.swchen1217.ntuh_yl_rt_mdms;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
@@ -25,6 +26,8 @@ import okhttp3.FormBody;
 
 public class UpdateStatusActivity extends AppCompatActivity {
 
+    public ProgressDialog pd;
+    public android.widget.Toast Toast;
     Button btn_qr,btn_manual,btn_CheckInput;
     TextView tv_input;
     String input_data=null;
@@ -101,12 +104,13 @@ public class UpdateStatusActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         try {
-                            String tmp=new SyncDB().PostDataToSrever("db.php",
+                            SyncDB s=new SyncDB(UpdateStatusActivity.this);
+                            String tmp=s.PostDataToSrever("db.php",
                                     new FormBody.Builder()
                                             .add("mode", "sync_device_tb")
                                             .add("LastModified", "2019-06-28 21:00:00")
                                             .build());
-                            Log.d("test0",tmp);
+                            //Log.d("test0",tmp);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
