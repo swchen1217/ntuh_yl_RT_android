@@ -139,6 +139,11 @@ public class SyncDB {
                             c.moveToNext();
                         }
                         Log.d("data_",jsonArray.toString());
+                        PostDataToSrever("db.php",
+                                new FormBody.Builder()
+                                        .add("mode", "sync_device_tb_upload")
+                                        .add("josn_data", jsonArray.toString())
+                                        .build());
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

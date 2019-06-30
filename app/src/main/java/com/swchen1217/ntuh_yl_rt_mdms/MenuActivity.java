@@ -1,5 +1,6 @@
 package com.swchen1217.ntuh_yl_rt_mdms;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -40,6 +41,10 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //new SyncDB(MenuActivity.this).test();
+                ContentValues cv=new ContentValues();
+                cv.put("LastModified","2019-06-30 17:10:00");
+                new SQLite(MenuActivity.this).update("device_tb",cv,"DID='MDMS.D0003'");
+                new SQLite(MenuActivity.this).update("device_tb",cv,"DID='MDMS.D0001'");
             }
         });
         btn_Log.setOnClickListener(new View.OnClickListener() {
