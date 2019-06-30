@@ -78,20 +78,22 @@ public class SyncDB {
                         JSONArray jsonA= new JSONArray(data);
                         Log.d("data_",jsonA.length()+"");
                         SQLite sql=new SQLite(activity);
+                        /*ContentValues cv=new ContentValues();
+                        cv.put("DID","MDMS.D0003");
+                        sql.inster("device_tb", cv);*/
                         for(int i=0;i<jsonA.length();i++){
                             JSONObject jsonO = jsonA.getJSONObject(i);
                             //Object jsonOb=jsonA.get(i);
                             Log.d("data_",jsonO.toString());
                             Log.d("data_",jsonO.getString("DID"));
-                            ContentValues cv=new ContentValues();
-                            cv.put("DID","MDMS.0003");
-                            sql.inster("device_tb", cv);
-                            /*Cursor c=sql.select("device_tb",null,"DID="+jsonO.getString("DID"),null,null,null);
+
+                            Cursor c=sql.select("device_tb",null,"DID='"+jsonO.getString("DID")+"'",null,null,null);
+                            Log.d("data_",c.getCount()+"");
                             if(c.getCount()==0){
                                 Log.d("data_","0");
                             }else{
                                 Log.d("data_","1");
-                            }*/
+                            }
                         }
                     }else{
 
