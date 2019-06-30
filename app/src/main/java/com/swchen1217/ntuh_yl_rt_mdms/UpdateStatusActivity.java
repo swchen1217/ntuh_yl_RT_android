@@ -103,28 +103,6 @@ public class UpdateStatusActivity extends AppCompatActivity {
         btn_CheckInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Thread thread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            SyncDB s=new SyncDB(UpdateStatusActivity.this);
-                            String tmp=s.PostDataToSrever("db.php",
-                                    new FormBody.Builder()
-                                            .add("mode", "sync_device_tb")
-                                            .add("LastModified", "2019-06-28 20:00:00")
-                                            .build());
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    tv_json.setText(tmp);
-                                }
-                            });
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                thread.start();
                 btn_back.setVisibility(View.VISIBLE);
                 btn_CheckInput.setEnabled(false);
                 btn_qr.setEnabled(false);
