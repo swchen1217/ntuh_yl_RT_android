@@ -15,6 +15,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,6 +43,7 @@ public class SyncDB {
     String server_url="";
     Activity activity;
     SharedPreferences spf_SyncDB;
+    String key[]={"DID","category","model","number","user","position","status","LastModified"};
 
     SyncDB(Activity _activity) {
         activity = _activity;
@@ -71,7 +75,7 @@ public class SyncDB {
                     LastSync=spf_SyncDB.getString("device_tb_LastSync","first");
                     String data = PostDataToSrever("db.php",
                             new FormBody.Builder()
-                                    .add("mode", "sync_device_tb")
+                                    .add("mode", "sync_device_tb_download")
                                     .add("LastModified", LastSync.equals("first")?"2019-01-01 00:00:00":LastSync)
                                     .build());
 
@@ -120,6 +124,21 @@ public class SyncDB {
                                 }
                             }
                         }
+                    }
+                    SQLite sql=new SQLite(activity);
+                    Cursor c=sql.select("device_tb",null,"LastModified > '"+(LastSync.equals("first")?"2019-01-01 00:00:00":LastSync)+"'",null,null,null);
+                    if(c.getCount()!=0){
+                        c.moveToFirst();
+                        JsonArray jsonArray=new JsonArray();
+                        for(int i=0;i<c.getCount();i++){
+                            JsonObject jsonObject=new JsonObject();
+                            for(int j=0;j<8;j++){
+                                jsonObject.addProperty(key[j],c.getString(j));
+                            }
+                            jsonArray.add(jsonObject);
+                            c.moveToNext();
+                        }
+                        Log.d("data_",jsonArray.toString());
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
