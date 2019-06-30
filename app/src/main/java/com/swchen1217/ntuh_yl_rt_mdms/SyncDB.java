@@ -91,28 +91,23 @@ public class SyncDB {
                             Cursor c=sql.select("device_tb",null,"DID='"+jsonO.getString("DID")+"'",null,null,null);
                             if(c.getCount()==0){
                                 Log.d("data_","0");
-                                ContentValues cv=new ContentValues();
-                                cv.put("DID",jsonO.getString("DID"));
-                                cv.put("category",jsonO.getString("category"));
-                                cv.put("model",jsonO.getString("model"));
-                                cv.put("number",jsonO.getString("number"));
-                                cv.put("user",jsonO.getString("user"));
-                                cv.put("position",jsonO.getString("position"));
-                                cv.put("status",jsonO.getString("status"));
-                                cv.put("LastModified",jsonO.getString("LastModified"));
-                                sql.inster("device_tb",cv);
+                                sql.inster("device_tb",JsonToContentValues(jsonO));
                             }else{
                                 Log.d("data_","1");
-                                ContentValues cv=new ContentValues();
-                                cv.put("DID",jsonO.getString("DID"));
-                                cv.put("category",jsonO.getString("category"));
-                                cv.put("model",jsonO.getString("model"));
-                                cv.put("number",jsonO.getString("number"));
-                                cv.put("user",jsonO.getString("user"));
-                                cv.put("position",jsonO.getString("position"));
-                                cv.put("status",jsonO.getString("status"));
-                                cv.put("LastModified",jsonO.getString("LastModified"));
-                                sql.update("device_tb",cv,"DID='"+jsonO.getString("DID")+"'");
+                                sql.update("device_tb",JsonToContentValues(jsonO),"DID='"+jsonO.getString("DID")+"'");
+                            }
+                            Cursor c2=sql.select("device_tb",null,null,null,null,null);
+                            int rows_num = c2.getCount();
+                            if(rows_num != 0) {
+                                c2.moveToFirst();           //將指標移至第一筆資料
+                                for(int j=0; j<rows_num; j++) {
+                                    String str = "";
+                                    for(int k=0;k<8;k++){
+                                        str+=c2.getString(k)+",";
+                                    }
+                                    Log.d("data_",str);
+                                    c2.moveToNext();        //將指標移至下一筆資料
+                                }
                             }
                         }
                     }else{
@@ -229,5 +224,22 @@ public class SyncDB {
                 }
             });
         }
+    }
+
+    public ContentValues JsonToContentValues(JSONObject jsonOin){
+        ContentValues cv=new ContentValues();
+        try {
+            cv.put("DID",jsonOin.getString("DID"));
+            cv.put("category",jsonOin.getString("category"));
+            cv.put("model",jsonOin.getString("model"));
+            cv.put("number",jsonOin.getString("number"));
+            cv.put("user",jsonOin.getString("user"));
+            cv.put("position",jsonOin.getString("position"));
+            cv.put("status",jsonOin.getString("status"));
+            cv.put("LastModified",jsonOin.getString("LastModified"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return cv;
     }
 }

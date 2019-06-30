@@ -94,6 +94,7 @@ public class MenuActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.logout:
+                //new SQLite(MenuActivity.this).remove("device_tb",null);
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
                 return true;
