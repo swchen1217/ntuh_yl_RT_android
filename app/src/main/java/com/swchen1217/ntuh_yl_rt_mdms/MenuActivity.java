@@ -41,10 +41,10 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //new SyncDB(MenuActivity.this).test();
-                ContentValues cv=new ContentValues();
+                /*ContentValues cv=new ContentValues();
                 cv.put("LastModified","2019-06-30 18:46:00");
                 new SQLite(MenuActivity.this).update("device_tb",cv,"DID='MDMS.D0003'");
-                new SQLite(MenuActivity.this).update("device_tb",cv,"DID='MDMS.D0001'");
+                new SQLite(MenuActivity.this).update("device_tb",cv,"DID='MDMS.D0001'");*/
             }
         });
         btn_Log.setOnClickListener(new View.OnClickListener() {
