@@ -65,12 +65,12 @@ public class SyncDB {
 
                         }
                     });
-                    String LastModified;
-                    LastModified=spf_SyncDB.getString("device_tb_LastModified","first");
+                    String LastSync;
+                    LastSync=spf_SyncDB.getString("device_tb_LastSync","first");
                     String data = PostDataToSrever("db.php",
                             new FormBody.Builder()
                                     .add("mode", "sync_device_tb")
-                                    .add("LastModified", LastModified.equals("first")?"2019-01-01 00:00:00":LastModified)
+                                    .add("LastModified", LastSync.equals("first")?"2019-01-01 00:00:00":LastSync)
                                     .build());
 
                     Log.d("data_",data);
@@ -81,6 +81,7 @@ public class SyncDB {
                         /*ContentValues cv=new ContentValues();
                         cv.put("DID","MDMS.D0003");
                         sql.inster("device_tb", cv);*/
+                        //sql.remove("device_tb",null);
                         for(int i=0;i<jsonA.length();i++){
                             JSONObject jsonO = jsonA.getJSONObject(i);
                             //Object jsonOb=jsonA.get(i);
@@ -88,11 +89,30 @@ public class SyncDB {
                             Log.d("data_",jsonO.getString("DID"));
 
                             Cursor c=sql.select("device_tb",null,"DID='"+jsonO.getString("DID")+"'",null,null,null);
-                            Log.d("data_",c.getCount()+"");
                             if(c.getCount()==0){
                                 Log.d("data_","0");
+                                ContentValues cv=new ContentValues();
+                                cv.put("DID",jsonO.getString("DID"));
+                                cv.put("category",jsonO.getString("category"));
+                                cv.put("model",jsonO.getString("model"));
+                                cv.put("number",jsonO.getString("number"));
+                                cv.put("user",jsonO.getString("user"));
+                                cv.put("position",jsonO.getString("position"));
+                                cv.put("status",jsonO.getString("status"));
+                                cv.put("LastModified",jsonO.getString("LastModified"));
+                                sql.inster("device_tb",cv);
                             }else{
                                 Log.d("data_","1");
+                                ContentValues cv=new ContentValues();
+                                cv.put("DID",jsonO.getString("DID"));
+                                cv.put("category",jsonO.getString("category"));
+                                cv.put("model",jsonO.getString("model"));
+                                cv.put("number",jsonO.getString("number"));
+                                cv.put("user",jsonO.getString("user"));
+                                cv.put("position",jsonO.getString("position"));
+                                cv.put("status",jsonO.getString("status"));
+                                cv.put("LastModified",jsonO.getString("LastModified"));
+                                sql.update("device_tb",cv,"DID='"+jsonO.getString("DID")+"'");
                             }
                         }
                     }else{
@@ -124,8 +144,8 @@ public class SyncDB {
                             SimpleDateFormat sdf=new SimpleDateFormat();
                             sdf.applyPattern("yyyy-MM-dd HH:mm:ss");
                             spf_SyncDB.edit()
-                                    //.putString("device_tb_LastModified",sdf.format(now))
-                                    .putString("device_tb_LastModified","2019-01-01 00:00:00")
+                                    //.putString("device_tb_LastSync",sdf.format(now))
+                                    .putString("device_tb_LastSync","2019-01-01 00:00:00")
                                     .commit();
                         }
                     });
