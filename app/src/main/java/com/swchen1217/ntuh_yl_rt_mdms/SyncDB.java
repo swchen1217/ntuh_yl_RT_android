@@ -22,6 +22,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -94,7 +96,15 @@ public class SyncDB {
                                 sql.inster("device_tb",JsonToContentValues(jsonO));
                             }else{
                                 Log.d("data_","1");
-                                sql.update("device_tb",JsonToContentValues(jsonO),"DID='"+jsonO.getString("DID")+"'");
+                                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                                c.moveToFirst();
+                                Date a=sdf.parse(jsonO.getString("LastModified"));
+                                Date b=sdf.parse(c.getString(7));
+                                Log.d("data_",a.toString());
+                                Log.d("data_",b.toString());
+                                if(a.after(b)){
+                                    sql.update("device_tb",JsonToContentValues(jsonO),"DID='"+jsonO.getString("DID")+"'");
+                                }
                             }
                             Cursor c2=sql.select("device_tb",null,null,null,null,null);
                             int rows_num = c2.getCount();
@@ -110,12 +120,12 @@ public class SyncDB {
                                 }
                             }
                         }
-                    }else{
-
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (ParseException e) {
                     e.printStackTrace();
                 } finally {
                     activity.runOnUiThread(new Runnable() {
@@ -139,8 +149,8 @@ public class SyncDB {
                             SimpleDateFormat sdf=new SimpleDateFormat();
                             sdf.applyPattern("yyyy-MM-dd HH:mm:ss");
                             spf_SyncDB.edit()
-                                    //.putString("device_tb_LastSync",sdf.format(now))
-                                    .putString("device_tb_LastSync","2019-01-01 00:00:00")
+                                    .putString("device_tb_LastSync",sdf.format(now))
+                                    //.putString("device_tb_LastSync","2019-01-01 00:00:00")
                                     .commit();
                         }
                     });
@@ -241,5 +251,11 @@ public class SyncDB {
             e.printStackTrace();
         }
         return cv;
+    }
+
+    public void test(){
+        spf_SyncDB.edit()
+                .putString("device_tb_LastSync","2019-06-29 00:00:00")
+                .commit();
     }
 }

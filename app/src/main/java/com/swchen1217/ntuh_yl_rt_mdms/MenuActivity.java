@@ -39,7 +39,7 @@ public class MenuActivity extends AppCompatActivity {
         btn_InquireStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //new SyncDB(MenuActivity.this).test();
             }
         });
         btn_Log.setOnClickListener(new View.OnClickListener() {
