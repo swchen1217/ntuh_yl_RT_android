@@ -2,10 +2,12 @@ package com.swchen1217.ntuh_yl_rt_mdms;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AlertDialog;
@@ -73,13 +75,23 @@ public class SyncDB {
 
                     Log.d("data_",data);
                     if(!data.equals("no_data")){
-                        JSONArray json= new JSONArray(data);
-                        Log.d("data_",json.length()+"");
-                        SQLite in=new SQLite(activity);
-                        for(int i=0;i<json.length();i++){
-                            Object jsonOb=json.get(i);
-                            Log.d("data_",jsonOb.toString());
-
+                        JSONArray jsonA= new JSONArray(data);
+                        Log.d("data_",jsonA.length()+"");
+                        SQLite sql=new SQLite(activity);
+                        for(int i=0;i<jsonA.length();i++){
+                            JSONObject jsonO = jsonA.getJSONObject(i);
+                            //Object jsonOb=jsonA.get(i);
+                            Log.d("data_",jsonO.toString());
+                            Log.d("data_",jsonO.getString("DID"));
+                            ContentValues cv=new ContentValues();
+                            cv.put("DID","MDMS.0003");
+                            sql.inster("device_tb", cv);
+                            /*Cursor c=sql.select("device_tb",null,"DID="+jsonO.getString("DID"),null,null,null);
+                            if(c.getCount()==0){
+                                Log.d("data_","0");
+                            }else{
+                                Log.d("data_","1");
+                            }*/
                         }
                     }else{
 
