@@ -20,22 +20,17 @@ import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-import java.io.IOException;
-
-import okhttp3.FormBody;
-
 public class UpdateStatusActivity extends AppCompatActivity {
 
     public ProgressDialog pd;
-    public android.widget.Toast Toast;
+    public Toast Toast;
     Button btn_qr,btn_manual,btn_CheckInput;
     TextView tv_input;
     String input_data=null;
     RadioButton rb_use,rb_stock,rb_fix;
-    ConstraintLayout cl_use,cl_stock,cl_fix;
     RadioGroup rg;
     ImageButton btn_back;
-    TextView tv_json;
+    View include_use,include_stock,include_fix;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,17 +44,15 @@ public class UpdateStatusActivity extends AppCompatActivity {
         rb_use=findViewById(R.id.rb_use);
         rb_stock=findViewById(R.id.rb_stock);
         rb_fix=findViewById(R.id.rb_fix);
-        cl_use=findViewById(R.id.cl_use);
-        cl_stock=findViewById(R.id.cl_stock);
-        cl_fix=findViewById(R.id.cl_fix);
-        cl_use.setVisibility(View.INVISIBLE);
-        cl_stock.setVisibility(View.INVISIBLE);
-        cl_fix.setVisibility(View.INVISIBLE);
         rg=findViewById(R.id.radioGroup);
         btn_back=findViewById(R.id.btn_back);
         btn_back.setVisibility(View.INVISIBLE);
-
-        tv_json=findViewById(R.id.tv_output_json);
+        include_use=findViewById(R.id.include_use);
+        include_stock=findViewById(R.id.include_stock);
+        include_fix=findViewById(R.id.include_fix);
+        include_use.setVisibility(View.INVISIBLE);
+        include_stock.setVisibility(View.INVISIBLE);
+        include_fix.setVisibility(View.INVISIBLE);
 
         setListener();
     }
@@ -134,9 +127,9 @@ public class UpdateStatusActivity extends AppCompatActivity {
                 rb_use.setEnabled(true);
                 rb_stock.setEnabled(true);
                 rb_fix.setEnabled(true);
-                cl_use.setVisibility(View.INVISIBLE);
-                cl_stock.setVisibility(View.INVISIBLE);
-                cl_fix.setVisibility(View.INVISIBLE);
+                include_use.setVisibility(View.INVISIBLE);
+                include_stock.setVisibility(View.INVISIBLE);
+                include_fix.setVisibility(View.INVISIBLE);
 
             }
         });
@@ -182,25 +175,25 @@ public class UpdateStatusActivity extends AppCompatActivity {
             rb_use.setEnabled(true);
             rb_stock.setEnabled(false);
             rb_fix.setEnabled(false);
-            cl_use.setVisibility(View.VISIBLE);
-            cl_stock.setVisibility(View.INVISIBLE);
-            cl_fix.setVisibility(View.INVISIBLE);
+            include_use.setVisibility(View.VISIBLE);
+            include_stock.setVisibility(View.INVISIBLE);
+            include_fix.setVisibility(View.INVISIBLE);
         }
         if(checked.equals("stock")){
             rb_use.setEnabled(false);
             rb_stock.setEnabled(true);
             rb_fix.setEnabled(false);
-            cl_use.setVisibility(View.INVISIBLE);
-            cl_stock.setVisibility(View.VISIBLE);
-            cl_fix.setVisibility(View.INVISIBLE);
+            include_use.setVisibility(View.INVISIBLE);
+            include_stock.setVisibility(View.VISIBLE);
+            include_fix.setVisibility(View.INVISIBLE);
         }
         if(checked.equals("fix")){
             rb_use.setEnabled(false);
             rb_stock.setEnabled(false);
             rb_fix.setEnabled(true);
-            cl_use.setVisibility(View.INVISIBLE);
-            cl_stock.setVisibility(View.INVISIBLE);
-            cl_fix.setVisibility(View.VISIBLE);
+            include_use.setVisibility(View.INVISIBLE);
+            include_stock.setVisibility(View.INVISIBLE);
+            include_fix.setVisibility(View.VISIBLE);
         }
     }
 }
