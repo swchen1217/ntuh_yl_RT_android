@@ -151,34 +151,29 @@ public class SyncDB {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } catch (ParseException e) {
-                                    e.printStackTrace();
-                                } finally {
-                                    activity.runOnUiThread(new Runnable() {
-                                        public void run() {
-                                            //Code goes here
-                                            activity.runOnUiThread(new Runnable() {
-                                                public void run() {
-                                                    //Code goes here
-                                                    new AlertDialog.Builder(activity)
-                                            .setTitle("同步完成!!")
-                                            .setPositiveButton("確定", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    pd2.dismiss();
-                                                }
-                                            })
-                                            .show();
-                                }
-                            });
-                            Date now = new Date();
-                            SimpleDateFormat sdf=new SimpleDateFormat();
-                            sdf.applyPattern("yyyy-MM-dd HH:mm:ss");
-                            spf_SyncDB.edit()
-                                    .putString("device_tb_LastSync",sdf.format(now))
-                                    //.putString("device_tb_LastSync","2019-01-01 00:00:00")
-                                    .commit();
+                    e.printStackTrace();
+                } finally {
+                    activity.runOnUiThread(new Runnable() {
+                        public void run() {
+                            //Code goes here
+                            new AlertDialog.Builder(activity)
+                                    .setTitle("同步完成!!")
+                                    .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            pd2.dismiss();
+                                        }
+                                    })
+                                    .show();
                         }
                     });
+                    Date now = new Date();
+                    SimpleDateFormat sdf=new SimpleDateFormat();
+                    sdf.applyPattern("yyyy-MM-dd HH:mm:ss");
+                    spf_SyncDB.edit()
+                            .putString("device_tb_LastSync",sdf.format(now))
+                            //.putString("device_tb_LastSync","2019-01-01 00:00:00")
+                            .commit();
                 }
             }
         });
