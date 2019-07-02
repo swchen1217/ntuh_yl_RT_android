@@ -125,7 +125,8 @@ public class SyncDB {
                             }
                         }
                     }
-                    SQLite sql=new SQLite(activity);
+
+                    /*SQLite sql=new SQLite(activity);
                     Cursor c=sql.select("device_tb",null,"LastModified > '"+(LastSync.equals("first")?"2019-01-01 00:00:00":LastSync)+"'",null,null,null);
                     if(c.getCount()!=0){
                         c.moveToFirst();
@@ -144,21 +145,21 @@ public class SyncDB {
                                         .add("mode", "sync_device_tb_upload")
                                         .add("josn_data", jsonArray.toString())
                                         .build());
-                    }
+                    }*/
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } catch (ParseException e) {
-                    e.printStackTrace();
-                } finally {
-                    activity.runOnUiThread(new Runnable() {
-                        public void run() {
-                            //Code goes here
-                            activity.runOnUiThread(new Runnable() {
-                                public void run() {
-                                    //Code goes here
-                                    new AlertDialog.Builder(activity)
+                                    e.printStackTrace();
+                                } finally {
+                                    activity.runOnUiThread(new Runnable() {
+                                        public void run() {
+                                            //Code goes here
+                                            activity.runOnUiThread(new Runnable() {
+                                                public void run() {
+                                                    //Code goes here
+                                                    new AlertDialog.Builder(activity)
                                             .setTitle("同步完成!!")
                                             .setPositiveButton("確定", new DialogInterface.OnClickListener() {
                                                 @Override
