@@ -54,6 +54,20 @@ public class SyncDB {
         spf_SyncDB=activity.getSharedPreferences("SyncDB",Context.MODE_PRIVATE);
     }
 
+    public void SyncPositionItemTable(){
+        Thread thread=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                } catch (Exception e) {
+
+                }
+            }
+        });
+        thread.start();
+    }
+
     public void SyncDeviceTable() throws IOException {
         Thread thread=new Thread(new Runnable() {
             @Override
