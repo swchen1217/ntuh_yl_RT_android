@@ -59,6 +59,34 @@ public class SyncDB {
             @Override
             public void run() {
                 try {
+                    /*activity.runOnUiThread(new Runnable() {
+                        public void run() {
+                            //Code goes here
+                            pd2=new ProgressDialog(activity);
+                            pd2.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                            pd2.setMessage("資料同步中...");
+                            pd2.setCancelable(false);
+
+                            pd2.show();
+                        }
+                    });*/
+
+                    String LastSync=spf_SyncDB.getString("position_item_tb_LastSync","first");
+                    String data = PostDataToSrever("db.php",
+                            new FormBody.Builder()
+                                    .add("mode", "GetSystem_tb")
+                                    .add("id", "position_item_tb_LastModified")
+                                    .build());
+
+                    SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                    Date a=sdf.parse(data);
+                    Date b=sdf.parse(LastSync.equals("firse")?"2019-01-01 00:00:00":LastSync);
+                    Log.d("date_test",a.toString());
+                    Log.d("date_test",b.toString());
+                    if(a.after(b))
+                        Log.d("date_test","a.after(b)");
+                    else
+                        Log.d("date_test","a.before(b)");
 
                 } catch (Exception e) {
 
