@@ -31,7 +31,19 @@ public class SQLite extends SQLiteOpenHelper {
                         "  `status` TEXT," +
                         "  `LastModified` TEXT" +
                         ")";
-        db.execSQL(DATABASE_CREATE_TABLE);
+            db.execSQL(DATABASE_CREATE_TABLE);
+        String DATABASE_CREATE_TABLE2 =
+                "CREATE TABLE device_tb (" +
+                        "  `DID` TEXT," +
+                        "  `category` TEXT," +
+                        "  `model` TEXT," +
+                        "  `number` TEXT," +
+                        "  `user` TEXT," +
+                        "  `position` TEXT," +
+                        "  `status` TEXT," +
+                        "  `LastModified` TEXT" +
+                        ")";
+        db.execSQL(DATABASE_CREATE_TABLE2);
     }
 
     @Override
