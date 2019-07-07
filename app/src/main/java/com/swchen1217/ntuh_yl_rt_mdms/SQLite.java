@@ -6,12 +6,32 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.HashMap;
+
 public class SQLite extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "ntuh.yl_mdms.db"; //資料庫名稱
-    private static final int DATABASE_VERSION = 4;  //資料庫版本
+    private static final int DATABASE_VERSION = 5;  //資料庫版本
 
     private SQLiteDatabase db;
+
+    String device_tb =
+            "CREATE TABLE device_tb (" +
+                    "  `DID` TEXT," +
+                    "  `category` TEXT," +
+                    "  `model` TEXT," +
+                    "  `number` TEXT," +
+                    "  `user` TEXT," +
+                    "  `position` TEXT," +
+                    "  `status` TEXT," +
+                    "  `LastModified` TEXT" +
+                    ")";
+
+    String position_item_tb =
+            "CREATE TABLE position_item_tb (" +
+                    "  `type` TEXT," +
+                    "  `item` TEXT" +
+                    ")";
 
     public SQLite(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -19,30 +39,15 @@ public class SQLite extends SQLiteOpenHelper {
     }
 
     @Override
-        public void onCreate(SQLiteDatabase db) {
-            String DATABASE_CREATE_TABLE =
-                "CREATE TABLE device_tb (" +
-                        "  `DID` TEXT," +
-                        "  `category` TEXT," +
-                        "  `model` TEXT," +
-                        "  `number` TEXT," +
-                        "  `user` TEXT," +
-                        "  `position` TEXT," +
-                        "  `status` TEXT," +
-                        "  `LastModified` TEXT" +
-                        ")";
-            db.execSQL(DATABASE_CREATE_TABLE);
-        String DATABASE_CREATE_TABLE_2 =
-                "CREATE TABLE position_item_tb (" +
-                        "  `type` TEXT," +
-                        "  `item` TEXT" +
-                        ")";
-        db.execSQL(DATABASE_CREATE_TABLE_2);
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL(device_tb);
+        db.execSQL(position_item_tb);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS device_tb");  //刪除舊有的資料表
+        db.execSQL("DROP TABLE IF EXISTS position_item_tb");  //刪除舊有的資料表
         onCreate(db);
     }
 
@@ -60,5 +65,14 @@ public class SQLite extends SQLiteOpenHelper {
 
     public Cursor select(String tb_name,String[] key,String where,String groupBy,String having,String orderBy) {
         return db.query(tb_name,key,where,null, groupBy, having, orderBy);
+    }
+
+    public void reCreatetb(String tb_name){
+        HashMap<String,String> hm = new HashMap<>();
+        hm.put("device_tb",device_tb);
+        hm.put("position_item_tb",position_item_tb);
+
+        db.execSQL("DROP TABLE IF EXISTS "+tb_name);
+        db.execSQL(hm.get(tb_name));
     }
 }

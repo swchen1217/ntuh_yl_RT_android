@@ -84,8 +84,10 @@ public class SyncDB {
                     Log.d("date_test",a.toString());
                     Log.d("date_test",b.toString());
                     if(a.after(b))
+                    {
                         Log.d("date_test","需要同步");
-
+                        SQLite sql=new SQLite(activity);
+                    }
                 } catch (Exception e) {
 
                 }
