@@ -119,7 +119,7 @@ public class SyncDB {
                             }
                         }
                     }
-                    activity.runOnUiThread(new Runnable() {
+                    /*activity.runOnUiThread(new Runnable() {
                         public void run() {
                             //Code goes here
                             new AlertDialog.Builder(activity)
@@ -131,18 +131,23 @@ public class SyncDB {
                                     })
                                     .show();
                         }
-                    });
+                    });*/
                     Date now = new Date();
                     SimpleDateFormat sdf2=new SimpleDateFormat();
                     sdf2.applyPattern("yyyy-MM-dd HH:mm:ss");
                     spf_SyncDB.edit()
-                            //.putString("position_item_tb_LastSync",sdf2.format(now))
-                            .putString("device_tb_LastSync","2019-01-01 00:00:00")
+                            .putString("position_item_tb_LastSync",sdf2.format(now))
+                            //.putString("device_tb_LastSync","2019-01-01 00:00:00")
                             .commit();
                 } catch (Exception e) {
 
                 } finally {
-                    pd2.dismiss();
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            pd2.dismiss();
+                        }
+                    });
                 }
             }
         });

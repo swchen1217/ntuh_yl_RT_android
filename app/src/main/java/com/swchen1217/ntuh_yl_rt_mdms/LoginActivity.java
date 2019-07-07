@@ -260,6 +260,7 @@ public class LoginActivity extends AppCompatActivity {
                                             });
                                         }
                                         login_error_count=0;
+                                        new SyncDB(LoginActivity.this).SyncPositionItemTable();
                                         startActivity(new Intent(LoginActivity.this,MenuActivity.class));
                                         finish();
                                     }
