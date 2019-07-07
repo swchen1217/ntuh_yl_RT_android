@@ -80,7 +80,7 @@ public class SyncDB {
 
                     SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                     Date a=sdf.parse(data);
-                    Date b=sdf.parse(LastSync.equals("firse")?"2019-01-01 00:00:00":LastSync);
+                    Date b=sdf.parse(LastSync.equals("first")?"2019-01-01 00:00:00":LastSync);
                     Log.d("date_test",a.toString());
                     Log.d("date_test",b.toString());
                     if(a.after(b))
