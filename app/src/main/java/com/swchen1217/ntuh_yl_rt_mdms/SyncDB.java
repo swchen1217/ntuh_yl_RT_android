@@ -49,7 +49,7 @@ public class SyncDB {
         activity = _activity;
         spf_SyncDB=activity.getSharedPreferences("SyncDB",Context.MODE_PRIVATE);
     }
-    
+
     public void SyncPositionItemTable(){
         Thread thread=new Thread(new Runnable() {
             @Override
