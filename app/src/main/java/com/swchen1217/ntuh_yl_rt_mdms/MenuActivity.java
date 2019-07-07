@@ -28,6 +28,8 @@ public class MenuActivity extends AppCompatActivity {
         btn_Manage=findViewById(R.id.btn_menu_6);
 
         setListener();
+
+        new SyncDB(MenuActivity.this).SyncPositionItemTable();
     }
 
     public void setListener(){
