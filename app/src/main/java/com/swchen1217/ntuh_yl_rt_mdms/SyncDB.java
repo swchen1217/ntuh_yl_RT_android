@@ -110,7 +110,7 @@ public class SyncDB {
                                 c2.moveToFirst();           //將指標移至第一筆資料
                                 for(int j=0; j<rows_num; j++) {
                                     String str = "";
-                                    for(int k=0;k<8;k++){
+                                    for(int k=0;k<2;k++){
                                         str+=c2.getString(k)+",";
                                     }
                                     Log.d("data_",str);
