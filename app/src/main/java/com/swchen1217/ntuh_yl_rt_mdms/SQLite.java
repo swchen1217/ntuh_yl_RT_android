@@ -59,7 +59,7 @@ public class SQLite extends SQLiteOpenHelper {
         db.update(tb_name,cv_input,where,null);
     }
 
-    public void remove(String tb_name,String where) {
+    public void delete(String tb_name,String where) {
         db.delete(tb_name, where,null);
     }
 
@@ -67,12 +67,7 @@ public class SQLite extends SQLiteOpenHelper {
         return db.query(tb_name,key,where,null, groupBy, having, orderBy);
     }
 
-    public void reCreatetb(String tb_name){
-        HashMap<String,String> hm = new HashMap<>();
-        hm.put("device_tb",device_tb);
-        hm.put("position_item_tb",position_item_tb);
-
-        db.execSQL("DROP TABLE IF EXISTS "+tb_name);
-        db.execSQL(hm.get(tb_name));
+    public void deletetb(String tb_name){
+        db.execSQL("DELETE FROM "+tb_name);
     }
 }

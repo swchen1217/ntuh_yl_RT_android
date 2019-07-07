@@ -59,27 +59,27 @@ public class SyncDB {
             @Override
             public void run() {
                 try {
-                    /*activity.runOnUiThread(new Runnable() {
+                    activity.runOnUiThread(new Runnable() {
                         public void run() {
                             //Code goes here
                             pd2=new ProgressDialog(activity);
                             pd2.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                            pd2.setMessage("資料同步中...");
+                            pd2.setMessage("位置資料同步中...");
                             pd2.setCancelable(false);
 
                             pd2.show();
                         }
-                    });*/
+                    });
 
                     String LastSync=spf_SyncDB.getString("position_item_tb_LastSync","first");
-                    String data = PostDataToSrever("db.php",
+                    String LastModified = PostDataToSrever("db.php",
                             new FormBody.Builder()
                                     .add("mode", "GetSystem_tb")
                                     .add("id", "position_item_tb_LastModified")
                                     .build());
 
                     SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                    Date a=sdf.parse(data);
+                    Date a=sdf.parse(LastModified);
                     Date b=sdf.parse(LastSync.equals("first")?"2019-01-01 00:00:00":LastSync);
                     Log.d("date_test",a.toString());
                     Log.d("date_test",b.toString());
@@ -87,9 +87,62 @@ public class SyncDB {
                     {
                         Log.d("date_test","需要同步");
                         SQLite sql=new SQLite(activity);
+                        sql.deletetb("position_item_tb");
+                        String data = PostDataToSrever("db.php",
+                                new FormBody.Builder()
+                                        .add("mode", "sync_position_item_tb_download")
+                                        .build());
+                        if(data!=null){
+                            Log.d("data_","data:"+data);
+                            JSONArray jsonA= new JSONArray(data);
+                            Log.d("data_","jsonA.length():"+jsonA.length()+"");
+                            for(int i=0;i<jsonA.length();i++){
+                                JSONObject jsonO = jsonA.getJSONObject(i);
+                                Log.d("data_","jsonO.toString():"+jsonO.toString());
+                                ContentValues cv=new ContentValues();
+                                cv.put("type",jsonO.getString("type"));
+                                cv.put("item",jsonO.getString("item"));
+                                sql.inster("position_item_tb",cv);
+                            }
+                            Cursor c2=sql.select("position_item_tb",null,null,null,null,null);
+                            int rows_num = c2.getCount();
+                            if(rows_num != 0) {
+                                c2.moveToFirst();           //將指標移至第一筆資料
+                                for(int j=0; j<rows_num; j++) {
+                                    String str = "";
+                                    for(int k=0;k<8;k++){
+                                        str+=c2.getString(k)+",";
+                                    }
+                                    Log.d("data_",str);
+                                    c2.moveToNext();        //將指標移至下一筆資料
+                                }
+                            }
+                        }
                     }
+                    activity.runOnUiThread(new Runnable() {
+                        public void run() {
+                            //Code goes here
+                            new AlertDialog.Builder(activity)
+                                    .setTitle("位置資料同步完成!!")
+                                    .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    })
+                                    .show();
+                        }
+                    });
+                    Date now = new Date();
+                    SimpleDateFormat sdf2=new SimpleDateFormat();
+                    sdf2.applyPattern("yyyy-MM-dd HH:mm:ss");
+                    spf_SyncDB.edit()
+                            //.putString("position_item_tb_LastSync",sdf2.format(now))
+                            .putString("device_tb_LastSync","2019-01-01 00:00:00")
+                            .commit();
                 } catch (Exception e) {
 
+                } finally {
+                    pd2.dismiss();
                 }
             }
         });
@@ -106,7 +159,7 @@ public class SyncDB {
                             //Code goes here
                             pd2=new ProgressDialog(activity);
                             pd2.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                            pd2.setMessage("資料同步中...");
+                            pd2.setMessage("設備資料同步中...");
                             pd2.setCancelable(false);
 
                             pd2.show();
@@ -120,8 +173,6 @@ public class SyncDB {
                                     .add("mode", "sync_device_tb_download")
                                     .add("LastModified", LastSync.equals("first")?"2019-01-01 00:00:00":LastSync)
                                     .build());
-
-                    //Log.d("data_",data);
                     if(data!=null){
                         if(!data.equals("no_data")){
                             JSONArray jsonA= new JSONArray(data);
@@ -172,7 +223,7 @@ public class SyncDB {
                             public void run() {
                                 //Code goes here
                                 new AlertDialog.Builder(activity)
-                                        .setTitle("同步完成!!")
+                                        .setTitle("設備資料同步完成!!")
                                         .setPositiveButton("確定", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
@@ -189,27 +240,6 @@ public class SyncDB {
                                 //.putString("device_tb_LastSync","2019-01-01 00:00:00")
                                 .commit();
                     }
-
-                    /*SQLite sql=new SQLite(activity);
-                    Cursor c=sql.select("device_tb",null,"LastModified > '"+(LastSync.equals("first")?"2019-01-01 00:00:00":LastSync)+"'",null,null,null);
-                    if(c.getCount()!=0){
-                        c.moveToFirst();
-                        JsonArray jsonArray=new JsonArray();
-                        for(int i=0;i<c.getCount();i++){
-                            JsonObject jsonObject=new JsonObject();
-                            for(int j=0;j<8;j++){
-                                jsonObject.addProperty(key[j],c.getString(j));
-                            }
-                            jsonArray.add(jsonObject);
-                            c.moveToNext();
-                        }
-                        Log.d("data_",jsonArray.toString());
-                        PostDataToSrever("db.php",
-                                new FormBody.Builder()
-                                        .add("mode", "sync_device_tb_upload")
-                                        .add("josn_data", jsonArray.toString())
-                                        .build());
-                    }*/
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (JSONException e) {
