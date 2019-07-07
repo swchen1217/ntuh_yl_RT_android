@@ -395,6 +395,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, "無法連接至網際網路", Toast.LENGTH_SHORT).show();
                             }
                         });
+                        return null;
                     }
                 }
                 if (e instanceof SocketTimeoutException) {
