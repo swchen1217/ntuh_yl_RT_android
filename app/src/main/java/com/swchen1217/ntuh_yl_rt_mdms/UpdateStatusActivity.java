@@ -108,20 +108,15 @@ public class UpdateStatusActivity extends AppCompatActivity {
                     ChangeLayout("use");
                     SQLite sql=new SQLite(UpdateStatusActivity.this);
                     Cursor c=sql.select("position_item_tb",new String[]{"type"},null,"type",null,null);
-                    String[] type=new String[c.getCount()];
+                    String[] types=new String[c.getCount()];
                     if(c.getCount() != 0) {
                         c.moveToFirst();           //將指標移至第一筆資料
                         for(int j=0; j<c.getCount(); j++) {
-                            type[j]=c.getString(0);
+                            types[j]=c.getString(0);
                             Log.d("data_",c.getString(0));
                             c.moveToNext();        //將指標移至下一筆資料
                         }
                     }
-                    String str="";
-                    for (int i=0;i<type.length;i++){
-                        str+=type[i]+",";
-                    }
-                    Log.d("data_","type:"+str);
 
                     /*if(input_data.length()<6 || !input_data.substring(0,6).equals("MDMS.D")){
 
