@@ -3,6 +3,7 @@ package com.swchen1217.ntuh_yl_rt_mdms;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +33,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
     RadioGroup rg;
     ImageButton btn_back;
     View include_use,include_stock,include_fix;
+    Spinner sp1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
         include_use.setVisibility(View.INVISIBLE);
         include_stock.setVisibility(View.INVISIBLE);
         include_fix.setVisibility(View.INVISIBLE);
+        sp1=findViewById(R.id.sp1);
 
         setListener();
     }
@@ -102,11 +106,28 @@ public class UpdateStatusActivity extends AppCompatActivity {
                 btn_manual.setEnabled(false);
                 if(rb_use.isChecked()){
                     ChangeLayout("use");
-                    if(input_data.length()<6 || !input_data.substring(0,6).equals("MDMS.D")){
+                    SQLite sql=new SQLite(UpdateStatusActivity.this);
+                    Cursor c=sql.select("position_item_tb",new String[]{"type"},null,"type",null,null);
+                    String[] type=new String[c.getCount()];
+                    if(c.getCount() != 0) {
+                        c.moveToFirst();           //將指標移至第一筆資料
+                        for(int j=0; j<c.getCount(); j++) {
+                            type[j]=c.getString(0);
+                            Log.d("data_",c.getString(0));
+                            c.moveToNext();        //將指標移至下一筆資料
+                        }
+                    }
+                    String str="";
+                    for (int i=0;i<type.length;i++){
+                        str+=type[i]+",";
+                    }
+                    Log.d("data_","type:"+str);
+
+                    /*if(input_data.length()<6 || !input_data.substring(0,6).equals("MDMS.D")){
 
                     }else{
 
-                    }
+                    }*/
                     Log.d("RB","1");
                 }else if(rb_stock.isChecked()){
                     ChangeLayout("stock");
