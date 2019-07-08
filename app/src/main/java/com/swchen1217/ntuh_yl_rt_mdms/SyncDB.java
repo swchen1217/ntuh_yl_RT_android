@@ -68,13 +68,14 @@ public class SyncDB {
                     });
 
                     String LastSync=spf_SyncDB.getString("position_item_tb_LastSync","first");
+                    Log.d("date_test","LastSync:"+LastSync);
                     String LastModified = PostDataToSrever("db.php",
                             new FormBody.Builder()
                                     .add("mode", "GetSystem_tb")
                                     .add("id", "position_item_tb_LastModified")
                                     .build());
 
-                    SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                    SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     Date a=sdf.parse(LastModified);
                     Date b=sdf.parse(LastSync.equals("first")?"2019-01-01 00:00:00":LastSync);
                     Log.d("date_test",a.toString());
@@ -195,7 +196,7 @@ public class SyncDB {
                                     sql.inster("device_tb",JsonToContentValues(jsonO));
                                 }else{
                                     Log.d("data_","1");
-                                    SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                                    SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                                     c.moveToFirst();
                                     Date a=sdf.parse(jsonO.getString("LastModified"));
                                     Date b=sdf.parse(c.getString(7));

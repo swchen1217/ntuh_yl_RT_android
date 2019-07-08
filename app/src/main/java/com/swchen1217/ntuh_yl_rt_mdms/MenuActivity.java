@@ -45,16 +45,12 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SQLite sql=new SQLite(MenuActivity.this);
-                Cursor c2=sql.select("position_item_tb",null,null,"type",null,null);
+                Cursor c2=sql.select("position_item_tb",new String[]{"type"},null,"type",null,null);
                 int rows_num = c2.getCount();
                 if(rows_num != 0) {
                     c2.moveToFirst();           //將指標移至第一筆資料
                     for(int j=0; j<rows_num; j++) {
-                        String str = "";
-                        for(int k=0;k<2;k++){
-                            str+=c2.getString(k)+",";
-                        }
-                        Log.d("data_",str);
+                        Log.d("data_",c2.getString(0));
                         c2.moveToNext();        //將指標移至下一筆資料
                     }
                 }
