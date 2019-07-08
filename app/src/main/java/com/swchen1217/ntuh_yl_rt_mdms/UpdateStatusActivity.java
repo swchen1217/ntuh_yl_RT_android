@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -117,7 +118,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
                             c.moveToNext();        //將指標移至下一筆資料
                         }
                     }
-
+                    sp1.setAdapter(new ArrayAdapter<String>(UpdateStatusActivity.this,android.R.layout.simple_spinner_dropdown_item,types));
                     /*if(input_data.length()<6 || !input_data.substring(0,6).equals("MDMS.D")){
 
                     }else{
