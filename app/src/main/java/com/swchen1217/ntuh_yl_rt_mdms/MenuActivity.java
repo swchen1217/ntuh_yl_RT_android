@@ -2,8 +2,10 @@ package com.swchen1217.ntuh_yl_rt_mdms;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,6 +44,20 @@ public class MenuActivity extends AppCompatActivity {
         btn_InquireStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SQLite sql=new SQLite(MenuActivity.this);
+                Cursor c2=sql.select("position_item_tb",null,null,"type",null,null);
+                int rows_num = c2.getCount();
+                if(rows_num != 0) {
+                    c2.moveToFirst();           //將指標移至第一筆資料
+                    for(int j=0; j<rows_num; j++) {
+                        String str = "";
+                        for(int k=0;k<2;k++){
+                            str+=c2.getString(k)+",";
+                        }
+                        Log.d("data_",str);
+                        c2.moveToNext();        //將指標移至下一筆資料
+                    }
+                }
             }
         });
         btn_Log.setOnClickListener(new View.OnClickListener() {
