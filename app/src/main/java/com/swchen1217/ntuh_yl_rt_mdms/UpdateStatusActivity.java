@@ -23,6 +23,8 @@ import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.io.IOException;
+
 public class UpdateStatusActivity extends AppCompatActivity {
 
     public ProgressDialog pd;
@@ -101,6 +103,11 @@ public class UpdateStatusActivity extends AppCompatActivity {
         btn_CheckInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                try {
+                    new SyncDB(UpdateStatusActivity.this).SyncDeviceTable();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 btn_back.setVisibility(View.VISIBLE);
                 btn_CheckInput.setEnabled(false);
                 btn_qr.setEnabled(false);
@@ -120,11 +127,11 @@ public class UpdateStatusActivity extends AppCompatActivity {
                     }
                     //sp1.setPrompt("請選擇單位");
                     sp1.setAdapter(new ArrayAdapter<String>(UpdateStatusActivity.this,android.R.layout.simple_spinner_dropdown_item,types));
-                    /*if(input_data.length()<6 || !input_data.substring(0,6).equals("MDMS.D")){
+                    if(input_data.length()<6 || !input_data.substring(0,6).equals("MDMS.D")){
 
                     }else{
 
-                    }*/
+                    }
                     Log.d("RB","1");
                 }else if(rb_stock.isChecked()){
                     ChangeLayout("stock");
