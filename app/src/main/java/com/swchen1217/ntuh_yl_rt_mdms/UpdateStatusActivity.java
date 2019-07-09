@@ -118,6 +118,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
                             c.moveToNext();        //將指標移至下一筆資料
                         }
                     }
+                    //sp1.setPrompt("請選擇單位");
                     sp1.setAdapter(new ArrayAdapter<String>(UpdateStatusActivity.this,android.R.layout.simple_spinner_dropdown_item,types));
                     /*if(input_data.length()<6 || !input_data.substring(0,6).equals("MDMS.D")){
 
