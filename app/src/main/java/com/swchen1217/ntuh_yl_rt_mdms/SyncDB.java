@@ -151,7 +151,7 @@ public class SyncDB {
         thread.start();
     }
 
-    public void SyncDeviceTable() throws IOException {
+    public void SyncDeviceTable(Boolean AlertDialog) throws IOException {
         Thread thread=new Thread(new Runnable() {
             @Override
             public void run() {
@@ -221,19 +221,21 @@ public class SyncDB {
                                 }
                             }
                         }
-                        activity.runOnUiThread(new Runnable() {
-                            public void run() {
-                                //Code goes here
-                                new AlertDialog.Builder(activity)
-                                        .setTitle("設備資料同步完成!!")
-                                        .setPositiveButton("確定", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                            }
-                                        })
-                                        .show();
-                            }
-                        });
+                        if(AlertDialog){
+                            activity.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    //Code goes here
+                                    new AlertDialog.Builder(activity)
+                                            .setTitle("設備資料同步完成!!")
+                                            .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                }
+                                            })
+                                            .show();
+                                }
+                            });
+                        }
                         Date now = new Date();
                         SimpleDateFormat sdf=new SimpleDateFormat();
                         sdf.applyPattern("yyyy-MM-dd HH:mm:ss");

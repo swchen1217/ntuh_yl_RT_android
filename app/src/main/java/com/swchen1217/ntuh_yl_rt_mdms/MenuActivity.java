@@ -114,7 +114,7 @@ public class MenuActivity extends AppCompatActivity {
                 return true;
             case R.id.updata_device_tb:
                 try {
-                    new SyncDB(MenuActivity.this).SyncDeviceTable();
+                    new SyncDB(MenuActivity.this).SyncDeviceTable(true);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

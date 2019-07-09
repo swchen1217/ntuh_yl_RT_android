@@ -104,7 +104,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    new SyncDB(UpdateStatusActivity.this).SyncDeviceTable();
+                    new SyncDB(UpdateStatusActivity.this).SyncDeviceTable(false);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -121,7 +121,6 @@ public class UpdateStatusActivity extends AppCompatActivity {
                         c.moveToFirst();           //將指標移至第一筆資料
                         for(int j=0; j<c.getCount(); j++) {
                             types[j]=c.getString(0);
-                            Log.d("data_",c.getString(0));
                             c.moveToNext();        //將指標移至下一筆資料
                         }
                     }
