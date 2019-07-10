@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <style name="MyTextView">
-        <item name="android:textSize">18sp</item>
+    <style name="MyTextView"/>
+    <style name="MyTextView.black">
         <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="MyTextView.black.18">
+        <item name="android:textSize">18sp</item>
     </style>
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
