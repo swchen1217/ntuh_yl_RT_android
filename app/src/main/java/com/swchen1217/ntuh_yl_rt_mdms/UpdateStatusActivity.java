@@ -110,24 +110,21 @@ public class UpdateStatusActivity extends AppCompatActivity {
                 if(rb_use.isChecked()){
                     ChangeLayout("use");
                     SQLite sql=new SQLite(UpdateStatusActivity.this);
-                    Cursor c=sql.select("position_item_tb",new String[]{"type"},null,"type",null,null);
-                    String[] types=new String[c.getCount()];
-                    if(c.getCount() != 0) {
-                        c.moveToFirst();           //將指標移至第一筆資料
-                        for(int j=0; j<c.getCount(); j++) {
-                            types[j]=c.getString(0);
-                            c.moveToNext();        //將指標移至下一筆資料
-                        }
-                    }
-                    //sp1.setPrompt("請選擇單位");
-                    ArrayAdapter<String> aa=new ArrayAdapter<>(UpdateStatusActivity.this,android.R.layout.simple_spinner_dropdown_item,types);
-                    //aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    sp1.setAdapter(aa);
-                    sp1.setPopupBackgroundResource(R.drawable.spinner);
                     if(input_data.length()<6 || !input_data.substring(0,6).equals("MDMS.D")){
+                        Cursor number=sql.select("device_tb",null,"number='"+input_data+"'",null,null,null);
+                        if(number.getCount()!=0){
+                            Cursor getdid=sql.select("device_tb",new String[]{"DID"},"number='"+input_data+"'",null,null,null);
+                            Update_use();
+                        }else {
 
+                        }
                     }else{
+                        Cursor did=sql.select("device_tb",null,"did='"+input_data+"'",null,null,null);
+                        if(did.getCount()!=0){
 
+                        }else {
+
+                        }
                     }
                     Log.d("RB","1");
                 }else if(rb_stock.isChecked()){
@@ -217,5 +214,22 @@ public class UpdateStatusActivity extends AppCompatActivity {
             include_stock.setVisibility(View.INVISIBLE);
             include_fix.setVisibility(View.VISIBLE);
         }
+    }
+
+    public void Update_use(String DID){
+        Cursor c=sql.select("position_item_tb",new String[]{"type"},null,"type",null,null);
+        String[] types=new String[c.getCount()];
+        if(c.getCount() != 0) {
+            c.moveToFirst();           //將指標移至第一筆資料
+            for(int j=0; j<c.getCount(); j++) {
+                types[j]=c.getString(0);
+                c.moveToNext();        //將指標移至下一筆資料
+            }
+        }
+        //sp1.setPrompt("請選擇單位");
+        ArrayAdapter<String> aa=new ArrayAdapter<>(UpdateStatusActivity.this,android.R.layout.simple_spinner_dropdown_item,types);
+        //aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp1.setAdapter(aa);
+        sp1.setPopupBackgroundResource(R.drawable.spinner);
     }
 }
