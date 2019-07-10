@@ -39,7 +39,7 @@ import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 
 public class SyncDB {
-    ProgressDialog pd,pd2;
+    ProgressDialog pd,pd2,pd3;
     String server_url="";
     Activity activity;
     SharedPreferences spf_SyncDB;
@@ -58,12 +58,12 @@ public class SyncDB {
                     activity.runOnUiThread(new Runnable() {
                         public void run() {
                             //Code goes here
-                            pd2=new ProgressDialog(activity);
-                            pd2.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                            pd2.setMessage("位置資料同步中...");
-                            pd2.setCancelable(false);
+                            pd3=new ProgressDialog(activity);
+                            pd3.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                            pd3.setMessage("位置資料同步中...");
+                            pd3.setCancelable(false);
 
-                            pd2.show();
+                            pd3.show();
                         }
                     });
 
@@ -142,7 +142,7 @@ public class SyncDB {
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            pd2.dismiss();
+                            pd3.dismiss();
                         }
                     });
                 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/updata_device_tb"
-        android:title="更新裝置資訊" />
+        android:id="@+id/sync_all"
+        android:title="同步所有資料" />
     <item
         android:id="@+id/logout"
         android:title="登出" />

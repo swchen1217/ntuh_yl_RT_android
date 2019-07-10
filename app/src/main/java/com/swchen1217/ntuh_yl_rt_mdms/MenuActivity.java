@@ -1,8 +1,10 @@
 package com.swchen1217.ntuh_yl_rt_mdms;
 
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,14 +33,12 @@ public class MenuActivity extends AppCompatActivity {
 
         setListener();
 
-        SyncDB sync = new SyncDB(MenuActivity.this);
         try {
-            sync.SyncDeviceTable(false);
+            new SyncDB(MenuActivity.this).SyncDeviceTable(false);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        sync.SyncPositionItemTable();
-        
+        new SyncDB(MenuActivity.this).SyncPositionItemTable();
     }
 
     public void setListener(){
@@ -119,12 +119,13 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
                 return true;
-            case R.id.updata_device_tb:
+            case R.id.sync_all:
                 try {
-                    new SyncDB(MenuActivity.this).SyncDeviceTable(true);
+                    new SyncDB(MenuActivity.this).SyncDeviceTable(false);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                new SyncDB(MenuActivity.this).SyncPositionItemTable();
                 return true;
         }
         return false;
