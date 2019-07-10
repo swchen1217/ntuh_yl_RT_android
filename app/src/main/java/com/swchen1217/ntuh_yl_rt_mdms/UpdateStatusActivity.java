@@ -125,7 +125,10 @@ public class UpdateStatusActivity extends AppCompatActivity {
                         }
                     }
                     //sp1.setPrompt("請選擇單位");
-                    sp1.setAdapter(new ArrayAdapter<String>(UpdateStatusActivity.this,android.R.layout.simple_spinner_dropdown_item,types));
+                    ArrayAdapter<String> aa=new ArrayAdapter<>(UpdateStatusActivity.this,android.R.layout.simple_spinner_dropdown_item,types);
+                    //aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    sp1.setAdapter(aa);
+                    sp1.setPopupBackgroundResource(R.drawable.spinner);
                     if(input_data.length()<6 || !input_data.substring(0,6).equals("MDMS.D")){
 
                     }else{
