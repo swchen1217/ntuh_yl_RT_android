@@ -111,19 +111,26 @@ public class UpdateStatusActivity extends AppCompatActivity {
                     ChangeLayout("use");
                     SQLite sql=new SQLite(UpdateStatusActivity.this);
                     if(input_data.length()<6 || !input_data.substring(0,6).equals("MDMS.D")){
-                        Cursor number=sql.select("device_tb",null,"number='"+input_data+"'",null,null,null);
+                        Cursor number=sql.select("device_tb",new String[]{"DID"},"number='"+input_data+"'",null,null,null);
                         if(number.getCount()!=0){
-                            Cursor getdid=sql.select("device_tb",new String[]{"DID"},"number='"+input_data+"'",null,null,null);
-                            Update_use();
+                            Log.d("test","1-1");
+                            number.moveToFirst();
+                            Update_use(number.getString(0));
                         }else {
-
+                            Log.d("test","1-2");
+                            back();
+                            Toast.makeText(UpdateStatusActivity.this,"無此設備!!,請重新輸入或新增此設備",Toast.LENGTH_SHORT).show();
                         }
                     }else{
-                        Cursor did=sql.select("device_tb",null,"did='"+input_data+"'",null,null,null);
+                        Cursor did=sql.select("device_tb",new String[]{"DID"},"did='"+input_data+"'",null,null,null);
                         if(did.getCount()!=0){
-
+                            Log.d("test","2-1");
+                            did.moveToFirst();
+                            Update_use(did.getString(0));
                         }else {
-
+                            Log.d("test","2-1");
+                            back();
+                            Toast.makeText(UpdateStatusActivity.this,"無此設備!!,請重新輸入或新增此設備",Toast.LENGTH_SHORT).show();
                         }
                     }
                     Log.d("RB","1");
@@ -139,17 +146,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btn_back.setVisibility(View.INVISIBLE);
-                btn_CheckInput.setEnabled(true);
-                btn_qr.setEnabled(true);
-                btn_manual.setEnabled(true);
-                rb_use.setEnabled(true);
-                rb_stock.setEnabled(true);
-                rb_fix.setEnabled(true);
-                include_use.setVisibility(View.INVISIBLE);
-                include_stock.setVisibility(View.INVISIBLE);
-                include_fix.setVisibility(View.INVISIBLE);
-
+                back();
             }
         });
     }
@@ -217,8 +214,10 @@ public class UpdateStatusActivity extends AppCompatActivity {
     }
 
     public void Update_use(String DID){
+        Log.d("test","DID:"+DID);
+        SQLite sql=new SQLite(UpdateStatusActivity.this);
         Cursor c=sql.select("position_item_tb",new String[]{"type"},null,"type",null,null);
-        String[] types=new String[c.getCount()];
+        String[] types=new String[c.getCount()+2];
         if(c.getCount() != 0) {
             c.moveToFirst();           //將指標移至第一筆資料
             for(int j=0; j<c.getCount(); j++) {
@@ -226,10 +225,25 @@ public class UpdateStatusActivity extends AppCompatActivity {
                 c.moveToNext();        //將指標移至下一筆資料
             }
         }
+        types[types.length-2]="一般病房";
+        types[types.length-1]="急診";
         //sp1.setPrompt("請選擇單位");
         ArrayAdapter<String> aa=new ArrayAdapter<>(UpdateStatusActivity.this,android.R.layout.simple_spinner_dropdown_item,types);
         //aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp1.setAdapter(aa);
         sp1.setPopupBackgroundResource(R.drawable.spinner);
+    }
+
+    public void back(){
+        btn_back.setVisibility(View.INVISIBLE);
+        btn_CheckInput.setEnabled(true);
+        btn_qr.setEnabled(true);
+        btn_manual.setEnabled(true);
+        rb_use.setEnabled(true);
+        rb_stock.setEnabled(true);
+        rb_fix.setEnabled(true);
+        include_use.setVisibility(View.INVISIBLE);
+        include_stock.setVisibility(View.INVISIBLE);
+        include_fix.setVisibility(View.INVISIBLE);
     }
 }
