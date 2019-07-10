@@ -31,7 +31,14 @@ public class MenuActivity extends AppCompatActivity {
 
         setListener();
 
-        new SyncDB(MenuActivity.this).SyncPositionItemTable();
+        SyncDB sync = new SyncDB(MenuActivity.this);
+        try {
+            sync.SyncDeviceTable(false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        sync.SyncPositionItemTable();
+        
     }
 
     public void setListener(){

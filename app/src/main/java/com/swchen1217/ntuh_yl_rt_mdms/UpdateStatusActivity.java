@@ -103,11 +103,6 @@ public class UpdateStatusActivity extends AppCompatActivity {
         btn_CheckInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    new SyncDB(UpdateStatusActivity.this).SyncDeviceTable(false);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
                 btn_back.setVisibility(View.VISIBLE);
                 btn_CheckInput.setEnabled(false);
                 btn_qr.setEnabled(false);
