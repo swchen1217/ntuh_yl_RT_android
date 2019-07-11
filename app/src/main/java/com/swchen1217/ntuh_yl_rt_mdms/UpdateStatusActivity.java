@@ -29,42 +29,42 @@ public class UpdateStatusActivity extends AppCompatActivity {
 
     public ProgressDialog pd;
     public Toast Toast;
-    Button btn_qr,btn_manual,btn_CheckInput;
+    Button btn_qr, btn_manual, btn_CheckInput;
     TextView tv_input;
-    String input_data=null;
-    RadioButton rb_use,rb_stock,rb_fix;
+    String input_data = null;
+    RadioButton rb_use, rb_stock, rb_fix;
     RadioGroup rg;
     ImageButton btn_back;
-    View include_use,include_stock,include_fix;
+    View include_use, include_stock, include_fix;
     Spinner sp1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_status);
-        btn_qr=findViewById(R.id.btn_qrcode);
-        btn_manual=findViewById(R.id.btn_manual);
-        tv_input=findViewById(R.id.tv_input);
-        btn_CheckInput=findViewById(R.id.btn_CheckInput);
+        btn_qr = findViewById(R.id.btn_qrcode);
+        btn_manual = findViewById(R.id.btn_manual);
+        tv_input = findViewById(R.id.tv_input);
+        btn_CheckInput = findViewById(R.id.btn_CheckInput);
         btn_CheckInput.setVisibility(View.INVISIBLE);
-        rb_use=findViewById(R.id.rb_use);
-        rb_stock=findViewById(R.id.rb_stock);
-        rb_fix=findViewById(R.id.rb_fix);
-        rg=findViewById(R.id.radioGroup);
-        btn_back=findViewById(R.id.btn_back);
+        rb_use = findViewById(R.id.rb_use);
+        rb_stock = findViewById(R.id.rb_stock);
+        rb_fix = findViewById(R.id.rb_fix);
+        rg = findViewById(R.id.radioGroup);
+        btn_back = findViewById(R.id.btn_back);
         btn_back.setVisibility(View.INVISIBLE);
-        include_use=findViewById(R.id.include_use);
-        include_stock=findViewById(R.id.include_stock);
-        include_fix=findViewById(R.id.include_fix);
+        include_use = findViewById(R.id.include_use);
+        include_stock = findViewById(R.id.include_stock);
+        include_fix = findViewById(R.id.include_fix);
         include_use.setVisibility(View.INVISIBLE);
         include_stock.setVisibility(View.INVISIBLE);
         include_fix.setVisibility(View.INVISIBLE);
-        sp1=findViewById(R.id.sp1);
+        sp1 = findViewById(R.id.sp1);
 
         setListener();
     }
 
-    public void setListener(){
+    public void setListener() {
         btn_qr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,7 +83,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EditText input = new EditText(UpdateStatusActivity.this);
-                if(tv_input.getText().toString().length()>4)
+                if (tv_input.getText().toString().length() > 4)
                     input.setText(tv_input.getText().toString().substring(6));
                 new AlertDialog.Builder(UpdateStatusActivity.this)
                         .setTitle("手動輸入")
@@ -91,10 +91,10 @@ public class UpdateStatusActivity extends AppCompatActivity {
                         .setView(input)
                         .setPositiveButton("確認", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                if(input.getText().toString().length()<6 || !input.getText().toString().substring(0,6).equals("MDMS.D"))
-                                    InputDone(2,input.getText().toString());
+                                if (input.getText().toString().length() < 6 || !input.getText().toString().substring(0, 6).equals("MDMS.D"))
+                                    InputDone(2, input.getText().toString());
                                 else
-                                    InputDone(1,input.getText().toString());
+                                    InputDone(1, input.getText().toString());
                             }
                         })
                         .show();
@@ -107,39 +107,39 @@ public class UpdateStatusActivity extends AppCompatActivity {
                 btn_CheckInput.setEnabled(false);
                 btn_qr.setEnabled(false);
                 btn_manual.setEnabled(false);
-                if(rb_use.isChecked()){
+                if (rb_use.isChecked()) {
                     ChangeLayout("use");
-                    SQLite sql=new SQLite(UpdateStatusActivity.this);
-                    if(input_data.length()<6 || !input_data.substring(0,6).equals("MDMS.D")){
-                        Cursor number=sql.select("device_tb",new String[]{"DID"},"number='"+input_data+"'",null,null,null);
-                        if(number.getCount()!=0){
-                            Log.d("test","1-1");
+                    SQLite sql = new SQLite(UpdateStatusActivity.this);
+                    if (input_data.length() < 6 || !input_data.substring(0, 6).equals("MDMS.D")) {
+                        Cursor number = sql.select("device_tb", new String[]{"DID"}, "number='" + input_data + "'", null, null, null);
+                        if (number.getCount() != 0) {
+                            Log.d("test", "1-1");
                             number.moveToFirst();
                             Update_use(number.getString(0));
-                        }else {
-                            Log.d("test","1-2");
+                        } else {
+                            Log.d("test", "1-2");
                             back();
-                            Toast.makeText(UpdateStatusActivity.this,"無此設備!!,請重新輸入或新增此設備",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UpdateStatusActivity.this, "無此設備!!,請重新輸入或新增此設備", Toast.LENGTH_SHORT).show();
                         }
-                    }else{
-                        Cursor did=sql.select("device_tb",new String[]{"DID"},"did='"+input_data+"'",null,null,null);
-                        if(did.getCount()!=0){
-                            Log.d("test","2-1");
+                    } else {
+                        Cursor did = sql.select("device_tb", new String[]{"DID"}, "did='" + input_data + "'", null, null, null);
+                        if (did.getCount() != 0) {
+                            Log.d("test", "2-1");
                             did.moveToFirst();
                             Update_use(did.getString(0));
-                        }else {
-                            Log.d("test","2-1");
+                        } else {
+                            Log.d("test", "2-1");
                             back();
-                            Toast.makeText(UpdateStatusActivity.this,"無此設備!!,請重新輸入或新增此設備",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UpdateStatusActivity.this, "無此設備!!,請重新輸入或新增此設備", Toast.LENGTH_SHORT).show();
                         }
                     }
-                    Log.d("RB","1");
-                }else if(rb_stock.isChecked()){
+                    Log.d("RB", "1");
+                } else if (rb_stock.isChecked()) {
                     ChangeLayout("stock");
-                    Log.d("RB","2");
-                }else if(rb_fix.isChecked()){
+                    Log.d("RB", "2");
+                } else if (rb_fix.isChecked()) {
                     ChangeLayout("fix");
-                    Log.d("RB","3");
+                    Log.d("RB", "3");
                 }
             }
         });
@@ -153,41 +153,42 @@ public class UpdateStatusActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
-        if(result !=null){
-            if(result.getContents() == null){
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null) {
+            if (result.getContents() == null) {
                 tv_input.setText("");
-                Toast.makeText(this,"掃描錯誤!!,請再試一次或改為手動輸入",Toast.LENGTH_SHORT).show();;
-            }else {
-                InputDone(1,result.getContents());
-                Log.d("QRCodeScanLog",result.getContents());
+                Toast.makeText(this, "掃描錯誤!!,請再試一次或改為手動輸入", Toast.LENGTH_SHORT).show();
+                ;
+            } else {
+                InputDone(1, result.getContents());
+                Log.d("QRCodeScanLog", result.getContents());
             }
-        }else {
+        } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
-    public void InputDone(int mode,String input){
+    public void InputDone(int mode, String input) {
         tv_input.setText(input);
-        if(input.equals("")){
+        if (input.equals("")) {
             tv_input.setText("");
             btn_CheckInput.setVisibility(View.INVISIBLE);
             btn_back.setVisibility(View.INVISIBLE);
-        }else{
+        } else {
             btn_CheckInput.setVisibility(View.VISIBLE);
             btn_CheckInput.setEnabled(true);
             btn_back.setVisibility(View.INVISIBLE);
-            if(mode==1){
-                tv_input.setText(" 設備ID："+input);
-            }else if(mode==2){
-                tv_input.setText(" 設備編號："+input);
+            if (mode == 1) {
+                tv_input.setText(" 設備ID：" + input);
+            } else if (mode == 2) {
+                tv_input.setText(" 設備編號：" + input);
             }
-            input_data=input;
+            input_data = input;
         }
     }
 
-    public void ChangeLayout(String checked){
-        if(checked.equals("use")){
+    public void ChangeLayout(String checked) {
+        if (checked.equals("use")) {
             rb_use.setEnabled(true);
             rb_stock.setEnabled(false);
             rb_fix.setEnabled(false);
@@ -195,7 +196,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
             include_stock.setVisibility(View.INVISIBLE);
             include_fix.setVisibility(View.INVISIBLE);
         }
-        if(checked.equals("stock")){
+        if (checked.equals("stock")) {
             rb_use.setEnabled(false);
             rb_stock.setEnabled(true);
             rb_fix.setEnabled(false);
@@ -203,7 +204,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
             include_stock.setVisibility(View.VISIBLE);
             include_fix.setVisibility(View.INVISIBLE);
         }
-        if(checked.equals("fix")){
+        if (checked.equals("fix")) {
             rb_use.setEnabled(false);
             rb_stock.setEnabled(false);
             rb_fix.setEnabled(true);
@@ -213,28 +214,28 @@ public class UpdateStatusActivity extends AppCompatActivity {
         }
     }
 
-    public void Update_use(String DID){
-        Log.d("test","DID:"+DID);
-        SQLite sql=new SQLite(UpdateStatusActivity.this);
-        Cursor c=sql.select("position_item_tb",new String[]{"type"},null,"type",null,null);
-        String[] types=new String[c.getCount()+2];
-        if(c.getCount() != 0) {
+    public void Update_use(String DID) {
+        Log.d("test", "DID:" + DID);
+        SQLite sql = new SQLite(UpdateStatusActivity.this);
+        Cursor c = sql.select("position_item_tb", new String[]{"type"}, null, "type", null, null);
+        String[] types = new String[c.getCount() + 2];
+        if (c.getCount() != 0) {
             c.moveToFirst();           //將指標移至第一筆資料
-            for(int j=0; j<c.getCount(); j++) {
-                types[j]=c.getString(0);
+            for (int j = 0; j < c.getCount(); j++) {
+                types[j] = c.getString(0);
                 c.moveToNext();        //將指標移至下一筆資料
             }
         }
-        types[types.length-2]="一般病房";
-        types[types.length-1]="急診";
+        types[types.length - 2] = "一般病房";
+        types[types.length - 1] = "急診";
         //sp1.setPrompt("請選擇單位");
-        ArrayAdapter<String> aa=new ArrayAdapter<>(UpdateStatusActivity.this,android.R.layout.simple_spinner_dropdown_item,types);
+        ArrayAdapter<String> aa = new ArrayAdapter<>(UpdateStatusActivity.this, android.R.layout.simple_spinner_dropdown_item, types);
         //aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp1.setAdapter(aa);
         sp1.setPopupBackgroundResource(R.drawable.spinner);
     }
 
-    public void back(){
+    public void back() {
         btn_back.setVisibility(View.INVISIBLE);
         btn_CheckInput.setEnabled(true);
         btn_qr.setEnabled(true);
