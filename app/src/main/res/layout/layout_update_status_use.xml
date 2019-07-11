@@ -6,29 +6,30 @@
     android:layout_height="match_parent">
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:background="#dddddd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="#dddddd">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView12"
+            android:id="@+id/textView13"
             style="@style/MyTextView.black.18"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="#00ffffff"
             android:text="選擇單位"
-            app:layout_constraintBottom_toBottomOf="@+id/sp1"
-            app:layout_constraintEnd_toStartOf="@+id/sp1"
+            app:layout_constraintBottom_toBottomOf="@+id/sp2"
+            app:layout_constraintEnd_toStartOf="@+id/sp2"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/sp1"
-            android:background="#00ffffff"/>
+            app:layout_constraintTop_toTopOf="@+id/sp2" />
 
         <Spinner
-            android:id="@+id/sp1"
+            android:id="@+id/sp2"
             android:layout_width="150dp"
             android:layout_height="30dp"
             android:layout_marginTop="8dp"
@@ -36,7 +37,41 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textView12"
+            app:layout_constraintStart_toEndOf="@+id/textView13"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+        <TextView
+            android:id="@+id/textView13"
+            style="@style/MyTextView.black.18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00ffffff"
+            android:text="選擇床位"
+            app:layout_constraintBottom_toBottomOf="@+id/sp2"
+            app:layout_constraintEnd_toStartOf="@+id/sp2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/sp2" />
+
+        <Spinner
+            android:id="@+id/sp2"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView13"
             app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 

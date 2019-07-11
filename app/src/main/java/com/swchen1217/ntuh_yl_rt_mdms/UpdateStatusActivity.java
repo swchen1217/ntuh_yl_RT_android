@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,8 +22,6 @@ import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-
-import java.io.IOException;
 
 public class UpdateStatusActivity extends AppCompatActivity {
 
@@ -60,7 +57,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
         include_use.setVisibility(View.INVISIBLE);
         include_stock.setVisibility(View.INVISIBLE);
         include_fix.setVisibility(View.INVISIBLE);
-        sp1 = findViewById(R.id.sp1);
+        sp1 = findViewById(R.id.sp2);
 
         setListener();
     }
@@ -237,8 +234,10 @@ public class UpdateStatusActivity extends AppCompatActivity {
         sp1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i != types.length - 1 || i != types.length - 2) {
-
+                if (i == types.length - 1 || i == types.length - 2) {
+                    Log.d("test", "et");
+                } else {
+                    Log.d("test", "sp");
                 }
             }
 
