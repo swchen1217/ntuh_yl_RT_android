@@ -34,7 +34,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
     RadioGroup rg;
     ImageButton btn_back;
     View include_use, include_stock, include_fix;
-    Spinner sp1;
+    Spinner sp1,sp2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,8 @@ public class UpdateStatusActivity extends AppCompatActivity {
         include_use.setVisibility(View.INVISIBLE);
         include_stock.setVisibility(View.INVISIBLE);
         include_fix.setVisibility(View.INVISIBLE);
-        sp1 = findViewById(R.id.sp2);
+        sp1 = findViewById(R.id.sp1);
+        sp2 = findViewById(R.id.sp2);
 
         setListener();
     }
@@ -107,9 +108,9 @@ public class UpdateStatusActivity extends AppCompatActivity {
                 btn_manual.setEnabled(false);
                 if (rb_use.isChecked()) {
                     ChangeLayout("use");
-                    SQLite sql = new SQLite(UpdateStatusActivity.this);
+                    SQLite SQL = new SQLite(UpdateStatusActivity.this);
                     if (input_data.length() < 6 || !input_data.substring(0, 6).equals("MDMS.D")) {
-                        Cursor number = sql.select("device_tb", new String[]{"DID"}, "number='" + input_data + "'", null, null, null);
+                        Cursor number = SQL.select("device_tb", new String[]{"DID"}, "number='" + input_data + "'", null, null, null);
                         if (number.getCount() != 0) {
                             Log.d("test", "1-1");
                             number.moveToFirst();
@@ -120,7 +121,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
                             Toast.makeText(UpdateStatusActivity.this, "無此設備!!,請重新輸入或新增此設備", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Cursor did = sql.select("device_tb", new String[]{"DID"}, "did='" + input_data + "'", null, null, null);
+                        Cursor did = SQL.select("device_tb", new String[]{"DID"}, "did='" + input_data + "'", null, null, null);
                         if (did.getCount() != 0) {
                             Log.d("test", "2-1");
                             did.moveToFirst();
@@ -214,8 +215,8 @@ public class UpdateStatusActivity extends AppCompatActivity {
 
     public void Update_use(String DID) {
         Log.d("test", "DID:" + DID);
-        SQLite sql = new SQLite(UpdateStatusActivity.this);
-        Cursor c = sql.select("position_item_tb", new String[]{"type"}, null, "type", null, null);
+        SQLite SQL = new SQLite(UpdateStatusActivity.this);
+        Cursor c = SQL.select("position_item_tb", new String[]{"type"}, null, "type", null, null);
         String[] types = new String[c.getCount() + 2];
         if (c.getCount() != 0) {
             c.moveToFirst();           //將指標移至第一筆資料
@@ -237,6 +238,17 @@ public class UpdateStatusActivity extends AppCompatActivity {
                 if (i == types.length - 1 || i == types.length - 2) {
                     Log.d("test", "et");
                 } else {
+                    Cursor c2 = SQL.select("position_item_tb", new String[]{"item"}, "type='"+types[i]+"'", null, null, null);
+                    String[] items = new String[c2.getCount()];
+                    c2.moveToFirst();           //將指標移至第一筆資料
+                    for (int j = 0; j < c2.getCount(); j++) {
+                        items[j] = c2.getString(0);
+                        c2.moveToNext();        //將指標移至下一筆資料
+                    }
+                    ArrayAdapter<String> aa2 = new ArrayAdapter<>(UpdateStatusActivity.this, android.R.layout.simple_spinner_dropdown_item, items);
+                    sp2.setAdapter(aa2);
+                    sp2.setPopupBackgroundResource(R.drawable.spinner);
+                    
                     Log.d("test", "sp");
                 }
             }
