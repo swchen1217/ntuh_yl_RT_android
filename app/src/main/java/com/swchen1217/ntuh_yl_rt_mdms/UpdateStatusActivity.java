@@ -4,9 +4,12 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -35,6 +38,8 @@ public class UpdateStatusActivity extends AppCompatActivity {
     ImageButton btn_back;
     View include_use, include_stock, include_fix;
     Spinner sp1,sp2;
+    ConstraintLayout cl21,cl22;
+    EditText et_bednum_1,et_bednum_2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +64,12 @@ public class UpdateStatusActivity extends AppCompatActivity {
         include_fix.setVisibility(View.INVISIBLE);
         sp1 = findViewById(R.id.sp1);
         sp2 = findViewById(R.id.sp2);
+        cl21=findViewById(R.id.cl2_1);
+        cl22=findViewById(R.id.cl2_2);
+        cl21.setVisibility(View.INVISIBLE);
+        cl22.setVisibility(View.INVISIBLE);
+        et_bednum_1=findViewById(R.id.et_bednumber1);
+        et_bednum_2=findViewById(R.id.et_bednumber2);
 
         setListener();
     }
@@ -146,6 +157,24 @@ public class UpdateStatusActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 back();
+            }
+        });
+        et_bednum_1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(et_bednum_1.getText().length()==2){
+                    et_bednum_2.requestFocus();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
             }
         });
     }
@@ -236,8 +265,12 @@ public class UpdateStatusActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == types.length - 1 || i == types.length - 2) {
+                    cl21.setVisibility(View.INVISIBLE);
+                    cl22.setVisibility(View.VISIBLE);
                     Log.d("test", "et");
                 } else {
+                    cl21.setVisibility(View.VISIBLE);
+                    cl22.setVisibility(View.INVISIBLE);
                     Cursor c2 = SQL.select("position_item_tb", new String[]{"item"}, "type='"+types[i]+"'", null, null, null);
                     String[] items = new String[c2.getCount()];
                     c2.moveToFirst();           //將指標移至第一筆資料
