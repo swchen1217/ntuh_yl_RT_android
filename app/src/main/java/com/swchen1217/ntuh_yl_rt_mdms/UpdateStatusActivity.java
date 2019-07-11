@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -233,6 +234,19 @@ public class UpdateStatusActivity extends AppCompatActivity {
         //aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp1.setAdapter(aa);
         sp1.setPopupBackgroundResource(R.drawable.spinner);
+        sp1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(i!=types.length-1||i!=types.length-2){
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     public void back() {
