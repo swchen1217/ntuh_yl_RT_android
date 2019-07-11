@@ -237,7 +237,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
         sp1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i!=types.length-1||i!=types.length-2){
+                if (i != types.length - 1 || i != types.length - 2) {
 
                 }
             }
