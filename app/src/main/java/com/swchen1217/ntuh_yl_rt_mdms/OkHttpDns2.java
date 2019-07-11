@@ -10,7 +10,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 
-public class OkHttpDns2 implements Dns{
+public class OkHttpDns2 implements Dns {
     private long timeout;
 
     public OkHttpDns2(long timeout) {

@@ -18,18 +18,19 @@ import android.widget.Toast;
 import java.io.IOException;
 
 public class MenuActivity extends AppCompatActivity {
-    Button btn_UpdateStatus,btn_InquireStatus,btn_Log,btn_Repair,btn_MaintenanceCheck,btn_Manage;
+    Button btn_UpdateStatus, btn_InquireStatus, btn_Log, btn_Repair, btn_MaintenanceCheck, btn_Manage;
     private long exitTime = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        btn_UpdateStatus=findViewById(R.id.btn_menu_1);
-        btn_InquireStatus=findViewById(R.id.btn_menu_2);
-        btn_Log=findViewById(R.id.btn_menu_3);
-        btn_Repair=findViewById(R.id.btn_menu_4);
-        btn_MaintenanceCheck=findViewById(R.id.btn_menu_5);
-        btn_Manage=findViewById(R.id.btn_menu_6);
+        btn_UpdateStatus = findViewById(R.id.btn_menu_1);
+        btn_InquireStatus = findViewById(R.id.btn_menu_2);
+        btn_Log = findViewById(R.id.btn_menu_3);
+        btn_Repair = findViewById(R.id.btn_menu_4);
+        btn_MaintenanceCheck = findViewById(R.id.btn_menu_5);
+        btn_Manage = findViewById(R.id.btn_menu_6);
 
         setListener();
 
@@ -41,23 +42,23 @@ public class MenuActivity extends AppCompatActivity {
         new SyncDB(MenuActivity.this).SyncPositionItemTable();
     }
 
-    public void setListener(){
+    public void setListener() {
         btn_UpdateStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MenuActivity.this,UpdateStatusActivity.class));
+                startActivity(new Intent(MenuActivity.this, UpdateStatusActivity.class));
             }
         });
         btn_InquireStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SQLite sql=new SQLite(MenuActivity.this);
-                Cursor c2=sql.select("position_item_tb",new String[]{"type"},null,"type",null,null);
+                SQLite sql = new SQLite(MenuActivity.this);
+                Cursor c2 = sql.select("position_item_tb", new String[]{"type"}, null, "type", null, null);
                 int rows_num = c2.getCount();
-                if(rows_num != 0) {
+                if (rows_num != 0) {
                     c2.moveToFirst();           //將指標移至第一筆資料
-                    for(int j=0; j<rows_num; j++) {
-                        Log.d("data_",c2.getString(0));
+                    for (int j = 0; j < rows_num; j++) {
+                        Log.d("data_", c2.getString(0));
                         c2.moveToNext();        //將指標移至下一筆資料
                     }
                 }
@@ -88,6 +89,7 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {

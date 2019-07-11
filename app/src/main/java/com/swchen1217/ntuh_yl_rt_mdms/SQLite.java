@@ -51,23 +51,23 @@ public class SQLite extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void inster(String tb_name,ContentValues cv_input) {
+    public void inster(String tb_name, ContentValues cv_input) {
         db.insert(tb_name, null, cv_input);
     }
 
-    public void update(String tb_name,ContentValues cv_input,String where) {
-        db.update(tb_name,cv_input,where,null);
+    public void update(String tb_name, ContentValues cv_input, String where) {
+        db.update(tb_name, cv_input, where, null);
     }
 
-    public void delete(String tb_name,String where) {
-        db.delete(tb_name, where,null);
+    public void delete(String tb_name, String where) {
+        db.delete(tb_name, where, null);
     }
 
-    public Cursor select(String tb_name,String[] key,String where,String groupBy,String having,String orderBy) {
-        return db.query(tb_name,key,where,null, groupBy, having, orderBy);
+    public Cursor select(String tb_name, String[] key, String where, String groupBy, String having, String orderBy) {
+        return db.query(tb_name, key, where, null, groupBy, having, orderBy);
     }
 
-    public void deletetb(String tb_name){
-        db.execSQL("DELETE FROM "+tb_name);
+    public void deletetb(String tb_name) {
+        db.execSQL("DELETE FROM " + tb_name);
     }
 }
