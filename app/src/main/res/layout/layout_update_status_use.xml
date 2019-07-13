@@ -127,7 +127,6 @@
                     android:gravity="center"
                     android:inputType="textPersonName"
                     android:maxLength="2"
-                    android:text="A"
                     android:textColor="#000000"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -154,8 +153,8 @@
                     android:layout_height="wrap_content"
                     android:ems="3"
                     android:gravity="center"
-                    android:inputType="textPersonName"
-                    android:maxLength="4"
+                    android:inputType="number"
+                    android:maxLength="3"
                     android:textColor="#000000"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="@+id/et_bednumber1"
@@ -176,7 +175,9 @@
         android:background="#dddddd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cl1">
+        app:layout_constraintTop_toBottomOf="@id/cl1"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <TextView
             android:id="@+id/textView18"
@@ -196,6 +197,7 @@
             android:layout_height="wrap_content"
             android:ems="7"
             android:inputType="number"
+            android:maxLength="7"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

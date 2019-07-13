@@ -37,9 +37,9 @@ public class UpdateStatusActivity extends AppCompatActivity {
     RadioGroup rg;
     ImageButton btn_back;
     View include_use, include_stock, include_fix;
-    Spinner sp1,sp2;
-    ConstraintLayout cl21,cl22;
-    EditText et_bednum_1,et_bednum_2;
+    Spinner sp1, sp2;
+    ConstraintLayout cl21, cl22;
+    EditText et_bednum_1, et_bednum_2, et_usernum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,12 +64,13 @@ public class UpdateStatusActivity extends AppCompatActivity {
         include_fix.setVisibility(View.INVISIBLE);
         sp1 = findViewById(R.id.sp1);
         sp2 = findViewById(R.id.sp2);
-        cl21=findViewById(R.id.cl2_1);
-        cl22=findViewById(R.id.cl2_2);
+        cl21 = findViewById(R.id.cl2_1);
+        cl22 = findViewById(R.id.cl2_2);
         cl21.setVisibility(View.INVISIBLE);
         cl22.setVisibility(View.INVISIBLE);
-        et_bednum_1=findViewById(R.id.et_bednumber1);
-        et_bednum_2=findViewById(R.id.et_bednumber2);
+        et_bednum_1 = findViewById(R.id.et_bednumber1);
+        et_bednum_2 = findViewById(R.id.et_bednumber2);
+        et_usernum = findViewById(R.id.et_usernum);
 
         setListener();
     }
@@ -167,8 +168,26 @@ public class UpdateStatusActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(et_bednum_1.getText().length()==2){
+                if (et_bednum_1.getText().length() == 2) {
                     et_bednum_2.requestFocus();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        et_bednum_2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (et_bednum_2.getText().length() == 3) {
+                    et_usernum.requestFocus();
                 }
             }
 
@@ -259,6 +278,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
         //sp1.setPrompt("請選擇單位");
         ArrayAdapter<String> aa = new ArrayAdapter<>(UpdateStatusActivity.this, android.R.layout.simple_spinner_dropdown_item, types);
         //aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //sp1.performClick();
         sp1.setAdapter(aa);
         sp1.setPopupBackgroundResource(R.drawable.spinner);
         sp1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -267,11 +287,12 @@ public class UpdateStatusActivity extends AppCompatActivity {
                 if (i == types.length - 1 || i == types.length - 2) {
                     cl21.setVisibility(View.INVISIBLE);
                     cl22.setVisibility(View.VISIBLE);
+                    et_bednum_1.requestFocus();
                     Log.d("test", "et");
                 } else {
                     cl21.setVisibility(View.VISIBLE);
                     cl22.setVisibility(View.INVISIBLE);
-                    Cursor c2 = SQL.select("position_item_tb", new String[]{"item"}, "type='"+types[i]+"'", null, null, null);
+                    Cursor c2 = SQL.select("position_item_tb", new String[]{"item"}, "type='" + types[i] + "'", null, null, null);
                     String[] items = new String[c2.getCount()];
                     c2.moveToFirst();           //將指標移至第一筆資料
                     for (int j = 0; j < c2.getCount(); j++) {
@@ -281,7 +302,18 @@ public class UpdateStatusActivity extends AppCompatActivity {
                     ArrayAdapter<String> aa2 = new ArrayAdapter<>(UpdateStatusActivity.this, android.R.layout.simple_spinner_dropdown_item, items);
                     sp2.setAdapter(aa2);
                     sp2.setPopupBackgroundResource(R.drawable.spinner);
-                    
+                    sp2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            et_usernum.requestFocus();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+
+                        }
+                    });
+
                     Log.d("test", "sp");
                 }
             }
