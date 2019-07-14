@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -84,7 +85,8 @@ public class LoginActivity extends AppCompatActivity {
         btn_forget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final EditText input = new EditText(LoginActivity.this);
+                EditText input = new EditText(LoginActivity.this);
+                input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                 new AlertDialog.Builder(LoginActivity.this)
                         .setTitle("忘記密碼")
                         .setMessage("請輸入您註冊的Email")

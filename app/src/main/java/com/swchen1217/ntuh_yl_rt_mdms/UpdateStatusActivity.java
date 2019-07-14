@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -95,6 +96,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EditText input = new EditText(UpdateStatusActivity.this);
+                input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                 if (tv_input.getText().toString().length() > 4)
                     input.setText(tv_input.getText().toString().substring(6));
                 new AlertDialog.Builder(UpdateStatusActivity.this)
@@ -195,6 +197,30 @@ public class UpdateStatusActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
 
+            }
+        });
+        et_usernum.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (et_usernum.getText().length() == 7) {
+                    et_usernum.setInputType(InputType.TYPE_NULL);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        et_usernum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                et_usernum.setInputType(InputType.TYPE_CLASS_NUMBER);
             }
         });
     }
