@@ -390,5 +390,8 @@ public class UpdateStatusActivity extends AppCompatActivity {
         include_use.setVisibility(View.INVISIBLE);
         include_stock.setVisibility(View.INVISIBLE);
         include_fix.setVisibility(View.INVISIBLE);
+        et_bednum_1.setText("");
+        et_bednum_2.setText("");
+        et_usernum.setText("");
     }
 }
