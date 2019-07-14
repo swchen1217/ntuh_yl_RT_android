@@ -320,11 +320,33 @@ public class UpdateStatusActivity extends AppCompatActivity {
                 btn_enter.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        Boolean ok=false;
+                        if(i == types.length - 1 || i == types.length - 2){
+                            if(!et_bednum_1.getText().equals("") && !et_bednum_2.getText().equals("") && et_bednum_1.getText().length()==2 && et_bednum_2.getText().length()==3 && !et_usernum.getText().equals("") && et_usernum.getText().length()==7)
+                                ok=true;
+                            else
+                                ok=false;
 
-                        
+                        }else{
+                            if(!et_usernum.getText().equals("") && et_usernum.getText().length()==7)
+                                ok=true;
+                            else
+                                ok=false;
+                        }
+
+                        if(ok==true){
+                            Log.d("test","OK");
+                        }else {
+                            new AlertDialog.Builder(UpdateStatusActivity.this)
+                                    .setTitle("輸入資料不完整,請重新輸入")
+                                    .setPositiveButton("確認", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int whichButton) {
+                                        }
+                                    })
+                                    .show();
+                        }
                     }
                 });
-
             }
 
             @Override
