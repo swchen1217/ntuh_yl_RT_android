@@ -33,7 +33,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
 
     public ProgressDialog pd;
     public Toast Toast;
-    Button btn_qr, btn_manual, btn_CheckInput,btn_enter;
+    Button btn_qr, btn_manual, btn_CheckInput, btn_enter;
     TextView tv_input;
     String input_data = null;
     RadioButton rb_use, rb_stock, rb_fix;
@@ -74,7 +74,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
         et_bednum_1 = findViewById(R.id.et_bednumber1);
         et_bednum_2 = findViewById(R.id.et_bednumber2);
         et_usernum = findViewById(R.id.et_usernum);
-        btn_enter=findViewById(R.id.btn_data_enter);
+        btn_enter = findViewById(R.id.btn_data_enter);
 
         setListener();
     }
@@ -343,23 +343,23 @@ public class UpdateStatusActivity extends AppCompatActivity {
                 btn_enter.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Boolean ok=false;
-                        if(i == types.length - 1 || i == types.length - 2){
-                            if(!et_bednum_1.getText().equals("") && !et_bednum_2.getText().equals("") && et_bednum_1.getText().length()==2 && et_bednum_2.getText().length()==3 && !et_usernum.getText().equals("") && et_usernum.getText().length()==7)
-                                ok=true;
+                        Boolean ok = false;
+                        if (i == types.length - 1 || i == types.length - 2) {
+                            if (!et_bednum_1.getText().equals("") && !et_bednum_2.getText().equals("") && et_bednum_1.getText().length() == 2 && et_bednum_2.getText().length() == 3 && !et_usernum.getText().equals("") && et_usernum.getText().length() == 7)
+                                ok = true;
                             else
-                                ok=false;
+                                ok = false;
 
-                        }else{
-                            if(!et_usernum.getText().equals("") && et_usernum.getText().length()==7)
-                                ok=true;
+                        } else {
+                            if (!et_usernum.getText().equals("") && et_usernum.getText().length() == 7)
+                                ok = true;
                             else
-                                ok=false;
+                                ok = false;
                         }
 
-                        if(ok==true){
-                            Log.d("test","OK");
-                        }else {
+                        if (ok == true) {
+                            Log.d("test", "OK");
+                        } else {
                             new AlertDialog.Builder(UpdateStatusActivity.this)
                                     .setTitle("輸入資料不完整,請重新輸入")
                                     .setPositiveButton("確認", new DialogInterface.OnClickListener() {
