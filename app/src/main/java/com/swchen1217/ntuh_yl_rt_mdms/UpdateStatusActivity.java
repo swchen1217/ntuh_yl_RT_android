@@ -1,6 +1,7 @@
 package com.swchen1217.ntuh_yl_rt_mdms;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -13,6 +14,7 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -199,30 +201,6 @@ public class UpdateStatusActivity extends AppCompatActivity {
 
             }
         });
-        et_usernum.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (et_usernum.getText().length() == 7) {
-                    et_usernum.setInputType(InputType.TYPE_NULL);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-        et_usernum.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                et_usernum.setInputType(InputType.TYPE_CLASS_NUMBER);
-            }
-        });
     }
 
     @Override
@@ -311,6 +289,25 @@ public class UpdateStatusActivity extends AppCompatActivity {
         sp1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                et_usernum.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        if (et_usernum.getText().length() == 7) {
+                            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                        }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+
+                    }
+                });
                 if (i == types.length - 1 || i == types.length - 2) {
                     cl21.setVisibility(View.INVISIBLE);
                     cl22.setVisibility(View.VISIBLE);
