@@ -191,6 +191,21 @@ public class LoginActivity extends AppCompatActivity {
                                                 .add("pw", et_pw.getText().toString())
                                                 .build());
                                 if (check_re != null) {
+                                    if(check_re.equals("no_enable")){
+                                        Log.d("OkHttp", "login_check no_enable");
+                                        runOnUiThread(new Runnable() {
+                                            public void run() {
+                                                new AlertDialog.Builder(LoginActivity.this)
+                                                        .setTitle("此帳號尚未啟用,請聯繫管理員!!")
+                                                        .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(DialogInterface dialog, int which) {
+                                                            }
+                                                        })
+                                                        .show();
+                                            }
+                                        });
+                                    }
                                     if (check_re.equals("tmppw_no_tmppw")) {
                                         Log.d("OkHttp", "login_check tmppw_no_tmppw");
                                         runOnUiThread(new Runnable() {
