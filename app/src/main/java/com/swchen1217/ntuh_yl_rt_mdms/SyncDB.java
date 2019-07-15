@@ -115,19 +115,6 @@ public class SyncDB {
                             }
                         }
                     }
-                    /*activity.runOnUiThread(new Runnable() {
-                        public void run() {
-                            //Code goes here
-                            new AlertDialog.Builder(activity)
-                                    .setTitle("位置資料同步完成!!")
-                                    .setPositiveButton("確定", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                        }
-                                    })
-                                    .show();
-                        }
-                    });*/
                     Date now = new Date();
                     SimpleDateFormat sdf2 = new SimpleDateFormat();
                     sdf2.applyPattern("yyyy-MM-dd HH:mm:ss");
@@ -192,17 +179,22 @@ public class SyncDB {
                                 Cursor c = sql.select("device_tb", null, "DID='" + jsonO.getString("DID") + "'", null, null, null);
                                 if (c.getCount() == 0) {
                                     Log.d("data_", "0");
-                                    sql.inster("device_tb", JsonToContentValues(jsonO));
+                                    if (!jsonO.getString("status").equals("-1"))
+                                        sql.inster("device_tb", JsonToContentValues(jsonO));
                                 } else {
-                                    Log.d("data_", "1");
-                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                                    c.moveToFirst();
-                                    Date a = sdf.parse(jsonO.getString("LastModified"));
-                                    Date b = sdf.parse(c.getString(7));
-                                    Log.d("data_", a.toString());
-                                    Log.d("data_", b.toString());
-                                    if (a.after(b)) {
-                                        sql.update("device_tb", JsonToContentValues(jsonO), "DID='" + jsonO.getString("DID") + "'");
+                                    if (!jsonO.getString("status").equals("-1")) {
+                                        Log.d("data_", "1");
+                                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                        c.moveToFirst();
+                                        Date a = sdf.parse(jsonO.getString("LastModified"));
+                                        Date b = sdf.parse(c.getString(7));
+                                        Log.d("data_", a.toString());
+                                        Log.d("data_", b.toString());
+                                        if (a.after(b)) {
+                                            sql.update("device_tb", JsonToContentValues(jsonO), "DID='" + jsonO.getString("DID") + "'");
+                                        }
+                                    } else {
+                                        sql.delete("device_tb", "DID='" + jsonO.getString("DID") + "'");
                                     }
                                 }
                                 Cursor c2 = sql.select("device_tb", null, null, null, null, null);
