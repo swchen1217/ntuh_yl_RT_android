@@ -45,14 +45,26 @@ public class LoginActivity extends AppCompatActivity {
     public static Boolean engineering_mode_SkipLogin = false;
     String server_url = "";
     private long exitTime = 0;
-    SharedPreferences spf_rememberme;
+    SharedPreferences spf_rememberme,spf_LoginInfo;
     ProgressDialog pd;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        spf_LoginInfo.edit()
+                .putString("app","")
+                .putString("pw", "")
+                .putString("nane","")
+                .putString("permission","")
+                .commit();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         spf_rememberme = getSharedPreferences("remember", MODE_PRIVATE);
+        spf_LoginInfo = getSharedPreferences("LoginInfo", MODE_PRIVATE);
         et_acc = findViewById(R.id.et_acc);
         et_pw = findViewById(R.id.et_pw);
         btn_forget = findViewById(R.id.btn_forgetpw);
@@ -260,6 +272,12 @@ public class LoginActivity extends AppCompatActivity {
                                                 }
                                             });
                                         }
+                                        spf_LoginInfo.edit()
+                                                .putString("app",et_acc.getText().toString())
+                                                .putString("pw", et_pw.getText().toString())
+                                                .putString("nane",split_OkData[1])
+                                                .putString("permission",split_OkData[2])
+                                                .commit();
                                         login_error_count = 0;
                                         startActivity(new Intent(LoginActivity.this, MenuActivity.class));
                                         finish();
