@@ -78,25 +78,34 @@ public class MenuActivity extends AppCompatActivity {
         btn_Log.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(PermissionCheck(Permission.PERMISSINO_READ_LOG)){
 
+                }
             }
         });
         btn_Repair.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(PermissionCheck(Permission.PERMISSINO_READ_LOG)){
 
+                }
             }
         });
         btn_MaintenanceCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(PermissionCheck(Permission.PERMISSINO_UPDATE_STATUS)){
 
+                }
             }
         });
         btn_Manage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (PermissionCheck(Permission.PERMISSINO_MANAGE_DEVICE)) {
 
+
+                }
             }
         });
     }
