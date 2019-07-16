@@ -134,6 +134,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
                             if(number.getString(1).equals(DeviceStatus.STATUS_NULL+"") || number.getString(1).equals(DeviceStatus.STATUS_USE+"") || number.getString(1).equals(DeviceStatus.STATUS_STOCK+""))
                                 Update_use(number.getString(0));
                             else{
+                                back();
                                 new AlertDialog.Builder(UpdateStatusActivity.this)
                                             .setTitle("此裝置目前狀態不可進行此操作!!")
                                         .setMessage("目前狀態:"+DeviceStatus.StatusStr[Integer.parseInt(number.getString(1))])
@@ -157,6 +158,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
                             if(did.getString(1).equals(DeviceStatus.STATUS_NULL+"") || did.getString(1).equals(DeviceStatus.STATUS_USE+"") || did.getString(1).equals(DeviceStatus.STATUS_STOCK+""))
                                 Update_use(did.getString(0));
                             else {
+                                back();
                                 new AlertDialog.Builder(UpdateStatusActivity.this)
                                         .setTitle("此裝置目前狀態不可進行此操作!!")
                                         .setMessage("目前狀態:"+DeviceStatus.StatusStr[Integer.parseInt(did.getString(1))])

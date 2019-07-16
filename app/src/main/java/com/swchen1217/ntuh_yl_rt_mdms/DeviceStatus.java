@@ -10,7 +10,7 @@ public interface DeviceStatus {
     String[] StatusStr = {"停用",
                     "可使用",
                     "使用中",
-                    "停倉庫",
-                    "停維修中",
+                    "倉庫",
+                    "維修中",
                     "保養中"};
 }
