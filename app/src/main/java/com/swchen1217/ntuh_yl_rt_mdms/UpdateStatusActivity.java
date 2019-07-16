@@ -136,7 +136,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
                             else{
                                 back();
                                 new AlertDialog.Builder(UpdateStatusActivity.this)
-                                            .setTitle("此裝置目前狀態不可進行此操作!!")
+                                            .setTitle("此裝置目前不可進行此操作!!")
                                         .setMessage("目前狀態:"+DeviceStatus.StatusStr[Integer.parseInt(number.getString(1))])
                                         .setPositiveButton("確定", new DialogInterface.OnClickListener() {
                                             @Override
@@ -160,7 +160,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
                             else {
                                 back();
                                 new AlertDialog.Builder(UpdateStatusActivity.this)
-                                        .setTitle("此裝置目前狀態不可進行此操作!!")
+                                        .setTitle("此裝置目前不可進行此操作!!")
                                         .setMessage("目前狀態:"+DeviceStatus.StatusStr[Integer.parseInt(did.getString(1))])
                                         .setPositiveButton("確定", new DialogInterface.OnClickListener() {
                                             @Override
