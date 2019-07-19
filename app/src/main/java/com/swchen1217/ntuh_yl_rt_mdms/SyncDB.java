@@ -66,6 +66,21 @@ public class SyncDB {
                                     .add("user",user)
                                     .add("position",position)
                                     .build());
+                    SyncDeviceTable(false);
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            new UpdateStatusActivity().reset();
+                            new AlertDialog.Builder(activity)
+                                    .setTitle("狀態登錄完成!!")
+                                    .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    })
+                                    .show();
+                        }
+                    });
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

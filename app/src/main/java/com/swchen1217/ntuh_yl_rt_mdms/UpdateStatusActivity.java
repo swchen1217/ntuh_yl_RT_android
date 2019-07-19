@@ -427,4 +427,11 @@ public class UpdateStatusActivity extends AppCompatActivity {
         et_bednum_2.setText("");
         et_usernum.setText("");
     }
+
+    public void reset(){
+        back();
+        tv_input.setText("");
+        btn_CheckInput.setVisibility(View.INVISIBLE);
+        btn_back.setVisibility(View.INVISIBLE);
+    }
 }

@@ -154,12 +154,12 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public boolean PermissionCheck(int per){
-        if(Integer.parseInt(spf_LoginInfo.getString("Permission",""))>=per)
+        if(Integer.parseInt(spf_LoginInfo.getString("permission",""))>=per)
             return true;
         else {
             new AlertDialog.Builder(MenuActivity.this)
                     .setTitle("權限不足,無法使用!!")
-                    .setMessage("你的權限:"+spf_LoginInfo.getString("Permission","")+"\n所需權限:"+per)
+                    .setMessage("你的權限:"+spf_LoginInfo.getString("permission","")+"\n所需權限:"+per)
                     .setPositiveButton("確定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

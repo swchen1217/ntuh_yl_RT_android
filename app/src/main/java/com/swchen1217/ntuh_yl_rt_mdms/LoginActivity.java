@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
                 .putString("acc", "")
                 .putString("pw", "")
                 .putString("nane", "")
-                .putString("Permission", "")
+                .putString("permission", "")
                 .commit();
     }
 
@@ -291,7 +291,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 .putString("acc", et_acc.getText().toString())
                                                 .putString("pw", et_pw.getText().toString())
                                                 .putString("nane", split_OkData[1])
-                                                .putString("Permission", split_OkData[2])
+                                                .putString("permission", split_OkData[2])
                                                 .commit();
                                         login_error_count = 0;
                                         startActivity(new Intent(LoginActivity.this, MenuActivity.class));
