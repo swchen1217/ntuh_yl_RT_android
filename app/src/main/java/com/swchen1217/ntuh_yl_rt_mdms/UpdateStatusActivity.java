@@ -375,7 +375,6 @@ public class UpdateStatusActivity extends AppCompatActivity {
                                 ok = true;
                             else
                                 ok = false;
-
                         } else {
                             if (!et_usernum.getText().equals("") && et_usernum.getText().length() == 7)
                                 ok = true;
@@ -385,6 +384,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
 
                         if (ok == true) {
                             Log.d("test", "OK");
+
                         } else {
                             new AlertDialog.Builder(UpdateStatusActivity.this)
                                     .setTitle("輸入資料不完整,請重新輸入")
