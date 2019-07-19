@@ -429,14 +429,9 @@ public class UpdateStatusActivity extends AppCompatActivity {
     }
 
     public void reset(){
-        this.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                back();
-                tv_input.setText("");
-                btn_CheckInput.setVisibility(View.INVISIBLE);
-                btn_back.setVisibility(View.INVISIBLE);
-            }
-        });
+        back();
+        tv_input.setText("");
+        btn_CheckInput.setVisibility(View.INVISIBLE);
+        btn_back.setVisibility(View.INVISIBLE);
     }
 }

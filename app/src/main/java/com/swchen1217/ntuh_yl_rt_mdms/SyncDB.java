@@ -44,7 +44,6 @@ public class SyncDB {
     Activity activity;
     SharedPreferences spf_SyncDB,spf_LoginInfo;
     String key[] = {"DID", "category", "model", "number", "user", "position", "status", "LastModified"};
-
     SyncDB(Activity _activity) {
         activity = _activity;
         spf_SyncDB = activity.getSharedPreferences("SyncDB", Context.MODE_PRIVATE);
@@ -67,10 +66,12 @@ public class SyncDB {
                                     .add("position",position)
                                     .build());
                     SyncDeviceTable(false);
+                    //new UpdateStatusActivity().reset();
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            new UpdateStatusActivity().reset();
+                            UpdateStatusActivity a=new UpdateStatusActivity();
+                            a.reset();
                             new AlertDialog.Builder(activity)
                                     .setTitle("狀態登錄完成!!")
                                     .setPositiveButton("確定", new DialogInterface.OnClickListener() {
