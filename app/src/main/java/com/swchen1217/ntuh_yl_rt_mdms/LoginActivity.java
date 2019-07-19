@@ -45,17 +45,17 @@ public class LoginActivity extends AppCompatActivity {
     public static Boolean engineering_mode_SkipLogin = false;
     String server_url = "";
     private long exitTime = 0;
-    SharedPreferences spf_rememberme,spf_LoginInfo;
+    SharedPreferences spf_rememberme, spf_LoginInfo;
     ProgressDialog pd;
 
     @Override
     protected void onStart() {
         super.onStart();
         spf_LoginInfo.edit()
-                .putString("app","")
+                .putString("app", "")
                 .putString("pw", "")
-                .putString("nane","")
-                .putString("Permission","")
+                .putString("nane", "")
+                .putString("Permission", "")
                 .commit();
     }
 
@@ -191,7 +191,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 .add("pw", et_pw.getText().toString())
                                                 .build());
                                 if (check_re != null) {
-                                    if(check_re.equals("no_enable")){
+                                    if (check_re.equals("no_enable")) {
                                         Log.d("OkHttp", "login_check no_enable");
                                         runOnUiThread(new Runnable() {
                                             public void run() {
@@ -288,10 +288,10 @@ public class LoginActivity extends AppCompatActivity {
                                             });
                                         }
                                         spf_LoginInfo.edit()
-                                                .putString("app",et_acc.getText().toString())
+                                                .putString("app", et_acc.getText().toString())
                                                 .putString("pw", et_pw.getText().toString())
-                                                .putString("nane",split_OkData[1])
-                                                .putString("Permission",split_OkData[2])
+                                                .putString("nane", split_OkData[1])
+                                                .putString("Permission", split_OkData[2])
                                                 .commit();
                                         login_error_count = 0;
                                         startActivity(new Intent(LoginActivity.this, MenuActivity.class));
