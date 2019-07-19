@@ -51,6 +51,29 @@ public class SyncDB {
         spf_LoginInfo = activity.getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
     }
 
+    public void UpdateDeviceTableUse(String DID,String user,String position){
+        Log.d("test",position);
+        Thread thread=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    PostDataToSrever("db.php",
+                            new FormBody.Builder()
+                                    .add("mode", "update_device_tb_use")
+                                    .add("acc",spf_LoginInfo.getString("acc",""))
+                                    .add("pw",spf_LoginInfo.getString("pw",""))
+                                    .add("DID",DID)
+                                    .add("user",user)
+                                    .add("position",position)
+                                    .build());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+    }
+
     public void SyncPositionItemTable() {
         Thread thread = new Thread(new Runnable() {
             @Override

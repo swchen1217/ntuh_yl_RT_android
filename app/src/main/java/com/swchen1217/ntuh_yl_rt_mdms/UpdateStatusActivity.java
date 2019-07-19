@@ -339,6 +339,25 @@ public class UpdateStatusActivity extends AppCompatActivity {
                     cl22.setVisibility(View.VISIBLE);
                     et_bednum_1.requestFocus();
                     Log.d("test", "et");
+                    btn_enter.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Boolean ok = false;
+                            if (!et_bednum_1.getText().equals("") && !et_bednum_2.getText().equals("") && et_bednum_1.getText().length() == 2 && et_bednum_2.getText().length() == 3 && !et_usernum.getText().equals("") && et_usernum.getText().length() == 7){
+                                Log.d("test", "OK");
+                                new SyncDB(UpdateStatusActivity.this).UpdateDeviceTableUse(DID,et_usernum.getText().toString(),et_bednum_1.getText().toString()+"-"+et_bednum_2.getText().toString());
+                            }
+                            else{
+                                new AlertDialog.Builder(UpdateStatusActivity.this)
+                                        .setTitle("輸入資料不完整,請重新輸入")
+                                        .setPositiveButton("確認", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int whichButton) {
+                                            }
+                                        })
+                                        .show();
+                            }
+                        }
+                    });
                 } else {
                     cl21.setVisibility(View.VISIBLE);
                     cl22.setVisibility(View.INVISIBLE);
@@ -354,8 +373,26 @@ public class UpdateStatusActivity extends AppCompatActivity {
                     sp2.setPopupBackgroundResource(R.drawable.spinner);
                     sp2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i2, long l) {
                             et_usernum.requestFocus();
+                            btn_enter.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    if (!et_usernum.getText().equals("") && et_usernum.getText().length() == 7){
+                                        Log.d("test", "OK");
+                                        new SyncDB(UpdateStatusActivity.this).UpdateDeviceTableUse(DID,et_usernum.getText().toString(),types[i]+"-"+items[i2]);
+                                    }
+                                    else{
+                                        new AlertDialog.Builder(UpdateStatusActivity.this)
+                                                .setTitle("輸入資料不完整,請重新輸入")
+                                                .setPositiveButton("確認", new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                                    }
+                                                })
+                                                .show();
+                                    }
+                                }
+                            });
                         }
 
                         @Override
@@ -366,36 +403,6 @@ public class UpdateStatusActivity extends AppCompatActivity {
 
                     Log.d("test", "sp");
                 }
-                btn_enter.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Boolean ok = false;
-                        if (i == types.length - 1 || i == types.length - 2) {
-                            if (!et_bednum_1.getText().equals("") && !et_bednum_2.getText().equals("") && et_bednum_1.getText().length() == 2 && et_bednum_2.getText().length() == 3 && !et_usernum.getText().equals("") && et_usernum.getText().length() == 7)
-                                ok = true;
-                            else
-                                ok = false;
-                        } else {
-                            if (!et_usernum.getText().equals("") && et_usernum.getText().length() == 7)
-                                ok = true;
-                            else
-                                ok = false;
-                        }
-
-                        if (ok == true) {
-                            Log.d("test", "OK");
-
-                        } else {
-                            new AlertDialog.Builder(UpdateStatusActivity.this)
-                                    .setTitle("輸入資料不完整,請重新輸入")
-                                    .setPositiveButton("確認", new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int whichButton) {
-                                        }
-                                    })
-                                    .show();
-                        }
-                    }
-                });
             }
 
             @Override
