@@ -66,12 +66,9 @@ public class SyncDB {
                                     .add("position",position)
                                     .build());
                     SyncDeviceTable(false);
-                    //new UpdateStatusActivity().reset();
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            UpdateStatusActivity a=new UpdateStatusActivity();
-                            a.reset();
                             new AlertDialog.Builder(activity)
                                     .setTitle("狀態登錄完成!!")
                                     .setPositiveButton("確定", new DialogInterface.OnClickListener() {
