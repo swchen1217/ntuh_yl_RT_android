@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         spf_LoginInfo.edit()
-                .putString("app", "")
+                .putString("acc", "")
                 .putString("pw", "")
                 .putString("nane", "")
                 .putString("Permission", "")
@@ -288,7 +288,7 @@ public class LoginActivity extends AppCompatActivity {
                                             });
                                         }
                                         spf_LoginInfo.edit()
-                                                .putString("app", et_acc.getText().toString())
+                                                .putString("acc", et_acc.getText().toString())
                                                 .putString("pw", et_pw.getText().toString())
                                                 .putString("nane", split_OkData[1])
                                                 .putString("Permission", split_OkData[2])
