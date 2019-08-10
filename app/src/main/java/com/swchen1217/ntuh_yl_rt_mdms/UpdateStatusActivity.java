@@ -170,7 +170,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
                                         .show();
                             }
                         } else {
-                            Log.d("test", "2-1");
+                            Log.d("test", "2-2");
                             back();
                             Toast.makeText(UpdateStatusActivity.this, "無此設備!!,請重新輸入或新增此設備", Toast.LENGTH_SHORT).show();
                         }
