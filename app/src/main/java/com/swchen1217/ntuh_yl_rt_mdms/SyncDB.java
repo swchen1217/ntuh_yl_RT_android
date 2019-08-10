@@ -79,6 +79,7 @@ public class SyncDB {
                                     .show();
                         }
                     });
+                    new UpdateStatusActivity().reset();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
