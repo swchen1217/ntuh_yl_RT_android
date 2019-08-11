@@ -79,7 +79,12 @@ public class SyncDB {
                                     .show();
                         }
                     });
-                    new UpdateStatusActivity().reset();
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            new UpdateStatusActivity().reset();
+                        }
+                    });
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
