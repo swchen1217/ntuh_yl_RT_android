@@ -34,7 +34,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
     public ProgressDialog pd;
     public Toast Toast;
     Button btn_qr, btn_manual, btn_CheckInput, btn_enter;
-    TextView tv_input;
+    public TextView tv_input;
     String input_data = null;
     RadioButton rb_use, rb_stock, rb_fix;
     RadioGroup rg;
@@ -433,5 +433,9 @@ public class UpdateStatusActivity extends AppCompatActivity {
         tv_input.setText("");
         btn_CheckInput.setVisibility(View.INVISIBLE);
         btn_back.setVisibility(View.INVISIBLE);
+    }
+
+    public void test(){
+        tv_input.setText("");
     }
 }

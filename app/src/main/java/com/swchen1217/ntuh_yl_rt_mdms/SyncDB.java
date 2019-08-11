@@ -82,7 +82,7 @@ public class SyncDB {
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            new UpdateStatusActivity().reset();
+                            new UpdateStatusActivity().tv_input.setText("");
                         }
                     });
                 } catch (IOException e) {
