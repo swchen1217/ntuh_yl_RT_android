@@ -66,7 +66,7 @@ public class SyncDB {
                                     .add("position",position)
                                     .build());
                     SyncDeviceTable(false);
-                    activity.runOnUiThread(new Runnable() {
+                    /*activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             new AlertDialog.Builder(activity)
@@ -78,11 +78,22 @@ public class SyncDB {
                                     })
                                     .show();
                         }
+                    });*/
+                    activity.runOnUiThread(new Runnable() {
+                        public void run() {
+                            //Code goes here
+                            Toast.makeText(activity, "狀態登錄完成!!", Toast.LENGTH_SHORT).show();
+                        }
                     });
-                    Toast.makeText(activity, "OK", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(activity, "OK", Toast.LENGTH_SHORT).show();
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Toast.makeText(activity, "Error", Toast.LENGTH_SHORT).show();
+                    activity.runOnUiThread(new Runnable() {
+                        public void run() {
+                            //Code goes here
+                            Toast.makeText(activity, "Error", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             }
         });

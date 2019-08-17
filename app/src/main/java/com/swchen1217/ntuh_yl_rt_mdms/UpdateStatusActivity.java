@@ -1,5 +1,6 @@
 package com.swchen1217.ntuh_yl_rt_mdms;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -345,7 +346,8 @@ public class UpdateStatusActivity extends AppCompatActivity {
                             Boolean ok = false;
                             if (!et_bednum_1.getText().equals("") && !et_bednum_2.getText().equals("") && et_bednum_1.getText().length() == 2 && et_bednum_2.getText().length() == 3 && !et_usernum.getText().equals("") && et_usernum.getText().length() == 7){
                                 Log.d("test", "OK");
-                                new SyncDB(UpdateStatusActivity.this).UpdateDeviceTableUse(DID,et_usernum.getText().toString(),et_bednum_1.getText().toString()+"-"+et_bednum_2.getText().toString());
+                                SyncDB s1=new SyncDB(UpdateStatusActivity.this);
+                                s1.UpdateDeviceTableUse(DID,et_usernum.getText().toString(),et_bednum_1.getText().toString()+"-"+et_bednum_2.getText().toString());
                             }
                             else{
                                 new AlertDialog.Builder(UpdateStatusActivity.this)
@@ -380,7 +382,8 @@ public class UpdateStatusActivity extends AppCompatActivity {
                                 public void onClick(View view) {
                                     if (!et_usernum.getText().equals("") && et_usernum.getText().length() == 7){
                                         Log.d("test", "OK");
-                                        new SyncDB(UpdateStatusActivity.this).UpdateDeviceTableUse(DID,et_usernum.getText().toString(),types[i]+"-"+items[i2]);
+                                        SyncDB s2=new SyncDB(UpdateStatusActivity.this);
+                                        s2.UpdateDeviceTableUse(DID,et_usernum.getText().toString(),types[i]+"-"+items[i2]);
                                     }
                                     else{
                                         new AlertDialog.Builder(UpdateStatusActivity.this)
