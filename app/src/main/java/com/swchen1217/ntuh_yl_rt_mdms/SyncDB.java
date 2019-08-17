@@ -79,14 +79,10 @@ public class SyncDB {
                                     .show();
                         }
                     });
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            new UpdateStatusActivity().tv_input.setText("");
-                        }
-                    });
+                    Toast.makeText(activity, "OK", Toast.LENGTH_SHORT).show();
                 } catch (IOException e) {
                     e.printStackTrace();
+                    Toast.makeText(activity, "Error", Toast.LENGTH_SHORT).show();
                 }
             }
         });

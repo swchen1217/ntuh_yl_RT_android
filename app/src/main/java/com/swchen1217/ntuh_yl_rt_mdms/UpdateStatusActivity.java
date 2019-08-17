@@ -436,6 +436,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
     }
 
     public void test(){
+
         tv_input.setText("");
     }
 }
