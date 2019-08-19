@@ -71,9 +71,6 @@ public class SyncDB {
         } catch (IOException e) {
             e.printStackTrace();
             return false;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            return false;
         }
     }
 
@@ -173,7 +170,7 @@ public class SyncDB {
         thread.start();
     }
 
-    public void SyncDeviceTable(Boolean AlertDialog) throws IOException, InterruptedException {
+    public void SyncDeviceTable(Boolean AlertDialog) throws IOException {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -292,7 +289,11 @@ public class SyncDB {
             }
         });
         thread.start();
-        thread.join();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public String PostDataToSrever(String file, FormBody formBody) throws IOException {

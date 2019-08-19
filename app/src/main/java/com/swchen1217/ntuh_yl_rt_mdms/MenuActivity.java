@@ -41,8 +41,6 @@ public class MenuActivity extends AppCompatActivity {
             new SyncDB(MenuActivity.this).SyncDeviceTable(false);
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
         new SyncDB(MenuActivity.this).SyncPositionItemTable();
     }
@@ -134,8 +132,6 @@ public class MenuActivity extends AppCompatActivity {
                 try {
                     new SyncDB(MenuActivity.this).SyncDeviceTable(true);
                 } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 return true;
