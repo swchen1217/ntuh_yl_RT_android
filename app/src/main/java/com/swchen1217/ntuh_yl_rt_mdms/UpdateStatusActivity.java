@@ -377,7 +377,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                                 try {
-                                    new SyncDB(UpdateStatusActivity.this).SyncDeviceTable(false,false);
+                                    new SyncDB(UpdateStatusActivity.this).SyncDeviceTable(false);
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
@@ -443,7 +443,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
                                             e.printStackTrace();
                                         }
                                         try {
-                                            new SyncDB(UpdateStatusActivity.this).SyncDeviceTable(false,false);
+                                            new SyncDB(UpdateStatusActivity.this).SyncDeviceTable(false);
                                         } catch (IOException e) {
                                             e.printStackTrace();
                                         }
