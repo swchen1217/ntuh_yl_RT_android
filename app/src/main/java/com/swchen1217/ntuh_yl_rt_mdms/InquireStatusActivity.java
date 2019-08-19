@@ -10,6 +10,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.bin.david.form.core.SmartTable;
@@ -134,11 +135,5 @@ public class InquireStatusActivity extends AppCompatActivity {
             }
         });
         table.setZoom(true);
-        table.setOnColumnClickListener(new OnColumnClickListener() {
-            @Override
-            public void onClick(ColumnInfo columnInfo) {
-                Log.d("onClick",columnInfo.value);
-            }
-        });
     }
 }
