@@ -38,7 +38,7 @@ public class MenuActivity extends AppCompatActivity {
         setListener();
 
         try {
-            new SyncDB(MenuActivity.this).SyncDeviceTable(false);
+            new SyncDB(MenuActivity.this).SyncDeviceTable(false,false);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -130,7 +130,7 @@ public class MenuActivity extends AppCompatActivity {
             case R.id.sync_all:
                 new SyncDB(MenuActivity.this).SyncPositionItemTable();
                 try {
-                    new SyncDB(MenuActivity.this).SyncDeviceTable(true);
+                    new SyncDB(MenuActivity.this).SyncDeviceTable(true,true);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

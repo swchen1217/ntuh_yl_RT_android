@@ -38,7 +38,7 @@ public class InquireStatusActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 show();
-                Toast.makeText(InquireStatusActivity.this, "重新整理", Toast.LENGTH_SHORT).show();
+                Toast.makeText(InquireStatusActivity.this, "已重新整理", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -46,6 +46,11 @@ public class InquireStatusActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        try {
+            new SyncDB(InquireStatusActivity.this).SyncDeviceTable(false,true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         show();
     }
 
