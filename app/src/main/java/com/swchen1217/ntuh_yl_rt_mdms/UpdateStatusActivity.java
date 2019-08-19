@@ -31,6 +31,8 @@ import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.io.IOException;
+
 public class UpdateStatusActivity extends AppCompatActivity {
 
     public ProgressDialog pd;
@@ -369,6 +371,16 @@ public class UpdateStatusActivity extends AppCompatActivity {
                                     }
                                 });
                                 thread.start();
+                                try {
+                                    thread.join();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                try {
+                                    new SyncDB(UpdateStatusActivity.this).SyncDeviceTable(false,false);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                             }
                             else{
                                 new AlertDialog.Builder(UpdateStatusActivity.this)
@@ -425,6 +437,16 @@ public class UpdateStatusActivity extends AppCompatActivity {
                                             }
                                         });
                                         thread.start();
+                                        try {
+                                            thread.join();
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        }
+                                        try {
+                                            new SyncDB(UpdateStatusActivity.this).SyncDeviceTable(false,false);
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
                                     }
                                     else{
                                         new AlertDialog.Builder(UpdateStatusActivity.this)
