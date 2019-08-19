@@ -1,3 +1,5 @@
+package com.swchen1217.ntuh_yl_rt_mdms;
+
 public class DeviceTable {
     public DeviceTable(String DID, String category, String model, String number, String user, String position, String status, String LastModified) {
         this.DID = DID;
