@@ -26,7 +26,6 @@ public class InquireStatusActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inquire_status);
         table=findViewById(R.id.table);
-        show();
         mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         mSwipeLayout.setColorSchemeColors(Color.RED);
         mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -38,10 +37,18 @@ public class InquireStatusActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                 show();
                 Toast.makeText(InquireStatusActivity.this, "重新整理", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        show();
+    }
+
     void show(){
         Column<String> DID = new Column<>("設備ID", "DID");
         Column<String> category = new Column<>("分類", "category");
@@ -65,8 +72,6 @@ public class InquireStatusActivity extends AppCompatActivity {
             }
         }
 
-        //data.add(new DeviceTable("MDMS.D0001","C2","a","a01","1646646","2AICU-01","1","2019-08-19 17:08:56"));
-        //data.add(new DeviceTable("MDMS.D0002","C2","b","b03","8966286","F3-886","2","2019-08-19 17:08:56"));
         TableData<DeviceTable> td=new TableData<>("Test",data,DID,category,model,number,user,position,status,LastModified);
         table.setTableData(td);
         table.getConfig().setContentStyle(new FontStyle(50, Color.BLUE));

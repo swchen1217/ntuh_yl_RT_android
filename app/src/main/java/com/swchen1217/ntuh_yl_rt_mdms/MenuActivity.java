@@ -133,12 +133,12 @@ public class MenuActivity extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.sync_all:
+                new SyncDB(MenuActivity.this).SyncPositionItemTable();
                 try {
-                    new SyncDB(MenuActivity.this).SyncDeviceTable(false);
+                    new SyncDB(MenuActivity.this).SyncDeviceTable(true);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                new SyncDB(MenuActivity.this).SyncPositionItemTable();
                 return true;
         }
         return false;
