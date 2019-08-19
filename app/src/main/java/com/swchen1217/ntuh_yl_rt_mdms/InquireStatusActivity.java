@@ -36,8 +36,14 @@ public class InquireStatusActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         try {
-                            if(new SyncDB(InquireStatusActivity.this).SyncDeviceTable(false))
-                                Toast.makeText(InquireStatusActivity.this, "已重新整理", Toast.LENGTH_SHORT).show();
+                            if(new SyncDB(InquireStatusActivity.this).SyncDeviceTable(false)){
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(InquireStatusActivity.this, "已重新整理", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
