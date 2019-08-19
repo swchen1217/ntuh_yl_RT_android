@@ -50,54 +50,41 @@ public class SyncDB {
         spf_LoginInfo = activity.getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
     }
 
-    public void UpdateDeviceTableUse(String DID,String user,String position){
-        Log.d("test",position);
-        Thread thread=new Thread(new Runnable() {
+    public boolean UpdateDeviceTableUse(String DID,String user,String position){
+        try {
+            String update= PostDataToSrever("db.php",
+                    new FormBody.Builder()
+                            .add("mode", "update_device_tb_use")
+                            .add("acc",spf_LoginInfo.getString("acc",""))
+                            .add("pw",spf_LoginInfo.getString("pw",""))
+                            .add("DID",DID)
+                            .add("user",user)
+                            .add("position",position)
+                            .build());
+            Log.d("test activity",activity.toString());
+            if(update!=null){
+                SyncDeviceTable(false);
+                /*activity.runOnUiThread(new Runnable() {
+                    public void run() {
+                        //Code goes here
+                        Toast.makeText(activity, "狀態登錄完成!!", Toast.LENGTH_SHORT).show();
+                    }
+                });*/
+                return true;
+            }else{
+                return false;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        /*Thread thread=new Thread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    PostDataToSrever("db.php",
-                            new FormBody.Builder()
-                                    .add("mode", "update_device_tb_use")
-                                    .add("acc",spf_LoginInfo.getString("acc",""))
-                                    .add("pw",spf_LoginInfo.getString("pw",""))
-                                    .add("DID",DID)
-                                    .add("user",user)
-                                    .add("position",position)
-                                    .build());
-                    SyncDeviceTable(false);
-                    /*activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            new AlertDialog.Builder(activity)
-                                    .setTitle("狀態登錄完成!!")
-                                    .setPositiveButton("確定", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                        }
-                                    })
-                                    .show();
-                        }
-                    });*/
-                    activity.runOnUiThread(new Runnable() {
-                        public void run() {
-                            //Code goes here
-                            Toast.makeText(activity, "狀態登錄完成!!", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    //Toast.makeText(activity, "OK", Toast.LENGTH_SHORT).show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    activity.runOnUiThread(new Runnable() {
-                        public void run() {
-                            //Code goes here
-                            Toast.makeText(activity, "Error", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
+
             }
         });
-        thread.start();
+        thread.start();*/
     }
 
     public void SyncPositionItemTable() {
