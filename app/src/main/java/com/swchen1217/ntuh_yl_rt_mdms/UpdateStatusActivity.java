@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Looper;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -346,8 +347,28 @@ public class UpdateStatusActivity extends AppCompatActivity {
                             Boolean ok = false;
                             if (!et_bednum_1.getText().equals("") && !et_bednum_2.getText().equals("") && et_bednum_1.getText().length() == 2 && et_bednum_2.getText().length() == 3 && !et_usernum.getText().equals("") && et_usernum.getText().length() == 7){
                                 Log.d("test", "OK");
-                                SyncDB s1=new SyncDB(UpdateStatusActivity.this);
-                                s1.UpdateDeviceTableUse(DID,et_usernum.getText().toString(),et_bednum_1.getText().toString()+"-"+et_bednum_2.getText().toString());
+                                Thread thread=new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if(new SyncDB(UpdateStatusActivity.this).UpdateDeviceTableUse(DID,et_usernum.getText().toString(),et_bednum_1.getText().toString()+"-"+et_bednum_2.getText().toString())==true){
+                                            runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    new AlertDialog.Builder(UpdateStatusActivity.this)
+                                                            .setTitle("狀態登錄完成!!")
+                                                            .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(DialogInterface dialog, int which) {
+                                                                }
+                                                            })
+                                                            .show();
+                                                    reset();
+                                                }
+                                            });
+                                        }
+                                    }
+                                });
+                                thread.start();
                             }
                             else{
                                 new AlertDialog.Builder(UpdateStatusActivity.this)
@@ -382,8 +403,28 @@ public class UpdateStatusActivity extends AppCompatActivity {
                                 public void onClick(View view) {
                                     if (!et_usernum.getText().equals("") && et_usernum.getText().length() == 7){
                                         Log.d("test", "OK");
-                                        SyncDB s2=new SyncDB(UpdateStatusActivity.this);
-                                        s2.UpdateDeviceTableUse(DID,et_usernum.getText().toString(),types[i]+"-"+items[i2]);
+                                        Thread thread=new Thread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                if(new SyncDB(UpdateStatusActivity.this).UpdateDeviceTableUse(DID,et_usernum.getText().toString(),types[i]+"-"+items[i2])==true){
+                                                    runOnUiThread(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            new AlertDialog.Builder(UpdateStatusActivity.this)
+                                                                    .setTitle("狀態登錄完成!!")
+                                                                    .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                                                        @Override
+                                                                        public void onClick(DialogInterface dialog, int which) {
+                                                                        }
+                                                                    })
+                                                                    .show();
+                                                            reset();
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                        });
+                                        thread.start();
                                     }
                                     else{
                                         new AlertDialog.Builder(UpdateStatusActivity.this)
@@ -439,7 +480,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
     }
 
     public void test(){
-
-        tv_input.setText("");
+        finish();
+        startActivity(new Intent(UpdateStatusActivity.this, UpdateStatusActivity.class));
     }
 }
