@@ -1,16 +1,27 @@
 package com.swchen1217.ntuh_yl_rt_mdms;
 
 import android.database.Cursor;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.bin.david.form.core.SmartTable;
+import com.bin.david.form.data.CellInfo;
 import com.bin.david.form.data.column.Column;
+import com.bin.david.form.data.column.ColumnInfo;
+import com.bin.david.form.data.format.bg.BaseBackgroundFormat;
+import com.bin.david.form.data.format.bg.BaseCellBackgroundFormat;
+import com.bin.david.form.data.format.bg.IBackgroundFormat;
 import com.bin.david.form.data.style.FontStyle;
 import com.bin.david.form.data.table.TableData;
+import com.bin.david.form.listener.OnColumnClickListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -100,13 +111,34 @@ public class InquireStatusActivity extends AppCompatActivity {
             c.moveToFirst();
             for (int j = 0; j < rows_num; j++) {
                 String str = "";
-                data.add(new DeviceTable(c.getString(0),c.getString(1),c.getString(2),c.getString(3),c.getString(4),c.getString(5),c.getString(6),c.getString(7)));
+                data.add(new DeviceTable(c.getString(0),c.getString(1),c.getString(2),c.getString(3),c.getString(4),c.getString(5),DeviceStatus.StatusStr[Integer.parseInt(c.getString(6))],c.getString(7)));
                 c.moveToNext();
             }
         }
 
         TableData<DeviceTable> td=new TableData<>("Test",data,DID,category,model,number,user,position,status,LastModified);
         table.setTableData(td);
-        table.getConfig().setContentStyle(new FontStyle(50, Color.BLUE));
+        table.getConfig().setContentStyle(new FontStyle(50, Color.BLACK));
+        table.getConfig().setContentCellBackgroundFormat(new BaseCellBackgroundFormat<CellInfo>() {
+            @Override
+            public int getBackGroundColor(CellInfo cellInfo) {
+                /*Log.d("cellInfo_value",cellInfo.value);
+                Log.d("cellInfo_col",cellInfo.col+"");
+                Log.d("cellInfo_column",cellInfo.column.toString());
+                Log.d("cellInfo_data",cellInfo.data.toString());
+                Log.d("cellInfo_row",cellInfo.row+"");*/
+                if(cellInfo.row%2==1)
+                    return ContextCompat.getColor(InquireStatusActivity.this,R.color.bg);
+                else
+                    return 0;
+            }
+        });
+        table.setZoom(true);
+        table.setOnColumnClickListener(new OnColumnClickListener() {
+            @Override
+            public void onClick(ColumnInfo columnInfo) {
+                Log.d("onClick",columnInfo.value);
+            }
+        });
     }
 }
