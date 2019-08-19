@@ -62,16 +62,7 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(PermissionCheck(Permission.PERMISSINO_INQUIRT_STARUS)){
-                    SQLite sql = new SQLite(MenuActivity.this);
-                    Cursor c2 = sql.select("position_item_tb", new String[]{"type"}, null, "type", null, null);
-                    int rows_num = c2.getCount();
-                    if (rows_num != 0) {
-                        c2.moveToFirst();           //將指標移至第一筆資料
-                        for (int j = 0; j < rows_num; j++) {
-                            Log.d("data_", c2.getString(0));
-                            c2.moveToNext();        //將指標移至下一筆資料
-                        }
-                    }
+                    startActivity(new Intent(MenuActivity.this, InquireStatusActivity.class));
                 }
             }
         });
