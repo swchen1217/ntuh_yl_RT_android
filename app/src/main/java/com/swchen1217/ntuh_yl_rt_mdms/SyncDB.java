@@ -61,9 +61,7 @@ public class SyncDB {
                             .add("user",user)
                             .add("position",position)
                             .build());
-            Log.d("test activity",activity.toString());
             if(update!=null){
-                SyncDeviceTable(false);
                 return true;
             }else{
                 return false;
@@ -170,7 +168,7 @@ public class SyncDB {
         thread.start();
     }
 
-    public void SyncDeviceTable(Boolean AlertDialog) throws IOException {
+    public void SyncDeviceTable(boolean AlertDialog ,boolean isThreadJoin) throws IOException {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -289,10 +287,12 @@ public class SyncDB {
             }
         });
         thread.start();
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if(isThreadJoin){
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 

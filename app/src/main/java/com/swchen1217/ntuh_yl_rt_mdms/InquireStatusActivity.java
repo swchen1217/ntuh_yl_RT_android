@@ -33,7 +33,7 @@ public class InquireStatusActivity extends AppCompatActivity {
             public void onRefresh() {
                 mSwipeLayout.setRefreshing(false);
                 try {
-                    new SyncDB(InquireStatusActivity.this).SyncDeviceTable(false);
+                    new SyncDB(InquireStatusActivity.this).SyncDeviceTable(false,true);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
