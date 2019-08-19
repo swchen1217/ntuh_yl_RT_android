@@ -168,131 +168,124 @@ public class SyncDB {
         thread.start();
     }
 
-    public void SyncDeviceTable(boolean AlertDialog ,boolean isThreadJoin) throws IOException {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    activity.runOnUiThread(new Runnable() {
-                        public void run() {
-                            //Code goes here
-                            pd2 = new ProgressDialog(activity);
-                            pd2.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                            pd2.setMessage("設備資料同步中...");
-                            pd2.setCancelable(false);
+    public boolean SyncDeviceTable(boolean AlertDialog) throws IOException {
+        try {
+            activity.runOnUiThread(new Runnable() {
+                public void run() {
+                    //Code goes here
+                    pd2 = new ProgressDialog(activity);
+                    pd2.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                    pd2.setMessage("設備資料同步中...");
+                    pd2.setCancelable(false);
 
-                            pd2.show();
+                    pd2.show();
 
-                        }
-                    });
-                    String LastSync;
-                    LastSync = spf_SyncDB.getString("device_tb_LastSync", "first");
-                    String data = PostDataToSrever("db.php",
-                            new FormBody.Builder()
-                                    .add("mode", "sync_device_tb_download")
-                                    .add("LastModified", LastSync.equals("first") ? "2019-01-01 00:00:00" : LastSync)
-                                    .add("acc",spf_LoginInfo.getString("acc",""))
-                                    .add("pw",spf_LoginInfo.getString("pw",""))
-                                    .build());
-                    if (data != null) {
-                        if(!data.equals("user_error")){
-                            if (!data.equals("no_data")) {
-                                JSONArray jsonA = new JSONArray(data);
-                                Log.d("data_", jsonA.length() + "");
-                                SQLite sql = new SQLite(activity);
+                }
+            });
+            String LastSync;
+            LastSync = spf_SyncDB.getString("device_tb_LastSync", "first");
+            String data = PostDataToSrever("db.php",
+                    new FormBody.Builder()
+                            .add("mode", "sync_device_tb_download")
+                            .add("LastModified", LastSync.equals("first") ? "2019-01-01 00:00:00" : LastSync)
+                            .add("acc",spf_LoginInfo.getString("acc",""))
+                            .add("pw",spf_LoginInfo.getString("pw",""))
+                            .build());
+            if (data != null) {
+                if(!data.equals("user_error")){
+                    if (!data.equals("no_data")) {
+                        JSONArray jsonA = new JSONArray(data);
+                        Log.d("data_", jsonA.length() + "");
+                        SQLite sql = new SQLite(activity);
                         /*ContentValues cv=new ContentValues();
                         cv.put("DID","MDMS.D0003");
                         sql.inster("device_tb", cv);*/
-                                //sql.remove("device_tb",null);
-                                for (int i = 0; i < jsonA.length(); i++) {
-                                    JSONObject jsonO = jsonA.getJSONObject(i);
-                                    //Object jsonOb=jsonA.get(i);
-                                    Log.d("data_", jsonO.toString());
-                                    Log.d("data_", jsonO.getString("DID"));
+                        //sql.remove("device_tb",null);
+                        for (int i = 0; i < jsonA.length(); i++) {
+                            JSONObject jsonO = jsonA.getJSONObject(i);
+                            //Object jsonOb=jsonA.get(i);
+                            Log.d("data_", jsonO.toString());
+                            Log.d("data_", jsonO.getString("DID"));
 
-                                    Cursor c = sql.select("device_tb", null, "DID='" + jsonO.getString("DID") + "'", null, null, null);
-                                    if (c.getCount() == 0) {
-                                        Log.d("data_", "0");
-                                        if (!jsonO.getString("status").equals("-1"))
-                                            sql.inster("device_tb", JsonToContentValues(jsonO));
-                                    } else {
-                                        if (!jsonO.getString("status").equals("-1")) {
-                                            Log.d("data_", "1");
-                                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                                            c.moveToFirst();
-                                            Date a = sdf.parse(jsonO.getString("LastModified"));
-                                            Date b = sdf.parse(c.getString(7));
-                                            Log.d("data_", a.toString());
-                                            Log.d("data_", b.toString());
-                                            if (a.after(b)) {
-                                                sql.update("device_tb", JsonToContentValues(jsonO), "DID='" + jsonO.getString("DID") + "'");
-                                            }
-                                        } else {
-                                            sql.delete("device_tb", "DID='" + jsonO.getString("DID") + "'");
-                                        }
+                            Cursor c = sql.select("device_tb", null, "DID='" + jsonO.getString("DID") + "'", null, null, null);
+                            if (c.getCount() == 0) {
+                                Log.d("data_", "0");
+                                if (!jsonO.getString("status").equals("-1"))
+                                    sql.inster("device_tb", JsonToContentValues(jsonO));
+                            } else {
+                                if (!jsonO.getString("status").equals("-1")) {
+                                    Log.d("data_", "1");
+                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                    c.moveToFirst();
+                                    Date a = sdf.parse(jsonO.getString("LastModified"));
+                                    Date b = sdf.parse(c.getString(7));
+                                    Log.d("data_", a.toString());
+                                    Log.d("data_", b.toString());
+                                    if (a.after(b)) {
+                                        sql.update("device_tb", JsonToContentValues(jsonO), "DID='" + jsonO.getString("DID") + "'");
                                     }
-                                    Cursor c2 = sql.select("device_tb", null, null, null, null, null);
-                                    int rows_num = c2.getCount();
-                                    if (rows_num != 0) {
-                                        c2.moveToFirst();           //將指標移至第一筆資料
-                                        for (int j = 0; j < rows_num; j++) {
-                                            String str = "";
-                                            for (int k = 0; k < 8; k++) {
-                                                str += c2.getString(k) + ",";
-                                            }
-                                            Log.d("data_", str);
-                                            c2.moveToNext();        //將指標移至下一筆資料
-                                        }
-                                    }
+                                } else {
+                                    sql.delete("device_tb", "DID='" + jsonO.getString("DID") + "'");
                                 }
                             }
-                            if (AlertDialog) {
-                                activity.runOnUiThread(new Runnable() {
-                                    public void run() {
-                                        //Code goes here
-                                        new AlertDialog.Builder(activity)
-                                                .setTitle("設備資料同步完成!!")
-                                                .setPositiveButton("確定", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialog, int which) {
-                                                    }
-                                                })
-                                                .show();
+                            Cursor c2 = sql.select("device_tb", null, null, null, null, null);
+                            int rows_num = c2.getCount();
+                            if (rows_num != 0) {
+                                c2.moveToFirst();           //將指標移至第一筆資料
+                                for (int j = 0; j < rows_num; j++) {
+                                    String str = "";
+                                    for (int k = 0; k < 8; k++) {
+                                        str += c2.getString(k) + ",";
                                     }
-                                });
+                                    Log.d("data_", str);
+                                    c2.moveToNext();        //將指標移至下一筆資料
+                                }
                             }
-                            Date now = new Date();
-                            SimpleDateFormat sdf = new SimpleDateFormat();
-                            sdf.applyPattern("yyyy-MM-dd HH:mm:ss");
-                            spf_SyncDB.edit()
-                                    .putString("device_tb_LastSync", sdf.format(now))
-                                    //.putString("device_tb_LastSync","2019-01-01 00:00:00")
-                                    .commit();
                         }
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                } finally {
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            pd2.dismiss();
-                        }
-                    });
+                    if (AlertDialog) {
+                        activity.runOnUiThread(new Runnable() {
+                            public void run() {
+                                //Code goes here
+                                new AlertDialog.Builder(activity)
+                                        .setTitle("設備資料同步完成!!")
+                                        .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                            }
+                                        })
+                                        .show();
+                            }
+                        });
+                    }
+                    Date now = new Date();
+                    SimpleDateFormat sdf = new SimpleDateFormat();
+                    sdf.applyPattern("yyyy-MM-dd HH:mm:ss");
+                    spf_SyncDB.edit()
+                            .putString("device_tb_LastSync", sdf.format(now))
+                            //.putString("device_tb_LastSync","2019-01-01 00:00:00")
+                            .commit();
+                    return true;
                 }
+                return false;
             }
-        });
-        thread.start();
-        if(isThreadJoin){
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            return false;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return false;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    pd2.dismiss();
+                }
+            });
         }
     }
 
