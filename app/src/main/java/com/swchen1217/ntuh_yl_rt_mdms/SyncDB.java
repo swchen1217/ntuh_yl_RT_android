@@ -64,12 +64,6 @@ public class SyncDB {
             Log.d("test activity",activity.toString());
             if(update!=null){
                 SyncDeviceTable(false);
-                activity.runOnUiThread(new Runnable() {
-                    public void run() {
-                        //Code goes here
-                        Toast.makeText(activity, "狀態登錄完成!!", Toast.LENGTH_SHORT).show();
-                    }
-                });
                 return true;
             }else{
                 return false;
