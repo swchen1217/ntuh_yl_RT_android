@@ -37,11 +37,17 @@ public class MenuActivity extends AppCompatActivity {
 
         setListener();
 
-        try {
-            new SyncDB(MenuActivity.this).SyncDeviceTable(false,false);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    new SyncDB(MenuActivity.this).SyncDeviceTable(false);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
         new SyncDB(MenuActivity.this).SyncPositionItemTable();
     }
 
@@ -129,11 +135,17 @@ public class MenuActivity extends AppCompatActivity {
                 return true;
             case R.id.sync_all:
                 new SyncDB(MenuActivity.this).SyncPositionItemTable();
-                try {
-                    new SyncDB(MenuActivity.this).SyncDeviceTable(true,true);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            new SyncDB(MenuActivity.this).SyncDeviceTable(false);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                thread.start();
                 return true;
         }
         return false;
