@@ -288,7 +288,7 @@ public class SyncDB {
                 }
             }
         });
-        thread.start();
+        thread.join();
     }
 
     public String PostDataToSrever(String file, FormBody formBody) throws IOException {

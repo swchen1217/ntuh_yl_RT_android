@@ -37,7 +37,7 @@ public class InquireStatusActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                 show();
+                show();
                 Toast.makeText(InquireStatusActivity.this, "重新整理", Toast.LENGTH_SHORT).show();
             }
         });
