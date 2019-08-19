@@ -72,13 +72,6 @@ public class SyncDB {
             e.printStackTrace();
             return false;
         }
-        /*Thread thread=new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        });
-        thread.start();*/
     }
 
     public void SyncPositionItemTable() {
