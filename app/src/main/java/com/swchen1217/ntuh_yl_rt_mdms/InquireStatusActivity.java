@@ -32,13 +32,24 @@ public class InquireStatusActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 mSwipeLayout.setRefreshing(false);
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            if(new SyncDB(InquireStatusActivity.this).SyncDeviceTable(false))
+                                Toast.makeText(InquireStatusActivity.this, "已重新整理", Toast.LENGTH_SHORT).show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                thread.start();
                 try {
-                    new SyncDB(InquireStatusActivity.this).SyncDeviceTable(false,true);
-                } catch (IOException e) {
+                    thread.join();
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 show();
-                Toast.makeText(InquireStatusActivity.this, "已重新整理", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -46,9 +57,20 @@ public class InquireStatusActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    new SyncDB(InquireStatusActivity.this).SyncDeviceTable(false);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
         try {
-            new SyncDB(InquireStatusActivity.this).SyncDeviceTable(false,true);
-        } catch (IOException e) {
+            thread.join();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
         show();
