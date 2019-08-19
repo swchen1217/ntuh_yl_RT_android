@@ -36,6 +36,8 @@ public class InquireStatusActivity extends AppCompatActivity {
                     new SyncDB(InquireStatusActivity.this).SyncDeviceTable(false);
                 } catch (IOException e) {
                     e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
                 show();
                 Toast.makeText(InquireStatusActivity.this, "重新整理", Toast.LENGTH_SHORT).show();

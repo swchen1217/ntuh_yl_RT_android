@@ -24,11 +24,6 @@ public class MenuActivity extends AppCompatActivity {
     SharedPreferences spf_LoginInfo;
 
     @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
@@ -45,6 +40,8 @@ public class MenuActivity extends AppCompatActivity {
         try {
             new SyncDB(MenuActivity.this).SyncDeviceTable(false);
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
         new SyncDB(MenuActivity.this).SyncPositionItemTable();
@@ -137,6 +134,8 @@ public class MenuActivity extends AppCompatActivity {
                 try {
                     new SyncDB(MenuActivity.this).SyncDeviceTable(true);
                 } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 return true;

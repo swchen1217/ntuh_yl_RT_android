@@ -71,6 +71,9 @@ public class SyncDB {
         } catch (IOException e) {
             e.printStackTrace();
             return false;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
@@ -170,7 +173,7 @@ public class SyncDB {
         thread.start();
     }
 
-    public void SyncDeviceTable(Boolean AlertDialog) throws IOException {
+    public void SyncDeviceTable(Boolean AlertDialog) throws IOException, InterruptedException {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -288,6 +291,7 @@ public class SyncDB {
                 }
             }
         });
+        thread.start();
         thread.join();
     }
 
