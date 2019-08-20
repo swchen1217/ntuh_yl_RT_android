@@ -110,10 +110,7 @@ public class InquireStatusActivity extends AppCompatActivity {
         DID.setOnColumnItemClickListener(new OnColumnItemClickListener<String>() {
             @Override
             public void onClick(Column<String> column, String value, String s, int position) {
-                Log.d("Column_column",column.toString());
                 Log.d("Column_value",value);
-                Log.d("Column_s",s);
-                Log.d("Column_position",position+"");
             }
         });
 
