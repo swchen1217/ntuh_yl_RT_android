@@ -183,6 +183,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
                 } else if (rb_stock.isChecked()) {
                     ChangeLayout("stock");
                     Log.d("RB", "2");
+                    
                 } else if (rb_fix.isChecked()) {
                     ChangeLayout("fix");
                     Log.d("RB", "3");
@@ -501,8 +502,4 @@ public class UpdateStatusActivity extends AppCompatActivity {
         btn_back.setVisibility(View.INVISIBLE);
     }
 
-    public void test(){
-        finish();
-        startActivity(new Intent(UpdateStatusActivity.this, UpdateStatusActivity.class));
-    }
 }
