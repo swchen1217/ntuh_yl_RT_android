@@ -348,12 +348,12 @@ public class UpdateStatusActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
                             Boolean ok = false;
-                            if (!et_bednum_1.getText().equals("") && !et_bednum_2.getText().equals("") && et_bednum_1.getText().length() == 2 && et_bednum_2.getText().length() == 3 && !et_usernum.getText().equals("") && et_usernum.getText().length() == 7){
+                            if (!et_bednum_1.getText().equals("") && !et_bednum_2.getText().equals("") && et_bednum_1.getText().length() == 2 && et_bednum_2.getText().length() == 3 && !et_usernum.getText().equals("") && et_usernum.getText().length() == 7) {
                                 Log.d("test", "OK");
-                                Thread thread=new Thread(new Runnable() {
+                                Thread thread = new Thread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        if(new SyncDB(UpdateStatusActivity.this).UpdateDeviceTableUse(DID,et_usernum.getText().toString(),et_bednum_1.getText().toString()+"-"+et_bednum_2.getText().toString())==true){
+                                        if (new SyncDB(UpdateStatusActivity.this).UpdateDeviceTableUse(DID, et_usernum.getText().toString(), et_bednum_1.getText().toString() + "-" + et_bednum_2.getText().toString()) == true) {
                                             runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
@@ -382,8 +382,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
-                            }
-                            else{
+                            } else {
                                 new AlertDialog.Builder(UpdateStatusActivity.this)
                                         .setTitle("輸入資料不完整,請重新輸入")
                                         .setPositiveButton("確認", new DialogInterface.OnClickListener() {
@@ -414,12 +413,12 @@ public class UpdateStatusActivity extends AppCompatActivity {
                             btn_enter.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    if (!et_usernum.getText().equals("") && et_usernum.getText().length() == 7){
+                                    if (!et_usernum.getText().equals("") && et_usernum.getText().length() == 7) {
                                         Log.d("test", "OK");
-                                        Thread thread=new Thread(new Runnable() {
+                                        Thread thread = new Thread(new Runnable() {
                                             @Override
                                             public void run() {
-                                                if(new SyncDB(UpdateStatusActivity.this).UpdateDeviceTableUse(DID,et_usernum.getText().toString(),types[i]+"-"+items[i2])==true){
+                                                if (new SyncDB(UpdateStatusActivity.this).UpdateDeviceTableUse(DID, et_usernum.getText().toString(), types[i] + "-" + items[i2]) == true) {
                                                     runOnUiThread(new Runnable() {
                                                         @Override
                                                         public void run() {
@@ -448,8 +447,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
                                         } catch (IOException e) {
                                             e.printStackTrace();
                                         }
-                                    }
-                                    else{
+                                    } else {
                                         new AlertDialog.Builder(UpdateStatusActivity.this)
                                                 .setTitle("輸入資料不完整,請重新輸入")
                                                 .setPositiveButton("確認", new DialogInterface.OnClickListener() {
@@ -495,7 +493,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
         et_usernum.setText("");
     }
 
-    public void reset(){
+    public void reset() {
         back();
         tv_input.setText("");
         btn_CheckInput.setVisibility(View.INVISIBLE);
