@@ -136,5 +136,6 @@ public class InquireStatusActivity extends AppCompatActivity {
         table.getConfig().setShowXSequence(false);
         table.getConfig().setShowYSequence(false);
         table.getConfig().setColumnTitleGridStyle(new LineStyle(5,Color.DKGRAY));
+        table.getConfig().setContentGridStyle(new LineStyle(3,Color.GRAY));
     }
 }
