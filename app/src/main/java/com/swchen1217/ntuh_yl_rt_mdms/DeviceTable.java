@@ -11,6 +11,7 @@ public class DeviceTable {
         this.status = status;
         this.LastModified = LastModified;
     }
+
     private String DID;
     private String category;
     private String model;
