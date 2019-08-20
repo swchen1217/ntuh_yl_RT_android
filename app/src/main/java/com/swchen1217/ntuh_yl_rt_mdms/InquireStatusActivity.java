@@ -21,6 +21,7 @@ import com.bin.david.form.data.format.bg.BaseBackgroundFormat;
 import com.bin.david.form.data.format.bg.BaseCellBackgroundFormat;
 import com.bin.david.form.data.format.bg.IBackgroundFormat;
 import com.bin.david.form.data.style.FontStyle;
+import com.bin.david.form.data.style.LineStyle;
 import com.bin.david.form.data.table.TableData;
 import com.bin.david.form.listener.OnColumnClickListener;
 
@@ -117,23 +118,23 @@ public class InquireStatusActivity extends AppCompatActivity {
             }
         }
 
-        TableData<DeviceTable> td=new TableData<>("Test",data,DID,category,model,number,user,position,status,LastModified);
+        TableData<DeviceTable> td=new TableData<>("所有儀器狀態",data,DID,category,model,number,user,position,status,LastModified);
         table.setTableData(td);
         table.getConfig().setContentStyle(new FontStyle(50, Color.BLACK));
+        table.getConfig().setColumnTitleStyle(new FontStyle(60,Color.BLACK));
+        table.getConfig().setTableTitleStyle(new FontStyle(60,Color.BLACK));
         table.getConfig().setContentCellBackgroundFormat(new BaseCellBackgroundFormat<CellInfo>() {
             @Override
             public int getBackGroundColor(CellInfo cellInfo) {
-                /*Log.d("cellInfo_value",cellInfo.value);
-                Log.d("cellInfo_col",cellInfo.col+"");
-                Log.d("cellInfo_column",cellInfo.column.toString());
-                Log.d("cellInfo_data",cellInfo.data.toString());
-                Log.d("cellInfo_row",cellInfo.row+"");*/
                 if(cellInfo.row%2==1)
                     return ContextCompat.getColor(InquireStatusActivity.this,R.color.bg);
                 else
                     return 0;
             }
         });
-        table.setZoom(true);
+        table.setZoom(false);
+        table.getConfig().setShowXSequence(false);
+        table.getConfig().setShowYSequence(false);
+        table.getConfig().setColumnTitleGridStyle(new LineStyle(5,Color.DKGRAY));
     }
 }
