@@ -183,7 +183,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
                 } else if (rb_stock.isChecked()) {
                     ChangeLayout("stock");
                     Log.d("RB", "2");
-                    
+
                 } else if (rb_fix.isChecked()) {
                     ChangeLayout("fix");
                     Log.d("RB", "3");

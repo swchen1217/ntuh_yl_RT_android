@@ -38,7 +38,7 @@ public class InquireStatusActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inquire_status);
-        table=findViewById(R.id.table);
+        table = findViewById(R.id.table);
         mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         mSwipeLayout.setColorSchemeColors(Color.RED);
         mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -49,7 +49,7 @@ public class InquireStatusActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         try {
-                            if(new SyncDB(InquireStatusActivity.this).SyncDeviceTable(false)){
+                            if (new SyncDB(InquireStatusActivity.this).SyncDeviceTable(false)) {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -95,7 +95,7 @@ public class InquireStatusActivity extends AppCompatActivity {
         show();
     }
 
-    void show(){
+    void show() {
         Column<String> DID = new Column<>("設備ID", "DID");
         Column<String> category = new Column<>("分類", "category");
         Column<String> model = new Column<>("型號", "model");
@@ -104,30 +104,30 @@ public class InquireStatusActivity extends AppCompatActivity {
         Column<String> position = new Column<>("位置", "position");
         Column<String> status = new Column<>("狀態", "status");
         Column<String> LastModified = new Column<>("修改日期", "LastModified");
-        List<DeviceTable> data =new ArrayList<>();
+        List<DeviceTable> data = new ArrayList<>();
 
-        SQLite sql =new SQLite(this);
-        Cursor c = sql.select("device_tb",null, null, null, null, null);
+        SQLite sql = new SQLite(this);
+        Cursor c = sql.select("device_tb", null, null, null, null, null);
         int rows_num = c.getCount();
         if (rows_num != 0) {
             c.moveToFirst();
             for (int j = 0; j < rows_num; j++) {
                 String str = "";
-                data.add(new DeviceTable(c.getString(0),c.getString(1),c.getString(2),c.getString(3),c.getString(4),c.getString(5),DeviceStatus.StatusStr[Integer.parseInt(c.getString(6))],c.getString(7)));
+                data.add(new DeviceTable(c.getString(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), c.getString(5), DeviceStatus.StatusStr[Integer.parseInt(c.getString(6))], c.getString(7)));
                 c.moveToNext();
             }
         }
 
-        TableData<DeviceTable> td=new TableData<>("所有儀器狀態",data,DID,category,model,number,user,position,status,LastModified);
+        TableData<DeviceTable> td = new TableData<>("所有儀器狀態", data, DID, category, model, number, user, position, status, LastModified);
         table.setTableData(td);
         table.getConfig().setContentStyle(new FontStyle(50, Color.BLACK));
-        table.getConfig().setColumnTitleStyle(new FontStyle(60,Color.BLACK));
-        table.getConfig().setTableTitleStyle(new FontStyle(60,Color.BLACK));
+        table.getConfig().setColumnTitleStyle(new FontStyle(60, Color.BLACK));
+        table.getConfig().setTableTitleStyle(new FontStyle(60, Color.BLACK));
         table.getConfig().setContentCellBackgroundFormat(new BaseCellBackgroundFormat<CellInfo>() {
             @Override
             public int getBackGroundColor(CellInfo cellInfo) {
-                if(cellInfo.row%2==1)
-                    return ContextCompat.getColor(InquireStatusActivity.this,R.color.bg);
+                if (cellInfo.row % 2 == 1)
+                    return ContextCompat.getColor(InquireStatusActivity.this, R.color.bg);
                 else
                     return 0;
             }
@@ -135,7 +135,7 @@ public class InquireStatusActivity extends AppCompatActivity {
         table.setZoom(false);
         table.getConfig().setShowXSequence(false);
         table.getConfig().setShowYSequence(false);
-        table.getConfig().setColumnTitleGridStyle(new LineStyle(5,Color.DKGRAY));
-        table.getConfig().setContentGridStyle(new LineStyle(3,Color.GRAY));
+        table.getConfig().setColumnTitleGridStyle(new LineStyle(5, Color.DKGRAY));
+        table.getConfig().setContentGridStyle(new LineStyle(3, Color.GRAY));
     }
 }
