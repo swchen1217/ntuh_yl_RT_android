@@ -21,6 +21,7 @@ import com.bin.david.form.data.column.ColumnInfo;
 import com.bin.david.form.data.format.bg.BaseBackgroundFormat;
 import com.bin.david.form.data.format.bg.BaseCellBackgroundFormat;
 import com.bin.david.form.data.format.bg.IBackgroundFormat;
+import com.bin.david.form.data.format.bg.ICellBackgroundFormat;
 import com.bin.david.form.data.style.FontStyle;
 import com.bin.david.form.data.style.LineStyle;
 import com.bin.david.form.data.table.TableData;
@@ -118,16 +119,27 @@ public class InquireStatusActivity extends AppCompatActivity {
             public void onClick(Column<String> column, String value, String s, int position) {
                 Log.d("Column_value",value);
                 Log.d("Column_position",position+"");
-                Intent it=new Intent(InquireStatusActivity.this,UpdateStatusActivity.class);
-                it.putExtra("DID",value);
 
-                /*if(ClickPosition==position){
-                    // Do
+                if(ClickPosition==position){
+                    Intent it=new Intent(InquireStatusActivity.this,UpdateStatusActivity.class);
+                    it.putExtra("DID",value);
+                    startActivity(it);
                 }else{
                     ClickPosition=position;
                     ClickCount=0;
                     ClickCount++;
-                }*/
+                    table.getConfig().setContentCellBackgroundFormat(new BaseCellBackgroundFormat<CellInfo>() {
+                        @Override
+                        public int getBackGroundColor(CellInfo cellInfo) {
+                            if(cellInfo.row==position && cellInfo.col==0)
+                                return ContextCompat.getColor(InquireStatusActivity.this, R.color.bg2_b);
+                            else if(cellInfo.row % 2 == 1)
+                                return ContextCompat.getColor(InquireStatusActivity.this, R.color.bg);
+                            else
+                                return 0;
+                        }
+                    });
+                }
 
 
             }
