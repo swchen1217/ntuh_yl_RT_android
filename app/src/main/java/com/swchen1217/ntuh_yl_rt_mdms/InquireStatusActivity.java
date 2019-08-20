@@ -128,17 +128,24 @@ public class InquireStatusActivity extends AppCompatActivity {
                     ClickPosition=position;
                     ClickCount=0;
                     ClickCount++;
-                    table.getConfig().setContentCellBackgroundFormat(new BaseCellBackgroundFormat<CellInfo>() {
+                    table.getConfig().setContentCellBackgroundFormat(new ICellBackgroundFormat<CellInfo>() {
                         @Override
-                        public int getBackGroundColor(CellInfo cellInfo) {
-                            if(cellInfo.row==position && cellInfo.col==0)
-                                return ContextCompat.getColor(InquireStatusActivity.this, R.color.bg2_b);
-                            else{
-                                if(cellInfo.row % 2 == 1)
-                                    return ContextCompat.getColor(InquireStatusActivity.this, R.color.bg);
-                                else
-                                    return 0;
+                        public void drawBackground(Canvas canvas, Rect rect, CellInfo cellInfo, Paint paint) {
+                            if(cellInfo.row==position && cellInfo.col==0){
+                                paint.setColor(ContextCompat.getColor(InquireStatusActivity.this, R.color.bg2_b));
+                                canvas.drawRect(rect,paint);
                             }
+                            else{
+                                if(cellInfo.row%2==1){
+                                    paint.setColor(ContextCompat.getColor(InquireStatusActivity.this, R.color.bg));
+                                    canvas.drawRect(rect,paint);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public int getTextColor(CellInfo cellInfo) {
+                            return 0;
                         }
                     });
                 }
@@ -177,7 +184,7 @@ public class InquireStatusActivity extends AppCompatActivity {
             @Override
             public void drawBackground(Canvas canvas, Rect rect, CellInfo cellInfo, Paint paint) {
                 if(cellInfo.row%2==1){
-                    paint.setColor(0xFFDDDDDD);
+                    paint.setColor(ContextCompat.getColor(InquireStatusActivity.this, R.color.bg));
                     canvas.drawRect(rect,paint);
                 }
             }
