@@ -171,15 +171,6 @@ public class InquireStatusActivity extends AppCompatActivity {
         table.getConfig().setContentStyle(new FontStyle(50, Color.BLACK));
         table.getConfig().setColumnTitleStyle(new FontStyle(60, Color.BLACK));
         table.getConfig().setTableTitleStyle(new FontStyle(60, Color.BLACK));
-        /*table.getConfig().setContentCellBackgroundFormat(new BaseCellBackgroundFormat<CellInfo>() {
-            @Override
-            public int getBackGroundColor(CellInfo cellInfo) {
-                if (cellInfo.row % 2 == 1)
-                    return ContextCompat.getColor(InquireStatusActivity.this, R.color.bg);
-                else
-                    return 0;
-            }
-        });*/
         table.getConfig().setContentCellBackgroundFormat(new ICellBackgroundFormat<CellInfo>() {
             @Override
             public void drawBackground(Canvas canvas, Rect rect, CellInfo cellInfo, Paint paint) {
