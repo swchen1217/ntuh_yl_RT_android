@@ -127,9 +127,21 @@ public class UpdateStatusActivity extends AppCompatActivity {
                 btn_CheckInput.setEnabled(false);
                 btn_qr.setEnabled(false);
                 btn_manual.setEnabled(false);
+
+
                 if (rb_use.isChecked()) {
                     ChangeLayout("use");
+                    if (DeviceCheck()[0] || DeviceCheck()[1]) {
+                        if (DeviceCheck()[1]) {
+
+                        } else {
+
+                        }
+                    }
+
                     SQLite SQL = new SQLite(UpdateStatusActivity.this);
+
+
                     if (input_data.length() < 6 || !input_data.substring(0, 6).equals("MDMS.D")) {
                         Cursor number = SQL.select("device_tb", new String[]{"DID", "status"}, "number='" + input_data + "'", null, null, null);
                         if (number.getCount() != 0) {
@@ -347,7 +359,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
                     btn_enter.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Boolean ok = false;
+                            boolean ok = false;
                             if (!et_bednum_1.getText().equals("") && !et_bednum_2.getText().equals("") && et_bednum_1.getText().length() == 2 && et_bednum_2.getText().length() == 3 && !et_usernum.getText().equals("") && et_usernum.getText().length() == 7) {
                                 Log.d("test", "OK");
                                 Thread thread = new Thread(new Runnable() {
@@ -498,6 +510,32 @@ public class UpdateStatusActivity extends AppCompatActivity {
         tv_input.setText("");
         btn_CheckInput.setVisibility(View.INVISIBLE);
         btn_back.setVisibility(View.INVISIBLE);
+    }
+
+    public boolean[] DeviceCheck() {
+        // [0] isDeviceID
+        // [1] hasDevice
+        SQLite sql = new SQLite(UpdateStatusActivity.this);
+        if (input_data.length() < 6 || !input_data.substring(0, 6).equals("MDMS.D")) {
+            Cursor number = sql.select("device_tb", new String[]{"DID", "status"}, "number='" + input_data + "'", null, null, null);
+            if (number.getCount() != 0) {
+                return new boolean[]{true, true};
+            } else {
+                back();
+                Toast.makeText(UpdateStatusActivity.this, "無此設備!!,請重新輸入或新增此設備", Toast.LENGTH_SHORT).show();
+                return new boolean[]{true, false};
+            }
+        } else {
+            Cursor did = sql.select("device_tb", new String[]{"DID", "status"}, "did='" + input_data + "'", null, null, null);
+            if (did.getCount() != 0) {
+                return new boolean[]{false, true};
+            } else {
+                back();
+                Toast.makeText(UpdateStatusActivity.this, "無此設備!!,請重新輸入或新增此設備", Toast.LENGTH_SHORT).show();
+                return new boolean[]{false, false};
+            }
+        }
+
     }
 
 }
