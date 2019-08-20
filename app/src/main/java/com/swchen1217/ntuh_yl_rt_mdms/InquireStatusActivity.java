@@ -125,22 +125,10 @@ public class InquireStatusActivity extends AppCompatActivity {
                     it.putExtra("DID",value);
                     startActivity(it);
                 }else{
-                    ClickPosition=position;
-                    ClickCount=0;
-                    ClickCount++;
                     table.getConfig().setContentCellBackgroundFormat(new ICellBackgroundFormat<CellInfo>() {
                         @Override
                         public void drawBackground(Canvas canvas, Rect rect, CellInfo cellInfo, Paint paint) {
                             Log.d("CellInfo_my",cellInfo.value);
-                            /*if(cellInfo.row!=position){
-                                if(cellInfo.row%2==1){
-                                    paint.setColor(ContextCompat.getColor(InquireStatusActivity.this, R.color.bg));
-                                    canvas.drawRect(rect,paint);
-                                }
-                            } else{
-                                paint.setColor(ContextCompat.getColor(InquireStatusActivity.this, R.color.bg2_b));
-                                canvas.drawRect(rect,paint);
-                            }*/
                             if(cellInfo.row%2==1){
                                 paint.setColor(ContextCompat.getColor(InquireStatusActivity.this, R.color.bg));
                                 canvas.drawRect(rect,paint);
@@ -156,6 +144,9 @@ public class InquireStatusActivity extends AppCompatActivity {
                             return 0;
                         }
                     });
+                    ClickPosition=position;
+                    ClickCount=0;
+                    ClickCount++;
                 }
             }
         });
