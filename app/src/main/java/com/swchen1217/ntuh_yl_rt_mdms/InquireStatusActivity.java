@@ -131,15 +131,23 @@ public class InquireStatusActivity extends AppCompatActivity {
                     table.getConfig().setContentCellBackgroundFormat(new ICellBackgroundFormat<CellInfo>() {
                         @Override
                         public void drawBackground(Canvas canvas, Rect rect, CellInfo cellInfo, Paint paint) {
-                            if(cellInfo.row==position && cellInfo.col==0){
-                                paint.setColor(ContextCompat.getColor(InquireStatusActivity.this, R.color.bg2_b));
-                                canvas.drawRect(rect,paint);
-                            }
-                            else{
+                            Log.d("CellInfo_my",cellInfo.value);
+                            /*if(cellInfo.row!=position){
                                 if(cellInfo.row%2==1){
                                     paint.setColor(ContextCompat.getColor(InquireStatusActivity.this, R.color.bg));
                                     canvas.drawRect(rect,paint);
                                 }
+                            } else{
+                                paint.setColor(ContextCompat.getColor(InquireStatusActivity.this, R.color.bg2_b));
+                                canvas.drawRect(rect,paint);
+                            }*/
+                            if(cellInfo.row%2==1){
+                                paint.setColor(ContextCompat.getColor(InquireStatusActivity.this, R.color.bg));
+                                canvas.drawRect(rect,paint);
+                            }
+                            if(cellInfo.row==position){
+                                paint.setColor(ContextCompat.getColor(InquireStatusActivity.this, R.color.bg2_b));
+                                canvas.drawRect(rect,paint);
                             }
                         }
 
@@ -149,8 +157,6 @@ public class InquireStatusActivity extends AppCompatActivity {
                         }
                     });
                 }
-
-
             }
         });
 
