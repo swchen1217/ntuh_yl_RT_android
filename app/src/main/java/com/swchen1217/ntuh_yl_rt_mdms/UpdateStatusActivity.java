@@ -81,7 +81,16 @@ public class UpdateStatusActivity extends AppCompatActivity {
         btn_enter = findViewById(R.id.btn_data_enter);
 
         Intent it=getIntent();
-        Log.d("IntentTest", String.valueOf(it.hasExtra("DID")));
+        Log.d("IntentHasExtra", String.valueOf(it.hasExtra("DID")));
+        if(it.hasExtra("DID")){
+            Log.d("IntentGetStringExtra", it.getStringExtra("DID"));
+            String tmp=it.getStringExtra("DID");
+            btn_CheckInput.setVisibility(View.VISIBLE);
+            btn_CheckInput.setEnabled(true);
+            btn_back.setVisibility(View.INVISIBLE);
+            tv_input.setText(" 設備ID：" + tmp);
+            input_data = tmp;
+        }
 
         setListener();
     }
