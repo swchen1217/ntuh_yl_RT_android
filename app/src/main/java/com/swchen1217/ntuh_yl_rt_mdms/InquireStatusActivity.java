@@ -24,6 +24,7 @@ import com.bin.david.form.data.style.FontStyle;
 import com.bin.david.form.data.style.LineStyle;
 import com.bin.david.form.data.table.TableData;
 import com.bin.david.form.listener.OnColumnClickListener;
+import com.bin.david.form.listener.OnColumnItemClickListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -105,6 +106,16 @@ public class InquireStatusActivity extends AppCompatActivity {
         Column<String> status = new Column<>("狀態", "status");
         Column<String> LastModified = new Column<>("修改日期", "LastModified");
         List<DeviceTable> data = new ArrayList<>();
+
+        DID.setOnColumnItemClickListener(new OnColumnItemClickListener<String>() {
+            @Override
+            public void onClick(Column<String> column, String value, String s, int position) {
+                Log.d("Column_column",column.toString());
+                Log.d("Column_value",value);
+                Log.d("Column_s",s);
+                Log.d("Column_position",position+"");
+            }
+        });
 
         SQLite sql = new SQLite(this);
         Cursor c = sql.select("device_tb", null, null, null, null, null);
