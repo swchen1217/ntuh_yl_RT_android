@@ -131,10 +131,17 @@ public class InquireStatusActivity extends AppCompatActivity {
                     table.getConfig().setContentCellBackgroundFormat(new BaseCellBackgroundFormat<CellInfo>() {
                         @Override
                         public int getBackGroundColor(CellInfo cellInfo) {
+                            if (cellInfo.row % 2 == 1)
+                                return ContextCompat.getColor(InquireStatusActivity.this, R.color.bg);
+                            else
+                                return 0;
+                        }
+                    });
+                    table.getConfig().setContentCellBackgroundFormat(new BaseCellBackgroundFormat<CellInfo>() {
+                        @Override
+                        public int getBackGroundColor(CellInfo cellInfo) {
                             if(cellInfo.row==position && cellInfo.col==0)
                                 return ContextCompat.getColor(InquireStatusActivity.this, R.color.bg2_b);
-                            else if(cellInfo.row % 2 == 1)
-                                return ContextCompat.getColor(InquireStatusActivity.this, R.color.bg);
                             else
                                 return 0;
                         }
