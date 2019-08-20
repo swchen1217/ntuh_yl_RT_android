@@ -131,19 +131,14 @@ public class InquireStatusActivity extends AppCompatActivity {
                     table.getConfig().setContentCellBackgroundFormat(new BaseCellBackgroundFormat<CellInfo>() {
                         @Override
                         public int getBackGroundColor(CellInfo cellInfo) {
-                            if (cellInfo.row % 2 == 1)
-                                return ContextCompat.getColor(InquireStatusActivity.this, R.color.bg);
-                            else
-                                return 0;
-                        }
-                    });
-                    table.getConfig().setContentCellBackgroundFormat(new BaseCellBackgroundFormat<CellInfo>() {
-                        @Override
-                        public int getBackGroundColor(CellInfo cellInfo) {
                             if(cellInfo.row==position && cellInfo.col==0)
                                 return ContextCompat.getColor(InquireStatusActivity.this, R.color.bg2_b);
-                            else
-                                return 0;
+                            else{
+                                if(cellInfo.row % 2 == 1)
+                                    return ContextCompat.getColor(InquireStatusActivity.this, R.color.bg);
+                                else
+                                    return 0;
+                            }
                         }
                     });
                 }
@@ -169,13 +164,27 @@ public class InquireStatusActivity extends AppCompatActivity {
         table.getConfig().setContentStyle(new FontStyle(50, Color.BLACK));
         table.getConfig().setColumnTitleStyle(new FontStyle(60, Color.BLACK));
         table.getConfig().setTableTitleStyle(new FontStyle(60, Color.BLACK));
-        table.getConfig().setContentCellBackgroundFormat(new BaseCellBackgroundFormat<CellInfo>() {
+        /*table.getConfig().setContentCellBackgroundFormat(new BaseCellBackgroundFormat<CellInfo>() {
             @Override
             public int getBackGroundColor(CellInfo cellInfo) {
                 if (cellInfo.row % 2 == 1)
                     return ContextCompat.getColor(InquireStatusActivity.this, R.color.bg);
                 else
                     return 0;
+            }
+        });*/
+        table.getConfig().setContentCellBackgroundFormat(new ICellBackgroundFormat<CellInfo>() {
+            @Override
+            public void drawBackground(Canvas canvas, Rect rect, CellInfo cellInfo, Paint paint) {
+                if(cellInfo.row%2==1){
+                    paint.setColor(0xFFDDDDDD);
+                    canvas.drawRect(rect,paint);
+                }
+            }
+
+            @Override
+            public int getTextColor(CellInfo cellInfo) {
+                return 0;
             }
         });
         table.setZoom(false);
