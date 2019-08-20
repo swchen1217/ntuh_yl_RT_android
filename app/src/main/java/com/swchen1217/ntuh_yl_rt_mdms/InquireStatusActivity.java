@@ -1,5 +1,6 @@
 package com.swchen1217.ntuh_yl_rt_mdms;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -34,6 +35,9 @@ public class InquireStatusActivity extends AppCompatActivity {
 
     SmartTable table;
     SwipeRefreshLayout mSwipeLayout;
+
+    int ClickCount=0;
+    int ClickPosition=-1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +81,8 @@ public class InquireStatusActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        ClickCount=0;
+        ClickPosition=-1;
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -111,6 +117,19 @@ public class InquireStatusActivity extends AppCompatActivity {
             @Override
             public void onClick(Column<String> column, String value, String s, int position) {
                 Log.d("Column_value",value);
+                Log.d("Column_position",position+"");
+                Intent it=new Intent(InquireStatusActivity.this,UpdateStatusActivity.class);
+                it.putExtra("DID",value);
+
+                /*if(ClickPosition==position){
+                    // Do
+                }else{
+                    ClickPosition=position;
+                    ClickCount=0;
+                    ClickCount++;
+                }*/
+
+
             }
         });
 

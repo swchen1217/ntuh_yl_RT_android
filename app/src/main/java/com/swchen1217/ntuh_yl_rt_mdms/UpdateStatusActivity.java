@@ -80,6 +80,9 @@ public class UpdateStatusActivity extends AppCompatActivity {
         et_usernum = findViewById(R.id.et_usernum);
         btn_enter = findViewById(R.id.btn_data_enter);
 
+        Intent it=getIntent();
+        Log.d("IntentTest", String.valueOf(it.hasExtra("DID")));
+
         setListener();
     }
 
