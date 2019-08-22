@@ -129,13 +129,19 @@ public class InquireStatusActivity extends AppCompatActivity {
                         @Override
                         public void drawBackground(Canvas canvas, Rect rect, CellInfo cellInfo, Paint paint) {
                             Log.d("CellInfo_my",cellInfo.value);
-                            if(cellInfo.row%2==1){
-                                paint.setColor(ContextCompat.getColor(InquireStatusActivity.this, R.color.bg));
-                                canvas.drawRect(rect,paint);
-                            }
                             if(cellInfo.row==position){
                                 paint.setColor(ContextCompat.getColor(InquireStatusActivity.this, R.color.bg2_b));
                                 canvas.drawRect(rect,paint);
+                            }else{
+                                if(cellInfo.row%2==1){
+                                    paint.setColor(ContextCompat.getColor(InquireStatusActivity.this, R.color.bg));
+                                    canvas.drawRect(rect,paint);
+                                }else{
+                                    if(cellInfo.row==position){
+                                        paint.setColor(ContextCompat.getColor(InquireStatusActivity.this, R.color.bg2_b));
+                                        canvas.drawRect(rect,paint);
+                                    }
+                                }
                             }
                         }
 
