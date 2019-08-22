@@ -91,7 +91,6 @@ public class UpdateStatusActivity extends AppCompatActivity {
             tv_input.setText(" 設備ID：" + tmp);
             input_data = tmp;
         }
-
         setListener();
     }
 
