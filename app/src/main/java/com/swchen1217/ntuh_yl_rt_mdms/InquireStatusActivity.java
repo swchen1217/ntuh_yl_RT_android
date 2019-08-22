@@ -37,7 +37,6 @@ public class InquireStatusActivity extends AppCompatActivity {
     SmartTable table;
     SwipeRefreshLayout mSwipeLayout;
 
-    int ClickCount=0;
     int ClickPosition=-1;
 
     @Override
@@ -82,7 +81,6 @@ public class InquireStatusActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        ClickCount=0;
         ClickPosition=-1;
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -120,37 +118,36 @@ public class InquireStatusActivity extends AppCompatActivity {
                 Log.d("Column_value",value);
                 Log.d("Column_position",position+"");
 
+                table.getConfig().setContentCellBackgroundFormat(new ICellBackgroundFormat<CellInfo>() {
+                    @Override
+                    public void drawBackground(Canvas canvas, Rect rect, CellInfo cellInfo, Paint paint) {
+                        Log.d("CellInfo_my",cellInfo.value);
+                        if(cellInfo.row==position){
+                            paint.setColor(ContextCompat.getColor(InquireStatusActivity.this, R.color.bg2_b));
+                            canvas.drawRect(rect,paint);
+                        }else {
+                            if(cellInfo.row%2==1){
+                                paint.setColor(ContextCompat.getColor(InquireStatusActivity.this, R.color.bg));
+                                canvas.drawRect(rect,paint);
+                            }else{
+                                paint.setColor(0xFFFAFAFA);
+                                canvas.drawRect(rect,paint);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public int getTextColor(CellInfo cellInfo) {
+                        return 0;
+                    }
+                });
+
                 if(ClickPosition==position){
                     Intent it=new Intent(InquireStatusActivity.this,UpdateStatusActivity.class);
                     it.putExtra("DID",value);
                     startActivity(it);
                 }else{
-                    table.getConfig().setContentCellBackgroundFormat(new ICellBackgroundFormat<CellInfo>() {
-                        @Override
-                        public void drawBackground(Canvas canvas, Rect rect, CellInfo cellInfo, Paint paint) {
-                            Log.d("CellInfo_my",cellInfo.value);
-                            if(cellInfo.row==position){
-                                paint.setColor(ContextCompat.getColor(InquireStatusActivity.this, R.color.bg2_b));
-                                canvas.drawRect(rect,paint);
-                            }else {
-                                if(cellInfo.row%2==1){
-                                    paint.setColor(ContextCompat.getColor(InquireStatusActivity.this, R.color.bg));
-                                    canvas.drawRect(rect,paint);
-                                }else{
-                                    paint.setColor(0xFFFAFAFA);
-                                    canvas.drawRect(rect,paint);
-                                }
-                            }
-                        }
-
-                        @Override
-                        public int getTextColor(CellInfo cellInfo) {
-                            return 0;
-                        }
-                    });
                     ClickPosition=position;
-                    ClickCount=0;
-                    ClickCount++;
                 }
             }
         });
