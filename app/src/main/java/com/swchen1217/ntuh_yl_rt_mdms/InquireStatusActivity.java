@@ -138,7 +138,7 @@ public class InquireStatusActivity extends AppCompatActivity {
                                     canvas.drawRect(rect,paint);
                                 }else{
                                     if(cellInfo.row==position){
-                                        paint.setColor(ContextCompat.getColor(InquireStatusActivity.this, R.color.bg2_b));
+                                        paint.setColor(0xFFFAFAFA);
                                         canvas.drawRect(rect,paint);
                                     }
                                 }
