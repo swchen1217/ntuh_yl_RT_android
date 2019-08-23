@@ -37,7 +37,7 @@ public class InquireStatusActivity extends AppCompatActivity {
     SmartTable table;
     SwipeRefreshLayout mSwipeLayout;
 
-    int ClickPosition=-1;
+    int ClickPosition = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +81,7 @@ public class InquireStatusActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        ClickPosition=-1;
+        ClickPosition = -1;
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -115,23 +115,23 @@ public class InquireStatusActivity extends AppCompatActivity {
         DID.setOnColumnItemClickListener(new OnColumnItemClickListener<String>() {
             @Override
             public void onClick(Column<String> column, String value, String s, int position) {
-                Log.d("Column_value",value);
-                Log.d("Column_position",position+"");
+                Log.d("Column_value", value);
+                Log.d("Column_position", position + "");
 
                 table.getConfig().setContentCellBackgroundFormat(new ICellBackgroundFormat<CellInfo>() {
                     @Override
                     public void drawBackground(Canvas canvas, Rect rect, CellInfo cellInfo, Paint paint) {
-                        Log.d("CellInfo_my",cellInfo.value);
-                        if(cellInfo.row==position){
+                        Log.d("CellInfo_my", cellInfo.value);
+                        if (cellInfo.row == position) {
                             paint.setColor(ContextCompat.getColor(InquireStatusActivity.this, R.color.bg2_b));
-                            canvas.drawRect(rect,paint);
-                        }else {
-                            if(cellInfo.row%2==1){
+                            canvas.drawRect(rect, paint);
+                        } else {
+                            if (cellInfo.row % 2 == 1) {
                                 paint.setColor(ContextCompat.getColor(InquireStatusActivity.this, R.color.bg));
-                                canvas.drawRect(rect,paint);
-                            }else{
+                                canvas.drawRect(rect, paint);
+                            } else {
                                 paint.setColor(0xFFFAFAFA);
-                                canvas.drawRect(rect,paint);
+                                canvas.drawRect(rect, paint);
                             }
                         }
                     }
@@ -142,12 +142,12 @@ public class InquireStatusActivity extends AppCompatActivity {
                     }
                 });
 
-                if(ClickPosition==position){
-                    Intent it=new Intent(InquireStatusActivity.this,UpdateStatusActivity.class);
-                    it.putExtra("DID",value);
+                if (ClickPosition == position) {
+                    Intent it = new Intent(InquireStatusActivity.this, UpdateStatusActivity.class);
+                    it.putExtra("DID", value);
                     startActivity(it);
-                }else{
-                    ClickPosition=position;
+                } else {
+                    ClickPosition = position;
                 }
             }
         });
@@ -172,9 +172,9 @@ public class InquireStatusActivity extends AppCompatActivity {
         table.getConfig().setContentCellBackgroundFormat(new ICellBackgroundFormat<CellInfo>() {
             @Override
             public void drawBackground(Canvas canvas, Rect rect, CellInfo cellInfo, Paint paint) {
-                if(cellInfo.row%2==1){
+                if (cellInfo.row % 2 == 1) {
                     paint.setColor(ContextCompat.getColor(InquireStatusActivity.this, R.color.bg));
-                    canvas.drawRect(rect,paint);
+                    canvas.drawRect(rect, paint);
                 }
             }
 
