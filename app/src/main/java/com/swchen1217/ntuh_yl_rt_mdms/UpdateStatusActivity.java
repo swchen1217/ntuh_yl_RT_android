@@ -80,11 +80,11 @@ public class UpdateStatusActivity extends AppCompatActivity {
         et_usernum = findViewById(R.id.et_usernum);
         btn_enter = findViewById(R.id.btn_data_enter);
 
-        Intent it=getIntent();
+        Intent it = getIntent();
         Log.d("IntentHasExtra", String.valueOf(it.hasExtra("DID")));
-        if(it.hasExtra("DID")){
+        if (it.hasExtra("DID")) {
             Log.d("IntentGetStringExtra", it.getStringExtra("DID"));
-            String tmp=it.getStringExtra("DID");
+            String tmp = it.getStringExtra("DID");
             btn_CheckInput.setVisibility(View.VISIBLE);
             btn_CheckInput.setEnabled(true);
             btn_back.setVisibility(View.INVISIBLE);
@@ -143,7 +143,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
                 if (rb_use.isChecked()) {
                     ChangeLayout("use");
                     SQLite SQL = new SQLite(UpdateStatusActivity.this);
-                    if(DeviceCheck()[1]){
+                    if (DeviceCheck()[1]) {
                         if (DeviceCheck()[0]) {
                             Log.d("test", "1-1-2");
                             Cursor number = SQL.select("device_tb", new String[]{"DID", "status"}, "number='" + input_data + "'", null, null, null);
@@ -162,7 +162,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
                                         })
                                         .show();
                             }
-                        }else{
+                        } else {
                             Log.d("test", "2-1-2");
                             Cursor did = SQL.select("device_tb", new String[]{"DID", "status"}, "did='" + input_data + "'", null, null, null);
                             did.moveToFirst();
