@@ -55,14 +55,14 @@ public class MenuActivity extends AppCompatActivity {
         btn_UpdateStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(PermissionCheck(Permission.PERMISSINO_UPDATE_STATUS))
+                if (PermissionCheck(Permission.PERMISSINO_UPDATE_STATUS))
                     startActivity(new Intent(MenuActivity.this, UpdateStatusActivity.class));
             }
         });
         btn_InquireStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(PermissionCheck(Permission.PERMISSINO_INQUIRT_STARUS)){
+                if (PermissionCheck(Permission.PERMISSINO_INQUIRT_STARUS)) {
                     startActivity(new Intent(MenuActivity.this, InquireStatusActivity.class));
                 }
             }
@@ -70,7 +70,7 @@ public class MenuActivity extends AppCompatActivity {
         btn_Log.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(PermissionCheck(Permission.PERMISSINO_READ_LOG)){
+                if (PermissionCheck(Permission.PERMISSINO_READ_LOG)) {
 
                 }
             }
@@ -78,7 +78,7 @@ public class MenuActivity extends AppCompatActivity {
         btn_Repair.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(PermissionCheck(Permission.PERMISSINO_READ_LOG)){
+                if (PermissionCheck(Permission.PERMISSINO_READ_LOG)) {
 
                 }
             }
@@ -86,7 +86,7 @@ public class MenuActivity extends AppCompatActivity {
         btn_MaintenanceCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(PermissionCheck(Permission.PERMISSINO_UPDATE_STATUS)){
+                if (PermissionCheck(Permission.PERMISSINO_UPDATE_STATUS)) {
 
                 }
             }
@@ -151,13 +151,13 @@ public class MenuActivity extends AppCompatActivity {
         return false;
     }
 
-    public boolean PermissionCheck(int per){
-        if(Integer.parseInt(spf_LoginInfo.getString("permission",""))>=per)
+    public boolean PermissionCheck(int per) {
+        if (Integer.parseInt(spf_LoginInfo.getString("permission", "")) >= per)
             return true;
         else {
             new AlertDialog.Builder(MenuActivity.this)
                     .setTitle("權限不足,無法使用!!")
-                    .setMessage("你的權限:"+spf_LoginInfo.getString("permission","")+"\n所需權限:"+per)
+                    .setMessage("你的權限:" + spf_LoginInfo.getString("permission", "") + "\n所需權限:" + per)
                     .setPositiveButton("確定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
