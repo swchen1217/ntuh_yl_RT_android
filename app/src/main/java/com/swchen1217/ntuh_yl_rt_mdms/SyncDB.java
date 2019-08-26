@@ -42,28 +42,29 @@ public class SyncDB {
     ProgressDialog pd, pd2, pd3;
     String server_url = "";
     Activity activity;
-    SharedPreferences spf_SyncDB,spf_LoginInfo;
+    SharedPreferences spf_SyncDB, spf_LoginInfo;
     String key[] = {"DID", "category", "model", "number", "user", "position", "status", "LastModified"};
+
     SyncDB(Activity _activity) {
         activity = _activity;
         spf_SyncDB = activity.getSharedPreferences("SyncDB", Context.MODE_PRIVATE);
         spf_LoginInfo = activity.getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
     }
 
-    public boolean UpdateDeviceTableUse(String DID,String user,String position){
+    public boolean UpdateDeviceTableUse(String DID, String user, String position) {
         try {
-            String update= PostDataToSrever("db.php",
+            String update = PostDataToSrever("db.php",
                     new FormBody.Builder()
                             .add("mode", "update_device_tb_use")
-                            .add("acc",spf_LoginInfo.getString("acc",""))
-                            .add("pw",spf_LoginInfo.getString("pw",""))
-                            .add("DID",DID)
-                            .add("user",user)
-                            .add("position",position)
+                            .add("acc", spf_LoginInfo.getString("acc", ""))
+                            .add("pw", spf_LoginInfo.getString("pw", ""))
+                            .add("DID", DID)
+                            .add("user", user)
+                            .add("position", position)
                             .build());
-            if(update!=null){
+            if (update != null) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         } catch (IOException e) {
@@ -95,11 +96,11 @@ public class SyncDB {
                             new FormBody.Builder()
                                     .add("mode", "GetSystem_tb")
                                     .add("id", "position_item_tb_LastModified")
-                                    .add("acc",spf_LoginInfo.getString("acc",""))
-                                    .add("pw",spf_LoginInfo.getString("pw",""))
+                                    .add("acc", spf_LoginInfo.getString("acc", ""))
+                                    .add("pw", spf_LoginInfo.getString("pw", ""))
                                     .build());
-                    if(LastModified!=null){
-                        if(!LastModified.equals("user_error")){
+                    if (LastModified != null) {
+                        if (!LastModified.equals("user_error")) {
                             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                             Date a = sdf.parse(LastModified);
                             Date b = sdf.parse(LastSync.equals("first") ? "2019-01-01 00:00:00" : LastSync);
@@ -112,11 +113,11 @@ public class SyncDB {
                                 String data = PostDataToSrever("db.php",
                                         new FormBody.Builder()
                                                 .add("mode", "sync_position_item_tb_download")
-                                                .add("acc",spf_LoginInfo.getString("acc",""))
-                                                .add("pw",spf_LoginInfo.getString("pw",""))
+                                                .add("acc", spf_LoginInfo.getString("acc", ""))
+                                                .add("pw", spf_LoginInfo.getString("pw", ""))
                                                 .build());
                                 if (data != null) {
-                                    if(!data.equals("user_error")){
+                                    if (!data.equals("user_error")) {
                                         Log.d("data_", "data:" + data);
                                         JSONArray jsonA = new JSONArray(data);
                                         Log.d("data_", "jsonA.length():" + jsonA.length() + "");
@@ -188,11 +189,11 @@ public class SyncDB {
                     new FormBody.Builder()
                             .add("mode", "sync_device_tb_download")
                             .add("LastModified", LastSync.equals("first") ? "2019-01-01 00:00:00" : LastSync)
-                            .add("acc",spf_LoginInfo.getString("acc",""))
-                            .add("pw",spf_LoginInfo.getString("pw",""))
+                            .add("acc", spf_LoginInfo.getString("acc", ""))
+                            .add("pw", spf_LoginInfo.getString("pw", ""))
                             .build());
             if (data != null) {
-                if(!data.equals("user_error")){
+                if (!data.equals("user_error")) {
                     if (!data.equals("no_data")) {
                         JSONArray jsonA = new JSONArray(data);
                         Log.d("data_", jsonA.length() + "");
