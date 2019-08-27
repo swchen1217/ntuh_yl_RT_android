@@ -142,7 +142,29 @@ public class UpdateStatusActivity extends AppCompatActivity {
                 if (rb_use.isChecked()) {
                     ChangeLayout("use");
                     SQLite SQL = new SQLite(UpdateStatusActivity.this);
-                    if (DeviceCheck()[1]) {
+
+                    String DeviceDID = DeviceCheck2();
+                    if (DeviceDID != null) {
+                        Log.d("test2",DeviceDID);
+                        Cursor date = SQL.select("device_tb", new String[]{"DID", "status"}, "did='" + DeviceDID + "'", null, null, null);
+                        date.moveToFirst();
+                        if (date.getString(1).equals(DeviceStatus.STATUS_NULL + "") || date.getString(1).equals(DeviceStatus.STATUS_USE + "") || date.getString(1).equals(DeviceStatus.STATUS_STOREROOM + ""))
+                            Update_use(date.getString(0));
+                        else {
+                            back();
+                            new AlertDialog.Builder(UpdateStatusActivity.this)
+                                    .setTitle("此裝置目前不可進行此操作!!")
+                                    .setMessage("目前狀態:" + DeviceStatus.StatusStr[Integer.parseInt(date.getString(1))])
+                                    .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    })
+                                    .show();
+                        }
+                    }
+
+                    /*if (DeviceCheck()[1]) {
                         if (DeviceCheck()[0]) {
                             Log.d("test", "1-1-2");
                             Cursor number = SQL.select("device_tb", new String[]{"DID", "status"}, "number='" + input_data + "'", null, null, null);
@@ -180,11 +202,10 @@ public class UpdateStatusActivity extends AppCompatActivity {
                                         .show();
                             }
                         }
-                    }
+                    }*/
                     Log.d("RB", "1");
                 } else if (rb_storeroom.isChecked()) {
                     ChangeLayout("storeroom");
-
 
 
                     Log.d("RB", "2");
@@ -505,7 +526,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
         btn_back.setVisibility(View.INVISIBLE);
     }
 
-    public boolean[] DeviceCheck() {
+    /*public boolean[] DeviceCheck() {
         // [0] isDeviceID
         // [1] hasDevice
         SQLite sql = new SQLite(UpdateStatusActivity.this);
@@ -533,14 +554,15 @@ public class UpdateStatusActivity extends AppCompatActivity {
             }
         }
 
-    }
+    }*/
 
-    public String DeviceCheck2(){
+    public String DeviceCheck2() {
         SQLite sql = new SQLite(UpdateStatusActivity.this);
-        if (input_data.length() < 6 || !input_data.substring(0, 6).equals("MDMS.D")){
+        if (input_data.length() < 6 || !input_data.substring(0, 6).equals("MDMS.D")) {
             Cursor number = sql.select("device_tb", new String[]{"DID"}, "number='" + input_data + "'", null, null, null);
             if (number.getCount() != 0) {
                 Log.d("test", "1-1");
+                number.moveToFirst();
                 return number.getString(0);
             } else {
                 Log.d("test", "1-2");
@@ -548,10 +570,11 @@ public class UpdateStatusActivity extends AppCompatActivity {
                 Toast.makeText(UpdateStatusActivity.this, "無此設備!!,請重新輸入或新增此設備", Toast.LENGTH_SHORT).show();
                 return null;
             }
-        }else {
+        } else {
             Cursor did = sql.select("device_tb", new String[]{"DID"}, "did='" + input_data + "'", null, null, null);
             if (did.getCount() != 0) {
                 Log.d("test", "2-1");
+                did.moveToFirst();
                 return did.getString(0);
             } else {
                 Log.d("test", "2-2");
