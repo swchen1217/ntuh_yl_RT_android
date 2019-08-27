@@ -4,7 +4,7 @@ public interface DeviceStatus {
     int STATUS_DISABLE = -1;
     int STATUS_NULL = 0;
     int STATUS_USE = 1;
-    int STATUS_STOCK = 2;
+    int STATUS_STOREROOM = 2;
     int STATUS_FIX = 3;
     int STATUS_MAINTENANCE_CHECK = 4;
     String[] StatusStr = {"停用",
