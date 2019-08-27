@@ -42,7 +42,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
     RadioGroup rg;
     ImageButton btn_back;
     View include_use, include_storeroom, include_fix;
-    Spinner sp1, sp2,sp_uss_1;
+    Spinner sp1, sp2;
     ConstraintLayout cl21, cl22;
     EditText et_bednum_1, et_bednum_2, et_usernum;
 
@@ -69,7 +69,6 @@ public class UpdateStatusActivity extends AppCompatActivity {
         include_fix.setVisibility(View.INVISIBLE);
         sp1 = findViewById(R.id.sp1);
         sp2 = findViewById(R.id.sp2);
-        sp_uss_1 = findViewById(R.id.sp_uss_1);
         cl21 = findViewById(R.id.usu_cl2_1);
         cl22 = findViewById(R.id.usu_cl2_2);
         cl21.setVisibility(View.INVISIBLE);
@@ -170,9 +169,10 @@ public class UpdateStatusActivity extends AppCompatActivity {
                     if (DeviceDID != null) {
                         Cursor date = SQL.select("device_tb", new String[]{"DID", "status"}, "did='" + DeviceDID + "'", null, null, null);
                         date.moveToFirst();
-                        if (date.getString(1).equals(DeviceStatus.STATUS_NULL + "") || date.getString(1).equals(DeviceStatus.STATUS_USE + "") || date.getString(1).equals(DeviceStatus.STATUS_STOREROOM + "")) {
+                        if (date.getString(1).equals(DeviceStatus.STATUS_NULL + "") || date.getString(1).equals(DeviceStatus.STATUS_USE + "") || date.getString(1).equals(DeviceStatus.STATUS_STOREROOM + "")){
                             Update_storeroom(date.getString(0));
-                        } else {
+                        }
+                        else {
                             back();
                             new AlertDialog.Builder(UpdateStatusActivity.this)
                                     .setTitle("此裝置目前不可進行此操作!!")
@@ -402,8 +402,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
                             }
                         }
                     });
-                }
-                else {
+                } else {
                     cl21.setVisibility(View.VISIBLE);
                     cl22.setVisibility(View.INVISIBLE);
                     Cursor c2 = SQL.select("position_item_tb", new String[]{"item"}, "type='" + types[i] + "'", null, null, null);
@@ -546,24 +545,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
 
     }
 
-    public void Update_storeroom(String DID) {
-        String[] sr = new String[Storerooms.StoreroomItem.length + 1];
-        System.arraycopy(Storerooms.StoreroomItem, 0, sr, 0, Storerooms.StoreroomItem.length);
-        sr[sr.length - 1] = "其他...";
-        ArrayAdapter<String> aa = new ArrayAdapter<>(UpdateStatusActivity.this, android.R.layout.simple_spinner_dropdown_item, sr);
-        sp_uss_1.setAdapter(aa);
-        sp_uss_1.setPopupBackgroundResource(R.drawable.spinner);
-        sp_uss_1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+    public void Update_storeroom(String DID){
 
     }
 
