@@ -137,7 +137,6 @@ public class UpdateStatusActivity extends AppCompatActivity {
                 btn_qr.setEnabled(false);
                 btn_manual.setEnabled(false);
 
-
                 if (rb_use.isChecked()) {
                     ChangeLayout("use");
                     SQLite SQL = new SQLite(UpdateStatusActivity.this);
