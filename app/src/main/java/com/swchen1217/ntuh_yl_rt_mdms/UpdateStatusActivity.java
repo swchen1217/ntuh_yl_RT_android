@@ -169,8 +169,9 @@ public class UpdateStatusActivity extends AppCompatActivity {
                     if (DeviceDID != null) {
                         Cursor date = SQL.select("device_tb", new String[]{"DID", "status"}, "did='" + DeviceDID + "'", null, null, null);
                         date.moveToFirst();
-                        if (date.getString(1).equals(DeviceStatus.STATUS_NULL + "") || date.getString(1).equals(DeviceStatus.STATUS_USE + "") || date.getString(1).equals(DeviceStatus.STATUS_STOREROOM + ""))
-                            Update_use(date.getString(0));
+                        if (date.getString(1).equals(DeviceStatus.STATUS_NULL + "") || date.getString(1).equals(DeviceStatus.STATUS_USE + "") || date.getString(1).equals(DeviceStatus.STATUS_STOREROOM + "")){
+                            // DO
+                        }
                         else {
                             back();
                             new AlertDialog.Builder(UpdateStatusActivity.this)
@@ -184,7 +185,6 @@ public class UpdateStatusActivity extends AppCompatActivity {
                                     .show();
                         }
                     }
-
                     Log.d("RB", "2");
 
                 } else if (rb_fix.isChecked()) {
