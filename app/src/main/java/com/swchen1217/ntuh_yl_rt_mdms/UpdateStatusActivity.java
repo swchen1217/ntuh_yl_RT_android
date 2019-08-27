@@ -371,7 +371,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
                                         }
                                     }
                                 });
-                                thread.start();
+                                thread2.start();
                             } else {
                                 new AlertDialog.Builder(UpdateStatusActivity.this)
                                         .setTitle("輸入資料不完整,請重新輸入")
@@ -442,7 +442,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
                                                 }
                                             }
                                         });
-                                        thread.start();
+                                        thread2.start();
                                     } else {
                                         new AlertDialog.Builder(UpdateStatusActivity.this)
                                                 .setTitle("輸入資料不完整,請重新輸入")
