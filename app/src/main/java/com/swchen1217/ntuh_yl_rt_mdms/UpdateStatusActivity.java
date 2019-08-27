@@ -140,7 +140,6 @@ public class UpdateStatusActivity extends AppCompatActivity {
                 if (rb_use.isChecked()) {
                     ChangeLayout("use");
                     SQLite SQL = new SQLite(UpdateStatusActivity.this);
-
                     String DeviceDID = DeviceCheck();
                     if (DeviceDID != null) {
                         Log.d("test2", DeviceDID);
@@ -165,6 +164,26 @@ public class UpdateStatusActivity extends AppCompatActivity {
                 } else if (rb_storeroom.isChecked()) {
                     ChangeLayout("storeroom");
 
+                    SQLite SQL = new SQLite(UpdateStatusActivity.this);
+                    String DeviceDID = DeviceCheck();
+                    if (DeviceDID != null) {
+                        Cursor date = SQL.select("device_tb", new String[]{"DID", "status"}, "did='" + DeviceDID + "'", null, null, null);
+                        date.moveToFirst();
+                        if (date.getString(1).equals(DeviceStatus.STATUS_NULL + "") || date.getString(1).equals(DeviceStatus.STATUS_USE + "") || date.getString(1).equals(DeviceStatus.STATUS_STOREROOM + ""))
+                            Update_use(date.getString(0));
+                        else {
+                            back();
+                            new AlertDialog.Builder(UpdateStatusActivity.this)
+                                    .setTitle("此裝置目前不可進行此操作!!")
+                                    .setMessage("目前狀態:" + DeviceStatus.StatusStr[Integer.parseInt(date.getString(1))])
+                                    .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    })
+                                    .show();
+                        }
+                    }
 
                     Log.d("RB", "2");
 
