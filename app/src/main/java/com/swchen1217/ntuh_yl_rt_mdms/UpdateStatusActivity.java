@@ -170,7 +170,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
                         Cursor date = SQL.select("device_tb", new String[]{"DID", "status"}, "did='" + DeviceDID + "'", null, null, null);
                         date.moveToFirst();
                         if (date.getString(1).equals(DeviceStatus.STATUS_NULL + "") || date.getString(1).equals(DeviceStatus.STATUS_USE + "") || date.getString(1).equals(DeviceStatus.STATUS_STOREROOM + "")){
-                            // DO
+                            Update_storeroom(date.getString(0));
                         }
                         else {
                             back();
@@ -542,6 +542,10 @@ public class UpdateStatusActivity extends AppCompatActivity {
                 return null;
             }
         }
+
+    }
+
+    public void Update_storeroom(String DID){
 
     }
 
