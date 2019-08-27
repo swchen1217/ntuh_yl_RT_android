@@ -486,36 +486,6 @@ public class UpdateStatusActivity extends AppCompatActivity {
         btn_back.setVisibility(View.INVISIBLE);
     }
 
-    /*public boolean[] DeviceCheck() {
-        // [0] isDeviceID
-        // [1] hasDevice
-        SQLite sql = new SQLite(UpdateStatusActivity.this);
-        if (input_data.length() < 6 || !input_data.substring(0, 6).equals("MDMS.D")) {
-            Cursor number = sql.select("device_tb", new String[]{"DID"}, "number='" + input_data + "'", null, null, null);
-            if (number.getCount() != 0) {
-                Log.d("test", "1-1");
-                return new boolean[]{true, true};
-            } else {
-                Log.d("test", "1-2");
-                back();
-                Toast.makeText(UpdateStatusActivity.this, "無此設備!!,請重新輸入或新增此設備", Toast.LENGTH_SHORT).show();
-                return new boolean[]{true, false};
-            }
-        } else {
-            Cursor did = sql.select("device_tb", new String[]{"DID"}, "did='" + input_data + "'", null, null, null);
-            if (did.getCount() != 0) {
-                Log.d("test", "2-1");
-                return new boolean[]{false, true};
-            } else {
-                Log.d("test", "2-2");
-                back();
-                Toast.makeText(UpdateStatusActivity.this, "無此設備!!,請重新輸入或新增此設備", Toast.LENGTH_SHORT).show();
-                return new boolean[]{false, false};
-            }
-        }
-
-    }*/
-
     public String DeviceCheck2() {
         SQLite sql = new SQLite(UpdateStatusActivity.this);
         if (input_data.length() < 6 || !input_data.substring(0, 6).equals("MDMS.D")) {
