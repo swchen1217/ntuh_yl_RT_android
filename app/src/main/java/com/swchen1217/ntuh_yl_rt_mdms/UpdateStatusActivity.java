@@ -1,12 +1,10 @@
 package com.swchen1217.ntuh_yl_rt_mdms;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.os.Looper;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -71,8 +69,8 @@ public class UpdateStatusActivity extends AppCompatActivity {
         include_fix.setVisibility(View.INVISIBLE);
         sp1 = findViewById(R.id.sp1);
         sp2 = findViewById(R.id.sp2);
-        cl21 = findViewById(R.id.cl2_1);
-        cl22 = findViewById(R.id.cl2_2);
+        cl21 = findViewById(R.id.usu_cl2_1);
+        cl22 = findViewById(R.id.usu_cl2_2);
         cl21.setVisibility(View.INVISIBLE);
         cl22.setVisibility(View.INVISIBLE);
         et_bednum_1 = findViewById(R.id.et_bednumber1);

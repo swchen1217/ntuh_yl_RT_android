@@ -43,7 +43,7 @@
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/cl2_1"
+        android:id="@+id/usu_cl2_1"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:background="#e8e8e8"
@@ -79,7 +79,7 @@
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/cl2_2"
+        android:id="@+id/usu_cl2_2"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:background="#e8e8e8"
@@ -168,7 +168,7 @@
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/cl3"
+        android:id="@+id/usu_cl3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
@@ -206,13 +206,13 @@
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/cl4"
+        android:id="@+id/usu_cl4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="#e8e8e8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cl3">
+        app:layout_constraintTop_toBottomOf="@+id/usu_cl3">
 
         <Button
             android:id="@+id/btn_data_enter"
