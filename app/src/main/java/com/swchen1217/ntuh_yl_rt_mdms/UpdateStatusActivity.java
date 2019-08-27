@@ -30,7 +30,6 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import java.io.IOException;
-import java.util.List;
 
 public class UpdateStatusActivity extends AppCompatActivity {
 
@@ -143,7 +142,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
                     ChangeLayout("use");
                     SQLite SQL = new SQLite(UpdateStatusActivity.this);
 
-                    String DeviceDID = DeviceCheck2();
+                    String DeviceDID = DeviceCheck();
                     if (DeviceDID != null) {
                         Log.d("test2",DeviceDID);
                         Cursor date = SQL.select("device_tb", new String[]{"DID", "status"}, "did='" + DeviceDID + "'", null, null, null);
@@ -486,7 +485,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
         btn_back.setVisibility(View.INVISIBLE);
     }
 
-    public String DeviceCheck2() {
+    public String DeviceCheck() {
         SQLite sql = new SQLite(UpdateStatusActivity.this);
         if (input_data.length() < 6 || !input_data.substring(0, 6).equals("MDMS.D")) {
             Cursor number = sql.select("device_tb", new String[]{"DID"}, "number='" + input_data + "'", null, null, null);
