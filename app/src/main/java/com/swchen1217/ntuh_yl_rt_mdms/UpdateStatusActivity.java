@@ -361,11 +361,17 @@ public class UpdateStatusActivity extends AppCompatActivity {
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
-                                try {
-                                    new SyncDB(UpdateStatusActivity.this).SyncDeviceTable(false);
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
+                                Thread thread2=new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            new SyncDB(UpdateStatusActivity.this).SyncDeviceTable(false);
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+                                thread.start();
                             } else {
                                 new AlertDialog.Builder(UpdateStatusActivity.this)
                                         .setTitle("輸入資料不完整,請重新輸入")
@@ -426,11 +432,17 @@ public class UpdateStatusActivity extends AppCompatActivity {
                                         } catch (InterruptedException e) {
                                             e.printStackTrace();
                                         }
-                                        try {
-                                            new SyncDB(UpdateStatusActivity.this).SyncDeviceTable(false);
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
+                                        Thread thread2=new Thread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                try {
+                                                    new SyncDB(UpdateStatusActivity.this).SyncDeviceTable(false);
+                                                } catch (IOException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        });
+                                        thread.start();
                                     } else {
                                         new AlertDialog.Builder(UpdateStatusActivity.this)
                                                 .setTitle("輸入資料不完整,請重新輸入")
