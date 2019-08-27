@@ -163,46 +163,6 @@ public class UpdateStatusActivity extends AppCompatActivity {
                                     .show();
                         }
                     }
-
-                    /*if (DeviceCheck()[1]) {
-                        if (DeviceCheck()[0]) {
-                            Log.d("test", "1-1-2");
-                            Cursor number = SQL.select("device_tb", new String[]{"DID", "status"}, "number='" + input_data + "'", null, null, null);
-                            number.moveToFirst();
-                            if (number.getString(1).equals(DeviceStatus.STATUS_NULL + "") || number.getString(1).equals(DeviceStatus.STATUS_USE + "") || number.getString(1).equals(DeviceStatus.STATUS_STOREROOM + ""))
-                                Update_use(number.getString(0));
-                            else {
-                                back();
-                                new AlertDialog.Builder(UpdateStatusActivity.this)
-                                        .setTitle("此裝置目前不可進行此操作!!")
-                                        .setMessage("目前狀態:" + DeviceStatus.StatusStr[Integer.parseInt(number.getString(1))])
-                                        .setPositiveButton("確定", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                            }
-                                        })
-                                        .show();
-                            }
-                        } else {
-                            Log.d("test", "2-1-2");
-                            Cursor did = SQL.select("device_tb", new String[]{"DID", "status"}, "did='" + input_data + "'", null, null, null);
-                            did.moveToFirst();
-                            if (did.getString(1).equals(DeviceStatus.STATUS_NULL + "") || did.getString(1).equals(DeviceStatus.STATUS_USE + "") || did.getString(1).equals(DeviceStatus.STATUS_STOREROOM + ""))
-                                Update_use(did.getString(0));
-                            else {
-                                back();
-                                new AlertDialog.Builder(UpdateStatusActivity.this)
-                                        .setTitle("此裝置目前不可進行此操作!!")
-                                        .setMessage("目前狀態:" + DeviceStatus.StatusStr[Integer.parseInt(did.getString(1))])
-                                        .setPositiveButton("確定", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                            }
-                                        })
-                                        .show();
-                            }
-                        }
-                    }*/
                     Log.d("RB", "1");
                 } else if (rb_storeroom.isChecked()) {
                     ChangeLayout("storeroom");
