@@ -361,7 +361,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
-                                Thread thread2=new Thread(new Runnable() {
+                                Thread thread2 = new Thread(new Runnable() {
                                     @Override
                                     public void run() {
                                         try {
@@ -432,7 +432,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
                                         } catch (InterruptedException e) {
                                             e.printStackTrace();
                                         }
-                                        Thread thread2=new Thread(new Runnable() {
+                                        Thread thread2 = new Thread(new Runnable() {
                                             @Override
                                             public void run() {
                                                 try {
