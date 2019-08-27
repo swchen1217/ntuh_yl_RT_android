@@ -38,10 +38,10 @@ public class UpdateStatusActivity extends AppCompatActivity {
     Button btn_qr, btn_manual, btn_CheckInput, btn_enter;
     public TextView tv_input;
     String input_data = null;
-    RadioButton rb_use, rb_stock, rb_fix;
+    RadioButton rb_use, rb_storeroom, rb_fix;
     RadioGroup rg;
     ImageButton btn_back;
-    View include_use, include_stock, include_fix;
+    View include_use, include_storeroom, include_fix;
     Spinner sp1, sp2;
     ConstraintLayout cl21, cl22;
     EditText et_bednum_1, et_bednum_2, et_usernum;
@@ -56,16 +56,16 @@ public class UpdateStatusActivity extends AppCompatActivity {
         btn_CheckInput = findViewById(R.id.btn_CheckInput);
         btn_CheckInput.setVisibility(View.INVISIBLE);
         rb_use = findViewById(R.id.rb_use);
-        rb_stock = findViewById(R.id.rb_stock);
+        rb_storeroom = findViewById(R.id.rb_storeroom);
         rb_fix = findViewById(R.id.rb_fix);
         rg = findViewById(R.id.radioGroup);
         btn_back = findViewById(R.id.btn_back);
         btn_back.setVisibility(View.INVISIBLE);
         include_use = findViewById(R.id.include_use);
-        include_stock = findViewById(R.id.include_stock);
+        include_storeroom = findViewById(R.id.include_storeroom);
         include_fix = findViewById(R.id.include_fix);
         include_use.setVisibility(View.INVISIBLE);
-        include_stock.setVisibility(View.INVISIBLE);
+        include_storeroom.setVisibility(View.INVISIBLE);
         include_fix.setVisibility(View.INVISIBLE);
         sp1 = findViewById(R.id.sp1);
         sp2 = findViewById(R.id.sp2);
@@ -146,7 +146,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
                             Log.d("test", "1-1-2");
                             Cursor number = SQL.select("device_tb", new String[]{"DID", "status"}, "number='" + input_data + "'", null, null, null);
                             number.moveToFirst();
-                            if (number.getString(1).equals(DeviceStatus.STATUS_NULL + "") || number.getString(1).equals(DeviceStatus.STATUS_USE + "") || number.getString(1).equals(DeviceStatus.STATUS_STOCK + ""))
+                            if (number.getString(1).equals(DeviceStatus.STATUS_NULL + "") || number.getString(1).equals(DeviceStatus.STATUS_USE + "") || number.getString(1).equals(DeviceStatus.STATUS_STOREROOM + ""))
                                 Update_use(number.getString(0));
                             else {
                                 back();
@@ -164,7 +164,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
                             Log.d("test", "2-1-2");
                             Cursor did = SQL.select("device_tb", new String[]{"DID", "status"}, "did='" + input_data + "'", null, null, null);
                             did.moveToFirst();
-                            if (did.getString(1).equals(DeviceStatus.STATUS_NULL + "") || did.getString(1).equals(DeviceStatus.STATUS_USE + "") || did.getString(1).equals(DeviceStatus.STATUS_STOCK + ""))
+                            if (did.getString(1).equals(DeviceStatus.STATUS_NULL + "") || did.getString(1).equals(DeviceStatus.STATUS_USE + "") || did.getString(1).equals(DeviceStatus.STATUS_STOREROOM + ""))
                                 Update_use(did.getString(0));
                             else {
                                 back();
@@ -181,8 +181,8 @@ public class UpdateStatusActivity extends AppCompatActivity {
                         }
                     }
                     Log.d("RB", "1");
-                } else if (rb_stock.isChecked()) {
-                    ChangeLayout("stock");
+                } else if (rb_storeroom.isChecked()) {
+                    ChangeLayout("storeroom");
                     Log.d("RB", "2");
 
                 } else if (rb_fix.isChecked()) {
@@ -274,26 +274,26 @@ public class UpdateStatusActivity extends AppCompatActivity {
     public void ChangeLayout(String checked) {
         if (checked.equals("use")) {
             rb_use.setEnabled(true);
-            rb_stock.setEnabled(false);
+            rb_storeroom.setEnabled(false);
             rb_fix.setEnabled(false);
             include_use.setVisibility(View.VISIBLE);
-            include_stock.setVisibility(View.INVISIBLE);
+            include_storeroom.setVisibility(View.INVISIBLE);
             include_fix.setVisibility(View.INVISIBLE);
         }
-        if (checked.equals("stock")) {
+        if (checked.equals("storeroom")) {
             rb_use.setEnabled(false);
-            rb_stock.setEnabled(true);
+            rb_storeroom.setEnabled(true);
             rb_fix.setEnabled(false);
             include_use.setVisibility(View.INVISIBLE);
-            include_stock.setVisibility(View.VISIBLE);
+            include_storeroom.setVisibility(View.VISIBLE);
             include_fix.setVisibility(View.INVISIBLE);
         }
         if (checked.equals("fix")) {
             rb_use.setEnabled(false);
-            rb_stock.setEnabled(false);
+            rb_storeroom.setEnabled(false);
             rb_fix.setEnabled(true);
             include_use.setVisibility(View.INVISIBLE);
-            include_stock.setVisibility(View.INVISIBLE);
+            include_storeroom.setVisibility(View.INVISIBLE);
             include_fix.setVisibility(View.VISIBLE);
         }
     }
@@ -484,10 +484,10 @@ public class UpdateStatusActivity extends AppCompatActivity {
         btn_qr.setEnabled(true);
         btn_manual.setEnabled(true);
         rb_use.setEnabled(true);
-        rb_stock.setEnabled(true);
+        rb_storeroom.setEnabled(true);
         rb_fix.setEnabled(true);
         include_use.setVisibility(View.INVISIBLE);
-        include_stock.setVisibility(View.INVISIBLE);
+        include_storeroom.setVisibility(View.INVISIBLE);
         include_fix.setVisibility(View.INVISIBLE);
         et_bednum_1.setText("");
         et_bednum_2.setText("");
