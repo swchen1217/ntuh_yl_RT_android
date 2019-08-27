@@ -38,7 +38,7 @@
             android:text="  " />
 
         <RadioButton
-            android:id="@+id/rb_stock"
+            android:id="@+id/rb_storeroom"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:background="@drawable/radiobtn_b"
@@ -154,8 +154,8 @@
         app:layout_constraintTop_toBottomOf="@+id/btn_CheckInput" />
 
     <include
-        android:id="@+id/include_stock"
-        layout="@layout/layout_update_status_stock"
+        android:id="@+id/include_storeroom"
+        layout="@layout/layout_update_status_storeroom"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
