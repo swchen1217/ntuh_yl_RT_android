@@ -8,7 +8,7 @@ public interface DeviceStatus {
     int STATUS_FIX = 3;
     int STATUS_MAINTENANCE_CHECK = 4;
     String[] StatusStr = {"停用",
-            "可使用",
+            "無狀態",
             "使用中",
             "倉庫",
             "維修中",
