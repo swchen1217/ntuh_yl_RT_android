@@ -71,7 +71,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
         include_fix.setVisibility(View.INVISIBLE);
         sp1 = findViewById(R.id.sp1);
         sp2 = findViewById(R.id.sp2);
-        cl21 = findViewById(R.id.cl);
+        cl21 = findViewById(R.id.cl2_1);
         cl22 = findViewById(R.id.cl2_2);
         cl21.setVisibility(View.INVISIBLE);
         cl22.setVisibility(View.INVISIBLE);
