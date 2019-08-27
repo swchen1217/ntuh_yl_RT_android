@@ -143,10 +143,10 @@ public class UpdateStatusActivity extends AppCompatActivity {
 
                     String DeviceDID = DeviceCheck();
                     if (DeviceDID != null) {
-                        Log.d("test2",DeviceDID);
+                        Log.d("test2", DeviceDID);
                         Cursor date = SQL.select("device_tb", new String[]{"DID", "status"}, "did='" + DeviceDID + "'", null, null, null);
                         date.moveToFirst();
-                        if (date.getString(1).equals(DeviceStatus.STATUS_NULL + "") || date.getString(1).equals(DeviceStatus.STATUS_USE + "") || date.getString(1).equals(DeviceStatus.STATUS_STOREROOM + ""))
+                        if (date.getString(1).equals(DeviceStatus.STATUS_NULL + "") || date.getString(1).equals(DeviceStatus.STATUS_STOREROOM + ""))
                             Update_use(date.getString(0));
                         else {
                             back();
