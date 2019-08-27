@@ -30,6 +30,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import java.io.IOException;
+import java.util.List;
 
 public class UpdateStatusActivity extends AppCompatActivity {
 
@@ -183,6 +184,9 @@ public class UpdateStatusActivity extends AppCompatActivity {
                     Log.d("RB", "1");
                 } else if (rb_storeroom.isChecked()) {
                     ChangeLayout("storeroom");
+
+
+
                     Log.d("RB", "2");
 
                 } else if (rb_fix.isChecked()) {
@@ -526,6 +530,34 @@ public class UpdateStatusActivity extends AppCompatActivity {
                 back();
                 Toast.makeText(UpdateStatusActivity.this, "無此設備!!,請重新輸入或新增此設備", Toast.LENGTH_SHORT).show();
                 return new boolean[]{false, false};
+            }
+        }
+
+    }
+
+    public String DeviceCheck2(){
+        SQLite sql = new SQLite(UpdateStatusActivity.this);
+        if (input_data.length() < 6 || !input_data.substring(0, 6).equals("MDMS.D")){
+            Cursor number = sql.select("device_tb", new String[]{"DID"}, "number='" + input_data + "'", null, null, null);
+            if (number.getCount() != 0) {
+                Log.d("test", "1-1");
+                return number.getString(0);
+            } else {
+                Log.d("test", "1-2");
+                back();
+                Toast.makeText(UpdateStatusActivity.this, "無此設備!!,請重新輸入或新增此設備", Toast.LENGTH_SHORT).show();
+                return null;
+            }
+        }else {
+            Cursor did = sql.select("device_tb", new String[]{"DID"}, "did='" + input_data + "'", null, null, null);
+            if (did.getCount() != 0) {
+                Log.d("test", "2-1");
+                return did.getString(0);
+            } else {
+                Log.d("test", "2-2");
+                back();
+                Toast.makeText(UpdateStatusActivity.this, "無此設備!!,請重新輸入或新增此設備", Toast.LENGTH_SHORT).show();
+                return null;
             }
         }
 
