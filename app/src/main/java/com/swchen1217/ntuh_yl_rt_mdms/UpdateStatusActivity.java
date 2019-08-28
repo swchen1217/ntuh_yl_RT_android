@@ -44,7 +44,8 @@ public class UpdateStatusActivity extends AppCompatActivity {
     View include_use, include_storeroom, include_fix;
     Spinner sp1, sp2,sp_uss_1;
     ConstraintLayout cl21, cl22;
-    EditText et_bednum_1, et_bednum_2, et_usernum;
+    EditText et_bednum_1, et_bednum_2, et_usernum,et_uss_srnd;
+    TextView tv_uss_cl2_title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +80,8 @@ public class UpdateStatusActivity extends AppCompatActivity {
         et_usernum = findViewById(R.id.et_usernum);
         btn_usu_enter = findViewById(R.id.btn_usu_data_enter);
         btn_uss_enter = findViewById(R.id.btn_uss_data_enter);
+        tv_uss_cl2_title=findViewById(R.id.tv_uss_cl2_title);
+        et_uss_srnd=findViewById(R.id.et_uss_srnd);
 
         Intent it = getIntent();
         Log.d("IntentHasExtra", String.valueOf(it.hasExtra("DID")));
