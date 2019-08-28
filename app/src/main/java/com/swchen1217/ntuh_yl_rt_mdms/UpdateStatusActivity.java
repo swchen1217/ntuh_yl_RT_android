@@ -564,8 +564,45 @@ public class UpdateStatusActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             if(!et_uss_srnd.getText().toString().equals("")){
-                                // DO
                                 Log.d("test_","1 ok");
+                                Thread thread = new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (new SyncDB(UpdateStatusActivity.this).UpdateDeviceTableStoreroom(DID,et_uss_srnd.getText().toString())) {
+                                            runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    new AlertDialog.Builder(UpdateStatusActivity.this)
+                                                            .setTitle("狀態登錄完成!!")
+                                                            .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(DialogInterface dialog, int which) {
+                                                                }
+                                                            })
+                                                            .show();
+                                                    reset();
+                                                }
+                                            });
+                                        }
+                                    }
+                                });
+                                thread.start();
+                                try {
+                                    thread.join();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                Thread thread2 = new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            new SyncDB(UpdateStatusActivity.this).SyncDeviceTable(false);
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+                                thread2.start();
                             }else {
                                 new AlertDialog.Builder(UpdateStatusActivity.this)
                                         .setTitle("輸入資料不完整,請重新輸入")
