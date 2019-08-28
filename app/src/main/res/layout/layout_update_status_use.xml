@@ -215,7 +215,7 @@
         app:layout_constraintTop_toBottomOf="@+id/usu_cl3">
 
         <Button
-            android:id="@+id/btn_data_enter"
+            android:id="@+id/btn_usu_data_enter"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
