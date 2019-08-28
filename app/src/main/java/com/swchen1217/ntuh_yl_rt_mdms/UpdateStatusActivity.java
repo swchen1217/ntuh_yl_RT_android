@@ -563,7 +563,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
                     btn_uss_enter.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if(!et_uss_srnd.getText().equals("")){
+                            if(!et_uss_srnd.getText().toString().equals("")){
                                 // DO
                                 Log.d("test_","1 ok");
                             }else {
@@ -584,7 +584,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
                         public void onClick(View v) {
                             Log.d("test_","2 ok");
                             String in_storeroom=sr[position];
-                            if(!et_uss_srnd.getText().equals("")){
+                            if(!et_uss_srnd.getText().toString().equals("")){
                                 in_storeroom+="-"+et_uss_srnd.getText();
                             }
                             Log.d("test_","2 "+in_storeroom);
