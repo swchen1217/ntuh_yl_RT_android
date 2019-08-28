@@ -568,10 +568,10 @@ public class UpdateStatusActivity extends AppCompatActivity {
                                 }
                             })
                             .show();
-                    while (input.getText().toString().length()==0){
+                    /*while (input.getText().toString().length()==0){
                         ad.dismiss();
                         ad.show();
-                    }
+                    }*/
                     Log.d("test","input!=0");
                 }else{
 
