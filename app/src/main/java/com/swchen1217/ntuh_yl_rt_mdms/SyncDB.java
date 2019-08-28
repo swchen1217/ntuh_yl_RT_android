@@ -51,6 +51,27 @@ public class SyncDB {
         spf_LoginInfo = activity.getSharedPreferences("LoginInfo", Context.MODE_PRIVATE);
     }
 
+    public boolean UpdateDeviceTableStoreroom(String DID, String position) {
+        try {
+            String update = PostDataToSrever("db.php",
+                    new FormBody.Builder()
+                            .add("mode", "update_device_tb_storeroom")
+                            .add("acc", spf_LoginInfo.getString("acc", ""))
+                            .add("pw", spf_LoginInfo.getString("pw", ""))
+                            .add("DID", DID)
+                            .add("position", position)
+                            .build());
+            if (update != null) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public boolean UpdateDeviceTableUse(String DID, String user, String position) {
         try {
             String update = PostDataToSrever("db.php",
