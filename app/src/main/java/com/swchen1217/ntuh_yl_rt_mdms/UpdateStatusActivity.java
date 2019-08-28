@@ -625,6 +625,46 @@ public class UpdateStatusActivity extends AppCompatActivity {
                                 in_storeroom+="-"+et_uss_srnd.getText();
                             }
                             Log.d("test_","2 "+in_storeroom);
+
+                            String finalIn_storeroom = in_storeroom;
+                            Thread thread = new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (new SyncDB(UpdateStatusActivity.this).UpdateDeviceTableStoreroom(DID, finalIn_storeroom)) {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                new AlertDialog.Builder(UpdateStatusActivity.this)
+                                                        .setTitle("狀態登錄完成!!")
+                                                        .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(DialogInterface dialog, int which) {
+                                                            }
+                                                        })
+                                                        .show();
+                                                reset();
+                                            }
+                                        });
+                                    }
+                                }
+                            });
+                            thread.start();
+                            try {
+                                thread.join();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            Thread thread2 = new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        new SyncDB(UpdateStatusActivity.this).SyncDeviceTable(false);
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            });
+                            thread2.start();
                         }
                     });
                 }
