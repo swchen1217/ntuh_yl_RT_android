@@ -35,7 +35,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
 
     public ProgressDialog pd;
     public Toast Toast;
-    Button btn_qr, btn_manual, btn_CheckInput, btn_enter;
+    Button btn_qr, btn_manual, btn_CheckInput, btn_usu_enter;
     public TextView tv_input;
     String input_data = null;
     RadioButton rb_use, rb_storeroom, rb_fix;
@@ -77,7 +77,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
         et_bednum_1 = findViewById(R.id.et_bednumber1);
         et_bednum_2 = findViewById(R.id.et_bednumber2);
         et_usernum = findViewById(R.id.et_usernum);
-        btn_enter = findViewById(R.id.btn_data_enter);
+        btn_usu_enter = findViewById(R.id.btn_usu_data_enter);
 
         Intent it = getIntent();
         Log.d("IntentHasExtra", String.valueOf(it.hasExtra("DID")));
@@ -347,7 +347,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
                     cl22.setVisibility(View.VISIBLE);
                     et_bednum_1.requestFocus();
                     Log.d("test", "et");
-                    btn_enter.setOnClickListener(new View.OnClickListener() {
+                    btn_usu_enter.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             boolean ok = false;
@@ -420,7 +420,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i2, long l) {
                             et_usernum.requestFocus();
-                            btn_enter.setOnClickListener(new View.OnClickListener() {
+                            btn_usu_enter.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
                                     if (!et_usernum.getText().equals("") && et_usernum.getText().length() == 7) {
@@ -556,7 +556,11 @@ public class UpdateStatusActivity extends AppCompatActivity {
         sp_uss_1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position==sr.length-1){
 
+                }else{
+
+                }
             }
 
             @Override
