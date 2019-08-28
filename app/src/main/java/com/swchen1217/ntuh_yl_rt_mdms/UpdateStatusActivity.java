@@ -564,7 +564,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             if(!et_uss_srnd.getText().equals("")){
-                                
+                                // DO
                             }else {
                                 new AlertDialog.Builder(UpdateStatusActivity.this)
                                         .setTitle("輸入資料不完整,請重新輸入")
@@ -581,7 +581,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
                     btn_uss_enter.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
+                            // DO
                         }
                     });
                 }
