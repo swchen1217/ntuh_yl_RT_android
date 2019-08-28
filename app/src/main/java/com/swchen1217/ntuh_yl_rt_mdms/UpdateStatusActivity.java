@@ -354,7 +354,6 @@ public class UpdateStatusActivity extends AppCompatActivity {
                     btn_usu_enter.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            boolean ok = false;
                             if (!et_bednum_1.getText().equals("") && !et_bednum_2.getText().equals("") && et_bednum_1.getText().length() == 2 && et_bednum_2.getText().length() == 3 && !et_usernum.getText().equals("") && et_usernum.getText().length() == 7) {
                                 Log.d("test", "OK");
                                 Thread thread = new Thread(new Runnable() {
@@ -561,6 +560,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position == sr.length - 1) {
                     tv_uss_cl2_title.setText("庫房名稱");
+
                 } else {
                     tv_uss_cl2_title.setText("內部位置");
                 }
