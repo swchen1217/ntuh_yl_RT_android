@@ -35,7 +35,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
 
     public ProgressDialog pd;
     public Toast Toast;
-    Button btn_qr, btn_manual, btn_CheckInput, btn_usu_enter;
+    Button btn_qr, btn_manual, btn_CheckInput, btn_usu_enter,btn_uss_enter;
     public TextView tv_input;
     String input_data = null;
     RadioButton rb_use, rb_storeroom, rb_fix;
@@ -78,6 +78,7 @@ public class UpdateStatusActivity extends AppCompatActivity {
         et_bednum_2 = findViewById(R.id.et_bednumber2);
         et_usernum = findViewById(R.id.et_usernum);
         btn_usu_enter = findViewById(R.id.btn_usu_data_enter);
+        btn_uss_enter = findViewById(R.id.btn_uss_data_enter);
 
         Intent it = getIntent();
         Log.d("IntentHasExtra", String.valueOf(it.hasExtra("DID")));
@@ -557,7 +558,20 @@ public class UpdateStatusActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(position==sr.length-1){
+                    EditText input=new EditText(UpdateStatusActivity.this);
+                    while (input.getText().toString().length()==0){
+                        new AlertDialog.Builder(UpdateStatusActivity.this)
+                                .setTitle("其他庫房")
+                                .setMessage("請輸入庫房名稱")
+                                .setView(input)
+                                .setPositiveButton("確認", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
 
+                                    }
+                                })
+                                .show();
+                    }
+                    Log.d("test","input!=0");
                 }else{
 
                 }
