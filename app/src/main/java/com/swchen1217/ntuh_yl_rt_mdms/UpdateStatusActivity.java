@@ -560,9 +560,30 @@ public class UpdateStatusActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position == sr.length - 1) {
                     tv_uss_cl2_title.setText("庫房名稱");
-
+                    btn_uss_enter.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(!et_uss_srnd.getText().equals("")){
+                                
+                            }else {
+                                new AlertDialog.Builder(UpdateStatusActivity.this)
+                                        .setTitle("輸入資料不完整,請重新輸入")
+                                        .setPositiveButton("確認", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int whichButton) {
+                                            }
+                                        })
+                                        .show();
+                            }
+                        }
+                    });
                 } else {
                     tv_uss_cl2_title.setText("內部位置");
+                    btn_uss_enter.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    });
                 }
             }
 
