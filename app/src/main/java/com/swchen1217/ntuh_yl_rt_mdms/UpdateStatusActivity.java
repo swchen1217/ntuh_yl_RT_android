@@ -560,23 +560,9 @@ public class UpdateStatusActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position == sr.length - 1) {
-                    EditText input = new EditText(UpdateStatusActivity.this);
-                    AlertDialog ad = new AlertDialog.Builder(UpdateStatusActivity.this)
-                            .setTitle("其他庫房")
-                            .setMessage("請輸入庫房名稱")
-                            .setView(input)
-                            .setPositiveButton("確認", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int whichButton) {
-                                }
-                            })
-                            .show();
-                    /*while (input.getText().toString().length()==0){
-                        ad.dismiss();
-                        ad.show();
-                    }*/
-                    Log.d("test", "input!=0");
+                    tv_uss_cl2_title.setText("庫房名稱");
                 } else {
-
+                    tv_uss_cl2_title.setText("內部位置");
                 }
             }
 
