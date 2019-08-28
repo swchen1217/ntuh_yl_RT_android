@@ -45,7 +45,7 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/uss_cl2"
         android:layout_width="0dp"
-        android:layout_height="347dp"
+        android:layout_height="wrap_content"
         android:background="@color/cl_2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
