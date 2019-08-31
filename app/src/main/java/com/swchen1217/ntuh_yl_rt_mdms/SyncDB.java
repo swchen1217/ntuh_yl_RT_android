@@ -312,7 +312,7 @@ public class SyncDB {
     }
 
     public String PostDataToSrever(String file, FormBody formBody) throws IOException {
-        server_url = PrefsActivity.getServer(activity) + "/ntuh_yl_RT_mdms_php/";
+        server_url = PrefsActivity.getServer(activity) + "/ntuh_yl_RT_mdms_api/";
         activity.runOnUiThread(new Runnable() {
             public void run() {
                 //Code goes here
