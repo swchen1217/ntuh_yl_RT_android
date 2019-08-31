@@ -312,7 +312,7 @@ public class SyncDB {
     }
 
     public String PostDataToSrever(String file, FormBody formBody) throws IOException {
-        server_url = PrefsActivity.getServer(activity) + "/ntuh_yl_RT_mdms_api/";
+        server_url = PrefsActivity.getServer(activity) + "/ntuh_yl_RT_mdms_php/";
         activity.runOnUiThread(new Runnable() {
             public void run() {
                 //Code goes here
@@ -337,7 +337,12 @@ public class SyncDB {
                 .build();
         Call call = client.newCall(request);
         try (Response response = call.execute()) {
-            return response.body().string();
+            if(response.code()==200){
+                return response.body().string();
+            }else{
+                Toast.makeText(activity, "伺服器錯誤,請聯繫管理員", Toast.LENGTH_SHORT).show();
+                return null;
+            }
         } catch (Exception e) {
             Log.d("OkHttp", "Error:" + e.toString());
             if (e instanceof UnknownHostException) {
