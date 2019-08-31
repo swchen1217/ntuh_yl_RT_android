@@ -402,7 +402,12 @@ public class LoginActivity extends AppCompatActivity {
                         .build();*/
             Call call = client.newCall(request);
             try (Response response = call.execute()) {
-                return response.body().string();
+                if(response.code()==200){
+                    return response.body().string();
+                }else{
+                    Toast.makeText(LoginActivity.this, "伺服器錯誤,請聯繫管理員", Toast.LENGTH_SHORT).show();
+                    return null;
+                }
             } catch (Exception e) {
                 Log.d("OkHttp", "Error:" + e.toString());
                 if (e instanceof UnknownHostException) {
