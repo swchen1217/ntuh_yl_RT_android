@@ -489,7 +489,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public boolean getServerIP_check() {
         if (PrefsActivity.getServer(LoginActivity.this) != "") {
-            server_url = PrefsActivity.getServer(LoginActivity.this) + "/ntuh_yl_RT_mdms_php/";
+            server_url = PrefsActivity.getServer(LoginActivity.this) + "/ntuh_yl_RT_mdms_api/";
             return true;
         } else {
             runOnUiThread(new Runnable() {
