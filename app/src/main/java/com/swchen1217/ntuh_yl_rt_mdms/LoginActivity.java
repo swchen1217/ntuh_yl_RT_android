@@ -27,6 +27,8 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
@@ -184,6 +186,41 @@ public class LoginActivity extends AppCompatActivity {
                         public void run() {
                             try {
                                 //Your code goes here
+                                String login_01 = PostDataToSrever("user.php",
+                                        new FormBody.Builder()
+                                                .add("mode", "get_create_time")
+                                                .add("acc", et_acc.getText().toString())
+                                                .build());
+                                if(login_01!=null){
+                                    if (login_01.equals("no_acc")) {
+                                        Log.d("OkHttp", "login_check no_acc");
+                                        runOnUiThread(new Runnable() {
+                                            public void run() {
+                                                //Code goes here
+                                                new AlertDialog.Builder(LoginActivity.this)
+                                                        .setTitle("員工編號錯誤!!")
+                                                        .setMessage("此員工編號尚未註冊")
+                                                        .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(DialogInterface dialog, int which) {
+
+                                                            }
+                                                        })
+                                                        .show();
+                                                et_acc.setText("");
+                                                et_pw.setText("");
+                                            }
+                                        });
+                                    }else{
+                                        // TODO
+                                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                        Date d = sdf.parse(et_pw.getText().toString());
+                                        //String tmp=sdf.
+                                        //String md5=
+                                    }
+                                }
+
+
                                 String check_re = PostDataToSrever("user.php",
                                         new FormBody.Builder()
                                                 .add("mode", "login_check")
@@ -191,6 +228,26 @@ public class LoginActivity extends AppCompatActivity {
                                                 .add("pw", et_pw.getText().toString())
                                                 .build());
                                 if (check_re != null) {
+                                    if (check_re.equals("no_acc")) {
+                                        Log.d("OkHttp", "login_check no_acc");
+                                        runOnUiThread(new Runnable() {
+                                            public void run() {
+                                                //Code goes here
+                                                new AlertDialog.Builder(LoginActivity.this)
+                                                        .setTitle("員工編號錯誤!!")
+                                                        .setMessage("此員工編號尚未註冊")
+                                                        .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(DialogInterface dialog, int which) {
+
+                                                            }
+                                                        })
+                                                        .show();
+                                                et_acc.setText("");
+                                                et_pw.setText("");
+                                            }
+                                        });
+                                    }
                                     if (check_re.equals("no_enable")) {
                                         Log.d("OkHttp", "login_check no_enable");
                                         runOnUiThread(new Runnable() {
@@ -297,26 +354,6 @@ public class LoginActivity extends AppCompatActivity {
                                         startActivity(new Intent(LoginActivity.this, MenuActivity.class));
                                         finish();
                                     }
-                                    if (check_re.equals("no_acc")) {
-                                        Log.d("OkHttp", "login_check no_acc");
-                                        runOnUiThread(new Runnable() {
-                                            public void run() {
-                                                //Code goes here
-                                                new AlertDialog.Builder(LoginActivity.this)
-                                                        .setTitle("員工編號錯誤!!")
-                                                        .setMessage("此員工編號尚未註冊")
-                                                        .setPositiveButton("確定", new DialogInterface.OnClickListener() {
-                                                            @Override
-                                                            public void onClick(DialogInterface dialog, int which) {
-
-                                                            }
-                                                        })
-                                                        .show();
-                                                et_acc.setText("");
-                                                et_pw.setText("");
-                                            }
-                                        });
-                                    }
                                     if (check_re.equals("pw_error")) {
                                         Log.d("OkHttp", "login_check pw_error");
                                         login_error_count++;
@@ -402,9 +439,9 @@ public class LoginActivity extends AppCompatActivity {
                         .build();*/
             Call call = client.newCall(request);
             try (Response response = call.execute()) {
-                if(response.code()==200){
+                if (response.code() == 200) {
                     return response.body().string();
-                }else{
+                } else {
                     Toast.makeText(LoginActivity.this, "伺服器錯誤,請聯繫管理員", Toast.LENGTH_SHORT).show();
                     return null;
                 }
