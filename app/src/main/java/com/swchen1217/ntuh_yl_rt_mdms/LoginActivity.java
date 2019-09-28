@@ -27,6 +27,8 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -191,7 +193,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 .add("mode", "get_create_time")
                                                 .add("acc", et_acc.getText().toString())
                                                 .build());
-                                if(login_01!=null){
+                                if (login_01 != null) {
                                     if (login_01.equals("no_acc")) {
                                         Log.d("OkHttp", "login_check no_acc");
                                         runOnUiThread(new Runnable() {
@@ -211,11 +213,8 @@ public class LoginActivity extends AppCompatActivity {
                                                 et_pw.setText("");
                                             }
                                         });
-                                    }else{
+                                    } else {
                                         // TODO
-                                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                                        Date d = sdf.parse(et_pw.getText().toString());
-                                        //String tmp=sdf.
                                         //String md5=
                                     }
                                 }
@@ -551,5 +550,24 @@ public class LoginActivity extends AppCompatActivity {
             });
             return false;
         }
+    }
+
+    public String md5(String s) {
+        try {
+            // Create MD5 Hash
+            MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
+            digest.update(s.getBytes());
+            byte messageDigest[] = digest.digest();
+
+            // Create Hex String
+            StringBuffer hexString = new StringBuffer();
+            for (int i = 0; i < messageDigest.length; i++) {
+                hexString.append(Integer.toHexString(0xFF & messageDigest[i]));
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }
