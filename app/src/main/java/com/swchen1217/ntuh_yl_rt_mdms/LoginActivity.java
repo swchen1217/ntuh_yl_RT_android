@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.security.MessageDigest;
@@ -213,8 +214,8 @@ public class LoginActivity extends AppCompatActivity {
                                             }
                                         });
                                     } else {
-                                        String md5=md5(login_st+et_pw);
-                                        Log.d("md5",md5);
+                                        String md5=md5(login_st+et_pw.getText().toString());
+                                        //Log.d("md5",md5);
                                         String login_nd = PostDataToSrever("user.php",
                                                 new FormBody.Builder()
                                                         .add("mode", "login_check")
@@ -265,7 +266,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 }
                                                 spf_LoginInfo.edit()
                                                         .putString("acc", et_acc.getText().toString())
-                                                        .putString("pw", et_pw.getText().toString())
+                                                        .putString("pw", md5)
                                                         .putString("nane", split_OkData[1])
                                                         .putString("permission", split_OkData[2])
                                                         .commit();
@@ -649,7 +650,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public String md5(String s) {
+    /*public String md5(String s) {
         try {
             // Create MD5 Hash
             MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
@@ -662,6 +663,26 @@ public class LoginActivity extends AppCompatActivity {
                 hexString.append(Integer.toHexString(0xFF & messageDigest[i]));
             }
             return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }*/
+
+    public  String md5(String str){
+        Log.d("md5","input:"+str);
+        try {
+            MessageDigest md = null;
+            md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(str.getBytes());
+            BigInteger number = new BigInteger(1, messageDigest);
+            String hashtext = number.toString(16);
+
+            while (hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
+            }
+            Log.d("md5","output:"+hashtext);
+            return hashtext;
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
