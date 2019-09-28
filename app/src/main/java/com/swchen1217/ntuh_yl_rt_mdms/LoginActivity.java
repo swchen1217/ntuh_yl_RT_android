@@ -222,7 +222,6 @@ public class LoginActivity extends AppCompatActivity {
                                                         .add("pw", md5)
                                                         .build());
                                         if(login_nd!=null){
-                                            // TODO
                                             if (login_nd.equals("no_enable")) {
                                                 Log.d("OkHttp", "login_check no_enable");
                                                 runOnUiThread(new Runnable() {
@@ -317,7 +316,7 @@ public class LoginActivity extends AppCompatActivity {
                                         }
                                     }
                                 }
-                                
+
                                 /*String check_re = PostDataToSrever("user.php",
                                         new FormBody.Builder()
                                                 .add("mode", "login_check")
