@@ -214,7 +214,7 @@ public class LoginActivity extends AppCompatActivity {
                                             }
                                         });
                                     } else {
-                                        String md5=md5(login_st+et_pw.getText().toString());
+                                        String md5 = md5(login_st + et_pw.getText().toString());
                                         //Log.d("md5",md5);
                                         String login_nd = PostDataToSrever("user.php",
                                                 new FormBody.Builder()
@@ -222,7 +222,7 @@ public class LoginActivity extends AppCompatActivity {
                                                         .add("acc", et_acc.getText().toString())
                                                         .add("pw", md5)
                                                         .build());
-                                        if(login_nd!=null){
+                                        if (login_nd != null) {
                                             if (login_nd.equals("no_enable")) {
                                                 Log.d("OkHttp", "login_check no_enable");
                                                 runOnUiThread(new Runnable() {
@@ -650,27 +650,8 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    /*public String md5(String s) {
-        try {
-            // Create MD5 Hash
-            MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
-            digest.update(s.getBytes());
-            byte messageDigest[] = digest.digest();
-
-            // Create Hex String
-            StringBuffer hexString = new StringBuffer();
-            for (int i = 0; i < messageDigest.length; i++) {
-                hexString.append(Integer.toHexString(0xFF & messageDigest[i]));
-            }
-            return hexString.toString();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        return "";
-    }*/
-
-    public  String md5(String str){
-        Log.d("md5","input:"+str);
+    public String md5(String str) {
+        Log.d("md5", "input:" + str);
         try {
             MessageDigest md = null;
             md = MessageDigest.getInstance("MD5");
@@ -681,7 +662,7 @@ public class LoginActivity extends AppCompatActivity {
             while (hashtext.length() < 32) {
                 hashtext = "0" + hashtext;
             }
-            Log.d("md5","output:"+hashtext);
+            Log.d("md5", "output:" + hashtext);
             return hashtext;
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
