@@ -188,13 +188,13 @@ public class LoginActivity extends AppCompatActivity {
                         public void run() {
                             try {
                                 //Your code goes here
-                                String login_01 = PostDataToSrever("user.php",
+                                String login_st = PostDataToSrever("user.php",
                                         new FormBody.Builder()
                                                 .add("mode", "get_create_time")
                                                 .add("acc", et_acc.getText().toString())
                                                 .build());
-                                if (login_01 != null) {
-                                    if (login_01.equals("no_acc")) {
+                                if (login_st != null) {
+                                    if (login_st.equals("no_acc")) {
                                         Log.d("OkHttp", "login_check no_acc");
                                         runOnUiThread(new Runnable() {
                                             public void run() {
@@ -205,7 +205,6 @@ public class LoginActivity extends AppCompatActivity {
                                                         .setPositiveButton("確定", new DialogInterface.OnClickListener() {
                                                             @Override
                                                             public void onClick(DialogInterface dialog, int which) {
-
                                                             }
                                                         })
                                                         .show();
@@ -214,13 +213,112 @@ public class LoginActivity extends AppCompatActivity {
                                             }
                                         });
                                     } else {
-                                        // TODO
-                                        //String md5=
+                                        String md5=md5(login_st+et_pw);
+                                        Log.d("md5",md5);
+                                        String login_nd = PostDataToSrever("user.php",
+                                                new FormBody.Builder()
+                                                        .add("mode", "login_check")
+                                                        .add("acc", et_acc.getText().toString())
+                                                        .add("pw", md5)
+                                                        .build());
+                                        if(login_nd!=null){
+                                            // TODO
+                                            if (login_nd.equals("no_enable")) {
+                                                Log.d("OkHttp", "login_check no_enable");
+                                                runOnUiThread(new Runnable() {
+                                                    public void run() {
+                                                        new AlertDialog.Builder(LoginActivity.this)
+                                                                .setTitle("此帳號尚未啟用,請聯繫管理員!!")
+                                                                .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                                                    @Override
+                                                                    public void onClick(DialogInterface dialog, int which) {
+                                                                    }
+                                                                })
+                                                                .show();
+                                                    }
+                                                });
+                                            }
+                                            if (login_nd.substring(0, 2).equals("ok")) {
+                                                if (cb_rememberme.isChecked()) {
+                                                    spf_rememberme.edit()
+                                                            .putString("acc", et_acc.getText().toString())
+                                                            .putString("pw", et_pw.getText().toString())
+                                                            .commit();
+                                                } else {
+                                                    spf_rememberme.edit()
+                                                            .putString("acc", "")
+                                                            .putString("pw", "")
+                                                            .commit();
+                                                }
+                                                String[] split_OkData = login_nd.split(",");
+                                                if (split_OkData[0].equals("ok")) {
+                                                    runOnUiThread(new Runnable() {
+                                                        public void run() {
+                                                            Toast.makeText(LoginActivity.this, split_OkData[1] + " ,歡迎回來", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+                                                } else if (split_OkData[0].equals("ok_tmppw")) {
+                                                    runOnUiThread(new Runnable() {
+                                                        public void run() {
+                                                            Toast.makeText(LoginActivity.this, split_OkData[1] + " ,歡迎回來(使用臨時密碼登入)", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+                                                }
+                                                spf_LoginInfo.edit()
+                                                        .putString("acc", et_acc.getText().toString())
+                                                        .putString("pw", et_pw.getText().toString())
+                                                        .putString("nane", split_OkData[1])
+                                                        .putString("permission", split_OkData[2])
+                                                        .commit();
+                                                login_error_count = 0;
+                                                startActivity(new Intent(LoginActivity.this, MenuActivity.class));
+                                                finish();
+                                            }
+                                            if (login_nd.equals("pw_error")) {
+                                                Log.d("OkHttp", "login_check pw_error");
+                                                login_error_count++;
+                                                if (login_error_count != 3) {
+                                                    runOnUiThread(new Runnable() {
+                                                        public void run() {
+                                                            //Code goes here
+                                                            new AlertDialog.Builder(LoginActivity.this)
+                                                                    .setTitle("密碼錯誤!!")
+                                                                    .setMessage("還有 " + (3 - login_error_count) + " 次機會")
+                                                                    .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                                                        @Override
+                                                                        public void onClick(DialogInterface dialog, int which) {
+
+                                                                        }
+                                                                    })
+                                                                    .show();
+                                                            et_pw.setText("");
+
+                                                        }
+                                                    });
+                                                } else {
+                                                    runOnUiThread(new Runnable() {
+                                                        public void run() {
+                                                            //Code goes here
+                                                            new AlertDialog.Builder(LoginActivity.this)
+                                                                    .setTitle("密碼錯誤!!")
+                                                                    .setMessage("密碼錯誤 3 次")
+                                                                    .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                                                        @Override
+                                                                        public void onClick(DialogInterface dialog, int which) {
+                                                                            finish();
+                                                                        }
+                                                                    })
+                                                                    .show();
+
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                        }
                                     }
                                 }
-
-
-                                String check_re = PostDataToSrever("user.php",
+                                
+                                /*String check_re = PostDataToSrever("user.php",
                                         new FormBody.Builder()
                                                 .add("mode", "login_check")
                                                 .add("acc", et_acc.getText().toString())
@@ -393,7 +491,7 @@ public class LoginActivity extends AppCompatActivity {
                                             });
                                         }
                                     }
-                                }
+                                }*/
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
