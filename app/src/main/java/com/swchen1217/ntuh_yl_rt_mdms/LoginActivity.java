@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
         spf_LoginInfo.edit()
                 .putString("acc", "")
                 .putString("pw", "")
-                .putString("nane", "")
+                .putString("name", "")
                 .putString("permission", "")
                 .commit();
     }
@@ -251,23 +251,15 @@ public class LoginActivity extends AppCompatActivity {
                                                             .commit();
                                                 }
                                                 String[] split_OkData = login_nd.split(",");
-                                                if (split_OkData[0].equals("ok")) {
-                                                    runOnUiThread(new Runnable() {
-                                                        public void run() {
-                                                            Toast.makeText(LoginActivity.this, split_OkData[1] + " ,歡迎回來", Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    });
-                                                } else if (split_OkData[0].equals("ok_tmppw")) {
-                                                    runOnUiThread(new Runnable() {
-                                                        public void run() {
-                                                            Toast.makeText(LoginActivity.this, split_OkData[1] + " ,歡迎回來(使用臨時密碼登入)", Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    });
-                                                }
+                                                runOnUiThread(new Runnable() {
+                                                    public void run() {
+                                                        Toast.makeText(LoginActivity.this, split_OkData[1] + " ,歡迎回來", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
                                                 spf_LoginInfo.edit()
                                                         .putString("acc", et_acc.getText().toString())
                                                         .putString("pw", md5)
-                                                        .putString("nane", split_OkData[1])
+                                                        .putString("name", split_OkData[1])
                                                         .putString("permission", split_OkData[2])
                                                         .commit();
                                                 login_error_count = 0;
