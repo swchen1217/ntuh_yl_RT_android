@@ -49,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
     int login_error_count = 0;
     public static Boolean engineering_mode_SkipLogin = false;
     String server_url = "";
+    String server_url_web = "";
     private long exitTime = 0;
     SharedPreferences spf_rememberme, spf_LoginInfo;
     ProgressDialog pd;
@@ -92,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (getServerIP_check()) {
-                    Uri uri = Uri.parse("http://" + server_url + "change_pw.php");
+                    Uri uri = Uri.parse("http://" + server_url_web + "index.html#ChangePw");
                     Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                     startActivity(intent);
                 }
@@ -115,13 +116,26 @@ public class LoginActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         try {
-                                            String tmp = PostDataToSrever("user.php",
+                                            String fgtpw = PostDataToSrever("user.php",
                                                     new FormBody.Builder()
-                                                            .add("mode", "check_has_email")
+                                                            .add("mode", "forget_pw")
                                                             .add("email", input.getText().toString())
                                                             .build());
-                                            if (tmp != null) {
-                                                if (tmp.equals("no_email")) {
+                                            if(fgtpw!=null){
+                                                if(fgtpw.equals("寄信成功")){
+                                                    runOnUiThread(new Runnable() {
+                                                        public void run() {
+                                                            new AlertDialog.Builder(LoginActivity.this)
+                                                                    .setTitle("已將重設密碼資料傳送至Email")
+                                                                    .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                                                        @Override
+                                                                        public void onClick(DialogInterface dialog, int which) {
+                                                                        }
+                                                                    })
+                                                                    .show();
+                                                        }
+                                                    });
+                                                }else if(fgtpw.equals("email_not_exist")){
                                                     runOnUiThread(new Runnable() {
                                                         public void run() {
                                                             new AlertDialog.Builder(LoginActivity.this)
@@ -134,16 +148,11 @@ public class LoginActivity extends AppCompatActivity {
                                                                     .show();
                                                         }
                                                     });
-                                                } else {
-                                                    PostDataToSrever("user.php",
-                                                            new FormBody.Builder()
-                                                                    .add("mode", "forget_pw")
-                                                                    .add("email", input.getText().toString())
-                                                                    .build());
+                                                }else{
                                                     runOnUiThread(new Runnable() {
                                                         public void run() {
                                                             new AlertDialog.Builder(LoginActivity.this)
-                                                                    .setTitle("已將重設密碼資料傳送至Email")
+                                                                    .setTitle("寄信系統錯誤,請聯繫管理員!!")
                                                                     .setPositiveButton("確定", new DialogInterface.OnClickListener() {
                                                                         @Override
                                                                         public void onClick(DialogInterface dialog, int which) {
@@ -445,6 +454,7 @@ public class LoginActivity extends AppCompatActivity {
     public boolean getServerIP_check() {
         if (PrefsActivity.getServer(LoginActivity.this) != "") {
             server_url = PrefsActivity.getServer(LoginActivity.this) + "/ntuh_yl_RT_mdms_api/";
+            server_url_web = PrefsActivity.getServer(LoginActivity.this) + "/ntuh_yl_RT_mdms_web/";
             return true;
         } else {
             runOnUiThread(new Runnable() {
